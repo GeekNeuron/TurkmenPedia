@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TurkmenPedia — دروازه‌ای به فرهنگ ترکمن</title>
+<meta name="description" content="TurkmenPedia: دانشنامه تصویری تاریخ، پوشاک، غذا، زبان و مشاهیر فرهنگ ترکمن — به دو زبان فارسی و ترکمنی.">
+<meta name="theme-color" content="#F4EDE1">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="reading-progress" id="readingProgress"></div>
+
+<div class="app" id="app">
+
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="sidebar" id="sidebar" aria-label="پیمایش اصلی">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="512" height="512" rx="112" fill="var(--primary)"/><polygon points="321.1,98.9 413.1,190.9 413.1,321.1 321.1,413.1 190.9,413.1 98.9,321.1 98.9,190.9 190.9,98.9" fill="#1d2b44" stroke="#eddfc3" stroke-width="22" stroke-linejoin="round"/><path d="M256 110V402M110 256H402" stroke="#eddfc3" stroke-width="22" stroke-linecap="round"/><path d="M178 138L218 178L178 218L138 178Z" fill="#eddfc3"/><path d="M178 294L218 334L178 374L138 334Z" fill="#eddfc3"/><path d="M334 138L374 178L334 218L294 178Z" fill="#eddfc3"/><path d="M334 294L374 334L334 374L294 334Z" fill="#eddfc3"/><circle cx="256" cy="256" r="30" fill="#c18a2e"/></svg>
+      </span>
+      <span class="brand-text">
+        <strong>TurkmenPedia</strong>
+        <small id="brandTagline"></small>
+      </span>
+    </div>
+
+    <nav class="nav" id="nav" aria-label="بخش‌ها"></nav>
+
+    <div class="sidebar-footer">
+      <div class="mini-pattern" aria-hidden="true">
+        <svg viewBox="0 0 240 20" preserveAspectRatio="none"><use href="#gul-row"/></svg>
+      </div>
+      <p class="sidebar-note" id="sidebarNote"></p>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn hamburger" id="menuBtn" aria-label="باز کردن فهرست" aria-expanded="false">
+        <span class="icon" data-icon="menu"></span>
+      </button>
+
+      <div class="page-heading">
+        <nav class="breadcrumb" id="breadcrumb" aria-label="مسیر"></nav>
+        <h1 id="pageTitle">TurkmenPedia</h1>
+        <p id="pageSubtitle"></p>
+      </div>
+
+      <div class="search-box" id="searchBox">
+        <span class="icon" data-icon="search" aria-hidden="true"></span>
+        <input type="text" id="searchInput" autocomplete="off" spellcheck="false">
+        <button class="clear-btn" id="searchClear" aria-label="پاک‌کردن جست‌وجو" hidden>
+          <span class="icon" data-icon="close"></span>
+        </button>
+        <div class="global-results" id="globalResults" hidden></div>
+      </div>
+
+      <div class="controls">
+        <div class="dropdown" id="langDropdown">
+          <button class="dropdown-trigger" id="langTrigger" aria-haspopup="listbox" aria-expanded="false">
+            <span class="icon" data-icon="globe"></span>
+            <span id="langTriggerLabel">فارسی</span>
+            <span class="icon chev" data-icon="chevronDown"></span>
+          </button>
+          <ul class="dropdown-menu" id="langMenu" role="listbox" hidden>
+            <li role="option" data-lang="fa" tabindex="0">فارسی</li>
+            <li role="option" data-lang="tk" tabindex="0">Türkmençe</li>
+          </ul>
+        </div>
+
+        <button class="icon-btn theme-toggle" id="themeBtn" aria-label="تغییر پوسته">
+          <span class="icon" data-icon="sun" data-role="sun"></span>
+          <span class="icon" data-icon="moon" data-role="moon"></span>
+        </button>
+
+        <button class="icon-btn mobile-search-btn" id="mobileSearchBtn" aria-label="جست‌وجو">
+          <span class="icon" data-icon="search"></span>
+        </button>
+
+        <button class="icon-btn" id="settingsBtn" aria-label="تنظیمات نمایش">
+          <span class="icon" data-icon="gear"></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="content" id="content" tabindex="-1"></main>
+
+    <button class="fab-top" id="backTop" aria-label="بازگشت به بالا" hidden>
+      <span class="icon" data-icon="arrowUp"></span>
+    </button>
+  </div>
+</div>
+
+<div class="settings-overlay" id="settingsOverlay">
+  <div class="settings-panel" id="settingsPanel" role="dialog" aria-modal="true">
+    <div class="settings-header">
+      <h3 id="settingsTitle">تنظیمات نمایش</h3>
+      <button class="icon-btn" id="settingsCloseBtn" aria-label="بستن">
+        <span class="icon" data-icon="close"></span>
+      </button>
+    </div>
+    <div class="settings-body">
+      <div class="settings-row">
+        <span class="settings-row-label"><span class="icon" data-icon="textSize"></span><span id="fontSizeLabel">اندازهٔ قلم</span></span>
+        <div class="segmented" id="fontSizeControl">
+          <button data-size="small">−</button>
+          <button data-size="medium">A</button>
+          <button data-size="large">+</button>
+        </div>
+      </div>
+      <div class="settings-row">
+        <span class="settings-row-label"><span class="icon" data-icon="contrast"></span><span id="contrastLabel">حالت پرکنتراست</span></span>
+        <button class="toggle-switch" id="contrastToggle" role="switch" aria-checked="false">
+          <span class="toggle-knob"></span>
+        </button>
+      </div>
+      <div class="settings-row">
+        <span class="settings-row-label"><span class="icon" data-icon="book"></span><span id="readerModeLabel">حالت مطالعه</span></span>
+        <button class="toggle-switch" id="readerModeToggle" role="switch" aria-checked="false">
+          <span class="toggle-knob"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- shared decorative pattern defs -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="gul-row">
+      <g id="gul-unit">
+        <path d="M10 2 L18 10 L10 18 L2 10 Z" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <circle cx="10" cy="10" r="2.1" fill="currentColor"/>
+      </g>
+      <use href="#gul-unit" x="20"/><use href="#gul-unit" x="40"/><use href="#gul-unit" x="60"/>
+      <use href="#gul-unit" x="80"/><use href="#gul-unit" x="100"/><use href="#gul-unit" x="120"/>
+      <use href="#gul-unit" x="140"/><use href="#gul-unit" x="160"/><use href="#gul-unit" x="180"/>
+      <use href="#gul-unit" x="200"/><use href="#gul-unit" x="220"/>
+    </g>
+  </defs>
+</svg>
+
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/data-extra.js"></script>
+<script src="js/data-new.js"></script>
+<script src="js/genealogy.js"></script>
+<script src="js/names.js"></script>
+<script src="js/dictionary.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
