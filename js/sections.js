@@ -32,6 +32,17 @@ window.TS_EXT = (function(){
      ======================================================= */
   const SRC = {
     unesco:   { t:['فهرست یونسکو (میراث ناملموس) — ترکمنستان','ÝUNESKO sanawy (ruhy miras) — Türkmenistan'], u:'https://ich.unesco.org/en-state/turkmenistan-TM' },
+    law:      { t:['متن رسمی ترکمنی: قانون کار، ماده ۸۱، تعطیلات و مناسبت‌ها (سفارت ترکمنستان، وزارت امور خارجه)','Resmi türkmen teksti: Zähmet kodeksi, 81-nji madda, baýramlar we hatyra günleri (TDM ilçihanasy)'], u:'https://kyrgyzstan.tmembassy.gov.tm/tk/the-list-of-holidays-and-memorial-dates' },
+    azaHol:   { t:['ترکمنستان، سرزمین جشن‌ها (رادیو آزادلیق)','Türkmenistan – baýramçylyklar ýurdy (Azatlyk radiosy)'], u:'https://www.azathabar.com/a/1885989.html' },
+    miras:    { t:['ترکمن خالک نقیللاری، «میراث» ۲۰۰۵ (اسکریبد)','Türkmen halk nakyllary, «Miras» 2005 (Scribd)'], u:'https://www.scribd.com/document/656625150/Turkmen-halk-nakyllary-2005-Miras' },
+    yashlar:  { t:['نقیل‌ها و آتالار سوزی (پورتال جوانان ترکمنستان)','Nakyllar we atalar sözi (yashlar.gov.tm)'], u:'https://yashlar.gov.tm/item/2230' },
+    yashlarH: { t:['هوودی‌ها (پورتال جوانان ترکمنستان)','Hüwdüler (yashlar.gov.tm)'], u:'https://yashlar.gov.tm/item/2198' },
+    atavatanA:{ t:['ضرب‌المثل‌هایی دربارهٔ زبان و سخن، با ترجمهٔ انگلیسی (آتاواتان ترکمنستان)','Dil, söz hakynda nakyllar Iňlis dilinde (Atavatan Türkmenistan)'], u:'https://www.atavatan-turkmenistan.com/dil-soz-hakynda-nakyllar-inlis-dilinde/' },
+    atavatanB:{ t:['«گل بی‌خار نیست»؛ درس آتالار سوزی (آتاواتان ترکمنستان)','Atalar sözi: Tikensiz gül bolmaz, zähersiz bal (Atavatan Türkmenistan)'], u:'https://atavatan-turkmenistan.com/atalar-sozi-tikensiz-gul-bolmaz-zahersiz-bal/' },
+    orientRid:{ t:['معماهای ترکمن (Orient.tm)','Türkmen tapmaçalary (Orient.tm)'], u:'https://orient.tm/turkmenskie-zagadki-i-hitrye-voprosy-ot-nekotoryh-narodov-mira/' },
+    orientHuw:{ t:['هوودی، لالایی-تعویذ (Orient.tm)','Hüwdi — aýdym-oberegi (Orient.tm)'], u:'https://orient.tm/pesni-oberegi-turkmenskaya-huvdi-v-animacionnoj-serii-kolybelnye-mira/' },
+    inash:    { t:['هوودی چیست؟ (InAshgabat)','Hüwdi näme? (InAshgabat)'], u:'https://ashgabat.in/2021/11/20/huwdi-name/' },
+    azaColl:  { t:['تاریخ گردآوری ضرب‌المثل‌های ترکمن (رادیو آزادلیق)','Nakyllary we atalar sözüni ýygnamagyň taryhy (Azatlyk radiosy)'], u:'https://www.azathabar.com/a/29706364.html' },
     carpetU:  { t:['قالی‌بافی سنتی ترکمن — پروندهٔ یونسکو (۲۰۱۹)','Türkmen halyçylyk sungaty — ÝUNESKO resminamasy (2019)'], u:'https://ich.unesco.org/en/RL/traditional-turkmen-carpet-making-art-in-turkmenistan-01486' },
     whc:      { t:['میراث جهانی یونسکو — ترکمنستان','ÝUNESKO Bütindünýä mirasy — Türkmenistan'], u:'https://whc.unesco.org/en/statesparties/tm' },
     ichlist:  { t:['فهرست عناصر میراث ناملموس ترکمنستان (ویکی‌پدیا)','Türkmenistanyň ruhy miras elementleri (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/List_of_Intangible_Cultural_Heritage_elements_in_Turkmenistan' },
@@ -53,6 +64,19 @@ window.TS_EXT = (function(){
     nakylA:   { t:['نقیل‌ها و اتالار سوزی، گردآوری (۱)','Türkmen nakyllary we atalar sözi (A)'], u:'http://turkmen-ca.blogspot.com/2007/08/trkmen-nakyllary-we-atalar-szi.html' },
     nakylA2:  { t:['نقیل‌ها و اتالار سوزی، گردآوری (۲)','Türkmen nakyllary we atalar sözi (A_2)'], u:'http://turkmen-ca.blogspot.com/2011/08/turkmen-nakyllary-we-atalar-sozi-2.html' },
     dergi:    { t:['مقالهٔ مقایسهٔ ضرب‌المثل‌های ترکمن و ترکی استانبولی (DergiPark)','Türkmen we Stambul türkçesindäki nakyllaryň deňeşdirilişi (DergiPark)'], u:'https://dergipark.org.tr/tr/download/article-file/2154127' },
+    tkNakyl:  { t:['فولکلور: نقیل‌ها (ضرب‌المثل) — turkmenkultur.com','Folklor: nakyllar — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/nakyl.html' },
+    tkRid:    { t:['فولکلور: ماتال‌ها (معماها) — turkmenkultur.com','Folklor: matallar — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/matal.html' },
+    tkHuw:    { t:['فولکلور: هوودی‌ها — turkmenkultur.com','Folklor: hüwdiler — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/huwdi.html' },
+    tkKusht:  { t:['فولکلور: کوشت‌دپمه‌ها — turkmenkultur.com','Folklor: küştdepmeler — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/kusht.html' },
+    tkLale:   { t:['فولکلور: لاله‌ها — turkmenkultur.com','Folklor: läleler — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/lale.html' },
+    tkMonj:   { t:['فولکلور: مونجوغاتدی‌ها — turkmenkultur.com','Folklor: monjugatdylar — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/monjuk.html' },
+    tkDilek:  { t:['فولکلور: آلقیش و دیلک — turkmenkultur.com','Folklor: alkyşlar we dilegler — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/dilek.html' },
+    tkYrym:   { t:['فولکلور: یریم و ینانچ — turkmenkultur.com','Folklor: yrym we ynançlar — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/yrym.html' },
+    tkYan:    { t:['فولکلور: یانیلتماچ‌ها — turkmenkultur.com','Folklor: ýaňyltmaçlar — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/yan.html' },
+    tkShorta: { t:['فولکلور: شورتا سوزلر — turkmenkultur.com','Folklor: şorta sözler — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/shorta.html' },
+    inash:    { t:['«هوودی چیست؟» — ashgabat.in','Hüwdi näme? — ashgabat.in'], u:'https://ashgabat.in/2021/11/20/huwdi-name/' },
+    orientHuw:{ t:['«پیام‌های نگهبان»: هوودی در «لالایی‌های جهان» — orient.tm','Hüwdi — orient.tm'], u:'https://orient.tm/pesni-oberegi-turkmenskaya-huvdi-v-animacionnoj-serii-kolybelnye-mira/' },
+    orientRid:{ t:['معماهای ترکمن — orient.tm','Türkmen matallary — orient.tm'], u:'https://orient.tm/turkmenskie-zagadki-i-hitrye-voprosy-ot-nekotoryh-narodov-mira/' },
     carpet:   { t:['قالی ترکمن: گل و جهیزیه (Khinkhwab)','Türkmen halysy: göl we gelin eşigi (Khinkhwab)'], u:'https://khinkhwab.com/blogs/news/turkmen-carpet-gul-and-dowry' }
   };
   const wiki = topic => ({ t:null, topic, u:'https://en.wikipedia.org/wiki/Special:Search?search=' + encodeURIComponent(topic) });
@@ -66,6 +90,8 @@ window.TS_EXT = (function(){
     [/قالی|Haly|گل |göl|Göl|tire|ایل|Tireler|ensi|انسی|asmalyk|آسمالیق/i, ['carpetU','gul','carpet'], []],
     [/سالور|Salyr/i, ['salor'], []],
     [/چیرپی|Çyrpy|کتنی|Keteni|کشدی|Keşde|گینچ|Gyňaç|تاخیا|Tahýa|پوشاک|eşik/i, ['eurCloth','chyrpy'], []],
+    [/هوودی|Hüwdi|لالایی/i, ['yashlarH','inash','orientHuw'], []],
+    [/گردآوری ضرب|nakyllary ýygnamak|Nakyllary ýygnamagyň/i, ['azaColl'], []],
     [/ایچلکلی|Içlekli/i, ['ishlykly'], []],
     [/چکدیرمه|Çekdirme|پلو|palaw|کاقماچ|Kakmaç|تمدیر|Tamdyr|بوگلاما|Buglama|خربزه|Gawun|غذا|dish|Etli/i, ['cuisine','eurFood'], []],
     [/دوتار|Dutar/i, ['dutar'], []],
@@ -93,6 +119,7 @@ window.TS_EXT = (function(){
     [/آخال|Ahal şert|پیمان/i, [], ['Treaty of Akhal']],
     [/راه‌آهن|demirýol|Zakaspi|Transcaspian/i, [], ['Trans-Caspian railway']],
     [/اوغوز|Oguz|ýabgu|یبغو/i, [], ['Oghuz Yabgu State']],
+    [/ضرب‌المثل|Atalar sözi|nakyl|Nakyl/i, ['miras','yashlar'], []],
     [/زلزله|ýertitreme|Ýertitreme/i, [], ['1948 Ashgabat earthquake']],
     [/قره‌قوم|Garagum|کانال/i, [], ['Karakum Canal']],
     [/استقلال|Garaşsyzlyk/i, [], ['Independence of Turkmenistan']],
@@ -417,7 +444,7 @@ window.TS_EXT = (function(){
   }
   /* ---- full calendar: month + year views, event map, second calendar ---- */
   const calState = { y:null, m:null, sel:null, view:'month', sec:null };
-  const CALSRC = { decree:'https://turkmenistan.gov.tm/en/post/9223/the-list-of-holidays-and-memorial-dates-celebrated-without-time-off', prod:'https://turkmenhemrasy.gov.tm/en/news/1700', oraza:'https://metbugat.gov.tm/en/newsDetails/2447', sub1:'https://tngizt.gov.tm/en/news/hormatly-prezidentimiz-hatyra-guenuene-duesyaen-dync-guenueni-dusenbe-guenuene-gecirmek-hakynda-permana-gol-cekdi', sub2:'https://turkmenhemrasy.gov.tm/en/news/1393', wiki:'https://en.wikipedia.org/wiki/Public_holidays_in_Turkmenistan' };
+  const CALSRC = { law:'https://kyrgyzstan.tmembassy.gov.tm/tk/the-list-of-holidays-and-memorial-dates', azaHol:'https://www.azathabar.com/a/1885989.html', decree:'https://turkmenistan.gov.tm/en/post/9223/the-list-of-holidays-and-memorial-dates-celebrated-without-time-off', prod:'https://turkmenhemrasy.gov.tm/en/news/1700', oraza:'https://metbugat.gov.tm/en/newsDetails/2447', sub1:'https://tngizt.gov.tm/en/news/hormatly-prezidentimiz-hatyra-guenuene-duesyaen-dync-guenueni-dusenbe-guenuene-gecirmek-hakynda-permana-gol-cekdi', sub2:'https://turkmenhemrasy.gov.tm/en/news/1393', wiki:'https://en.wikipedia.org/wiki/Public_holidays_in_Turkmenistan' };
   const dkey = dt => dt.getFullYear() + '-' + pad2(dt.getMonth() + 1) + '-' + pad2(dt.getDate());
   const fromKey = k => { const [y, m, d] = k.split('-').map(Number); return dayStart(y, m - 1, d); };
   const lunarYearCache = {};
@@ -509,8 +536,8 @@ window.TS_EXT = (function(){
     }).join('') + `</div>`;
   }
   function evSource(e, u){
-    const url = e.official === 'decree' ? CALSRC.decree : e.official === 'labour' ? CALSRC.prod : e.official === 'rule' ? CALSRC.sub1 : CALSRC.wiki;
-    const lab = e.official === 'decree' ? u.official : e.official === 'labour' ? u.labour : e.official === 'rule' ? u.subSrc : 'Wikipedia';
+    const url = (e.official === 'decree' || e.official === 'labour') ? CALSRC.law : e.official === 'rule' ? CALSRC.sub1 : (e.id === 'galla' || e.id === 'memorial') ? CALSRC.azaHol : CALSRC.wiki;
+    const lab = e.official === 'decree' ? u.official : e.official === 'labour' ? u.labour : e.official === 'rule' ? u.subSrc : (e.id === 'galla' || e.id === 'memorial') ? 'Azatlyk' : 'Wikipedia';
     return `<a class="cal-src" href="${url}" target="_blank" rel="noopener noreferrer"><span class="icon" data-icon="external"></span>${u.sourceLabel}: ${lab}</a>`;
   }
   function calStats(u){
@@ -717,7 +744,7 @@ window.TS_EXT = (function(){
       return C().sectionHead(d, 'calendar', 'calendar') + `<p class="x-intro reveal">${u.intro}</p>${hero}
         <div class="cal reveal" id="calApp">${calMain(u)}</div>
         <p class="x-note reveal">${u.weekNote} ${u.holidaysNote}</p>
-        <div class="x-box reveal"><h3>${u.sourcesTitle}</h3><div class="src-chips">${['decree', 'prod', 'oraza', 'sub1', 'sub2', 'wiki'].map(k => `<a class="src-chip" href="${CALSRC[k]}" target="_blank" rel="noopener noreferrer"><span class="icon" data-icon="external"></span>${u.src[k]}</a>`).join('')}</div><p>${u.srcNote}</p></div>
+        <div class="x-box reveal"><h3>${u.sourcesTitle}</h3><div class="src-chips">${['law', 'decree', 'prod', 'oraza', 'sub1', 'sub2', 'azaHol', 'wiki'].map(k => `<a class="src-chip" href="${CALSRC[k]}" target="_blank" rel="noopener noreferrer"><span class="icon" data-icon="external"></span>${u.src[k]}</a>`).join('')}</div><p>${u.srcNote}</p></div>
         <h3 class="subheading reveal">${u.all}</h3><div class="card-grid">${cards}</div>`;
     },
     wire(){
@@ -795,27 +822,50 @@ window.TS_EXT = (function(){
      FOLKLORE
      ======================================================= */
   const proverbState = { n:-1 };
+  function folkCard(set, x, i, u){
+    const q = C().state.query;
+    if(q && !C().matches(x.text + ' ' + x.trans + ' ' + x.answer)) return '';
+    const body = set.kind === 'riddle'
+      ? `<div class="riddle-box"><button type="button" class="btn-mini riddle-btn" data-riddle="1">${u.answer}</button><p class="riddle-ans" hidden>${x.answer}</p></div>${x.trans ? `<p class="riddle-tr">${x.trans}</p>` : ''}`
+      : (x.trans ? `<p>${x.trans}</p>` : '');
+    const cls = set.kind === 'line' ? ' line-card' : '';
+    return `<article class="item-card proverb-card${cls} reveal" data-srcs="${x.srcs}"><div class="item-head"><span class="icon-wrap"><span class="icon" data-icon="${set.kind === 'riddle' ? 'search' : 'quote'}"></span></span><h3 lang="tk" dir="ltr" class="verse">${x.text}</h3></div>${body}${C().cardTools(x.text.split('\n')[0])}</article>`;
+  }
   X.routes.folklore = {
     render(d){
-      const f = d.folklore, u = f.ui, fa = lang() === 'fa';
+      const f = d.folklore, u = f.ui;
       const cards = f.items.filter(x => !C().state.query || C().matches(x.title + ' ' + x.text)).map(x => `<article class="item-card reveal"><div class="item-head"><span class="icon-wrap"><span class="icon" data-icon="${x.icon}"></span></span><h3>${x.title}</h3></div><p>${x.text}</p>${C().cardTools(x.title)}</article>`).join('');
       const prov = f.proverbs.filter(x => !C().state.query || C().matches(x.text + ' ' + x.trans));
       const pcards = prov.map((x, i) => `<article class="item-card proverb-card reveal${i === proverbState.n ? ' picked' : ''}" data-srcs="${x.srcs}" data-pi="${i}"><div class="item-head"><span class="icon-wrap"><span class="icon" data-icon="quote"></span></span><h3 lang="tk" dir="ltr">${x.text}</h3></div>${x.trans ? `<p>${x.trans}</p>` : ''}${C().cardTools(x.text)}</article>`).join('');
+      const sets = (f.sets || []).map(st => {
+        const html = st.items.map((x, i) => folkCard(st, x, i, u)).join('');
+        if(!html) return '';
+        return `<h3 class="subheading reveal" id="fs-${st.id}">${st.title}</h3><p class="x-intro reveal">${st.intro}</p><div class="card-grid proverb-grid">${html}</div>`;
+      }).join('');
+      const jump = (f.sets || []).map(st => `<button type="button" class="map-chip" data-fjump="fs-${st.id}">${st.title.split(':')[0].split('(')[0].trim()}</button>`).join('');
       return C().sectionHead(d, 'folklore', 'quote') + `<div class="dict-note reveal"><span class="icon" data-icon="info"></span><p>${u.intro}</p></div>
-        <h3 class="subheading reveal">${u.proverbsTitle}</h3>
+        <p class="x-note reveal">${u.setsNote || ''}</p>
+        <div class="map-chips reveal"><button type="button" class="map-chip" data-fjump="fs-prov">${u.proverbsTitle}</button>${jump}</div>
+        <h3 class="subheading reveal" id="fs-prov">${u.proverbsTitle}</h3>
         <div class="map-chips reveal"><button type="button" class="map-chip" id="proverbRandom"><i></i>${u.random}</button></div>
         <div class="card-grid proverb-grid">${pcards || C().emptyState(L[lang()].noItems)}</div>
+        ${sets}
         <h3 class="subheading reveal">${u.genres}</h3><div class="card-grid">${cards || C().emptyState(L[lang()].noItems)}</div>
         <div class="dict-note reveal" style="margin-top:14px"><span class="icon" data-icon="clock"></span><p>${u.pending}</p></div>`;
     },
     wire(){
       const root = C().el.content, btn = root.querySelector('#proverbRandom');
       if(btn) btn.addEventListener('click', () => {
-        const cards = [...root.querySelectorAll('.proverb-card')]; if(!cards.length) return;
+        const cards = [...root.querySelectorAll('[data-pi]')]; if(!cards.length) return;
         let n; do { n = Math.floor(Math.random() * cards.length); } while(cards.length > 1 && n === proverbState.n);
         proverbState.n = n; cards.forEach((c, i) => c.classList.toggle('picked', i === n));
         cards[n].scrollIntoView({ behavior:'smooth', block:'center' });
       });
+      root.querySelectorAll('[data-riddle]').forEach(b => b.addEventListener('click', () => {
+        const ans = b.parentElement.querySelector('.riddle-ans'), show = ans.hidden; ans.hidden = !show; b.classList.toggle('on', show);
+        const u = D().folklore.ui; b.textContent = show ? u.hide : u.answer;
+      }));
+      root.querySelectorAll('[data-fjump]').forEach(b => b.addEventListener('click', () => { const t = document.getElementById(b.dataset.fjump); if(t) t.scrollIntoView({ behavior:'smooth', block:'start' }); }));
     }
   };
 

@@ -130,46 +130,46 @@
   const EVENTS = [
     ['newyear','f:1-1','star',['سال نو میلادی','Täze ýyl'],['نخستین روز سال میلادی؛ تعطیل رسمی.','Gregorian ýylyň ilkinji güni; resmi dynç güni.']],
     ['defenders','f:1-27','shield',['روز مدافعان میهن','Watan goragçylarynyň güni'],['مناسبت رسمی؛ روز تعطیل نیست.','Resmi ýatlama güni; dynç güni däl.']],
-    ['diplomats','f:2-18','landmark',['روز کارکنان دیپلماتیک','Diplomatik işgärleriň güni'],['مناسبت رسمی؛ روز تعطیل نیست.','Resmi ýatlama güni; dynç güni däl.']],
-    ['women','f:3-8','users',['روز جهانی زن','Halkara zenanlar güni'],['تعطیل رسمی؛ در برخی سال‌ها روز بعد هم تعطیل می‌شود (مثلاً ۲۰۲۶).','Resmi dynç güni; käbir ýyllarda indiki gün hem dynç berilýär (mysal üçin 2026).']],
-    ['memorial','f:1-12','scroll',['روز یادبود (۱۲ ژانویه)','Ýatlama güni (12-nji ýanwar)'],['از دو روز سوگواری ترکمنستان؛ پرچم‌ها نیم‌افراشته می‌شود (به‌روایت ویکی‌پدیا).','Türkmenistanyň iki ýas gününiň biri; baýdaklar ýarym ýere düşürilýär (Wikipediýa boýunça).']],
-    ['transport','f:3-7','compass',['روز کارکنان حمل‌ونقل و ارتباطات','Ulag we aragatnaşyk toplumy işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['chemical','f:3-31','gem',['روز کارکنان صنعت شیمی','Himiýa pudagynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['diplomats','f:2-18','landmark',['روز کارکنان دیپلماتیک ترکمنستان','Türkmenistanyň diplomatik işgärleriniň güni'],['مناسبت رسمی؛ روز تعطیل نیست.','Resmi ýatlama güni; dynç güni däl.']],
+    ['women','f:3-8','users',['روز جهانی زنان','Halkara zenanlar güni'],['تعطیل رسمی؛ در برخی سال‌ها روز بعد هم تعطیل می‌شود (مثلاً ۲۰۲۶).','Resmi dynç güni; käbir ýyllarda indiki gün hem dynç berilýär (mysal üçin 2026).']],
+    ['memorial','f:1-12','scroll',['روز یادبود (۱۲ ژانویه)','Hatyra güni (12-nji ýanwar)'],['از دو روز سوگواری ترکمنستان؛ پرچم‌ها نیم‌افراشته می‌شود (به‌روایت ویکی‌پدیا).','Türkmenistanyň iki ýas gününiň biri; baýdaklar ýarym ýere düşürilýär (Wikipediýa boýunça).']],
+    ['transport','f:3-7','compass',['روز کارکنان مجتمع حمل‌ونقل و ارتباطات','Ulaglar we aragatnaşyk toplumynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['chemical','f:3-31','gem',['روز کارکنان صنعت شیمی','Himiýa senagatynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
     ['health','f:4-7','shield',['روز جهانی بهداشت','Bütindünýä saglyk güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['migration','f:4-17','users',['روز کارکنان خدمات مهاجرت','Migrasiýa gullugy işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['interior','f:5-29','shield',['روز کارکنان وزارت کشور','Içeri işler gullugynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['children','f:6-1','users',['روز جهانی کودک','Halkara çagalar güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['environment','f:6-5','compass',['روز جهانی محیط زیست','Bütindünýä daşky gurşaw güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['textile','n:6:0:1','shirt',['روز کارکنان صنعت نساجی (نخستین یکشنبهٔ ژوئن)','Dokma pudagynyň işgärleriniň güni (iýunyň ilkinji ýekşenbesi)'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['science','f:6-12','book',['روز علم','Ylym güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['judiciary','f:6-18','scroll',['روز کارکنان قضایی و مجری قانون','Kazyýet we hukuk goraýjy edaralar işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['prosecutor','f:6-26','scroll',['روز دادستانی','Prokuratura güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['judicial','f:7-5','scroll',['روز کارکنان قوهٔ قضائیه','Kazyýet häkimiýeti işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['healthcare','f:7-21','shield',['روز کارکنان بهداشت و درمان','Saglygy goraýyş we lukmançylyk pudagynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['frontier','f:8-11','shield',['روز مرزبانان','Serhet goragçylarynyň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['knowledge','f:9-1','book',['روز دانش و دانشجو','Bilim we talyplar güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['power','n:9:6:2','sun',['روز کارکنان صنعت برق (دومین شنبهٔ سپتامبر)','Energetika pudagynyň işgärleriniň güni (sentýabryň ikinji şenbesi)'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['security','f:9-30','shield',['روز کارکنان امنیت ملی','Milli howpsuzlyk işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['older','f:10-1','users',['روز جهانی سالمندان','Halkara garrylar güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['navy','f:10-9','waves',['روز نیروی دریایی','Harby-deňiz güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['customs','f:11-4','compass',['روز کارکنان گمرک','Gümrük işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['harvest','n:11:0:2','bowl',['روز برداشت (دومین یکشنبهٔ نوامبر)','Hasyl güni (noýabryň ikinji ýekşenbesi)'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['oilgas','f:12-14','landmark',['روز کارکنان نفت، گاز و زمین‌شناسی','Nebit-gaz we geologiýa pudagynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['niyazov','f:12-21','landmark',['روز یادبود نخستین رئیس‌جمهور (س. ا. نیازف)','Türkmenistanyň ilkinji Prezidenti S. A. Nyýazowyň ýatlama güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
-    ['galla','n:7:0:3','bowl',['جشن گله (برداشت گندم)','Gala baýramy (bugdaý ýygymy)'],['جشن برداشت گندم، سومین یکشنبهٔ ژوئیه (به‌روایت ویکی‌پدیا).','Bugdaý ýygymy baýramy, iýulyň üçünji ýekşenbesi (Wikipediýa boýunça).']],
-    ['nowruz','f:3-21','sun',['نوروز','Nowruz'],['جشن آغاز بهار؛ از آیین‌های ثبت‌شده در فهرست یونسکو (به‌صورت مشترک با چند کشور). از ۲۱ مارس دست‌کم دو روز تعطیل است و در برخی سال‌ها روز بعد هم اضافه می‌شود.','Ýazyň başlanmagy baýramy; ÝUNESKO sanawyndaky ýörelgeleriň biri (birnäçe ýurt bilen bilelikde). 21-nji martdan başlap iň az iki gün dynç berilýär, käbir ýyllarda indiki gün hem goşulýar.']],
-    ['horse','n:4:0:-1','horse',['روز اسب','At güni'],['جشن اسب آخال‌تکه با مسابقه، نمایش زیبایی و سوارکاری؛ پس از روز استقلال از مهم‌ترین جشن‌های کشور خوانده می‌شود (آخرین یکشنبهٔ آوریل).','Ahalteke atynyň baýramy; ýaryş, görkeziş we atçylyk bilen; Garaşsyzlyk gününden soň iň möhüm baýramlaryň biri diýilýär (aprelüň soňky ýekşenbesi).']],
-    ['victory','f:5-9','flag',['روز پیروزی','Ýeňiş güni'],['یادبود پیروزی در جنگ جهانی دوم؛ مناسبت رسمی و نه تعطیل.','Ikinji jahan urşundaky ýeňşi ýatlamak güni; resmi ýatlama, dynç güni däl.']],
-    ['revival','f:5-18','scroll',['روز قانون اساسی، احیا و شعر مختومقلی (۱۸ مه)','Konstitusiýa, Galkynyş we Magtymguly Pyragynyň poeziýa güni (18-nji maý)'],['۱۸ مه تعطیل رسمی است؛ در این روزها برنامه‌های ادبی و شعرخوانی هم برگزار می‌شود.','18-nji maý resmi dynç güni; şu günlerde edebi çäreler we şygyr okalyşy hem geçirilýär.']],
+    ['migration','f:4-17','users',['روز کارکنان نهادهای مهاجرت ترکمنستان','Türkmenistanyň Migrasiýa edaralarynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['interior','f:5-29','shield',['روز کارکنان نهادهای کشور (داخلی) ترکمنستان','Türkmenistanyň içeri işler edaralarynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['children','f:6-1','users',['روز جهانی حمایت از کودکان','Çagalary goramagyň halkara güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['environment','f:6-5','compass',['روز جهانی حفاظت از محیط زیست','Daşky gurşawy goramagyň bütindünýä güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['textile','n:6:0:1','shirt',['روز کارکنان صنعت نساجی (نخستین یکشنبهٔ ژوئن)','Dokma senagatynyň işgärleriniň güni (iýun aýynyň birinji ýekşenbesi)'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['science','f:6-12','book',['روز علوم','Ylymlar güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['judiciary','f:6-18','scroll',['روز کارکنان نهادهای دادگستری ترکمنستان','Türkmenistanyň Adalat edaralarynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['prosecutor','f:6-26','scroll',['روز کارکنان نهادهای دادستانی ترکمنستان','Türkmenistanyň Prokuratura edaralarynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['judicial','f:7-5','scroll',['روز کارکنان نهادهای قضایی (دادگاه‌ها)','Türkmenistanyň Kazyýet edaralarynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['healthcare','f:7-21','shield',['روز کارکنان بهداشت و درمان و صنعت دارو','Saglygy goraýyş we derman senagaty işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['frontier','f:8-11','shield',['روز مرزبانان','Serhetçiler güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['knowledge','f:9-1','book',['روز دانش و جوانان دانشجو','Bilimler we talyp ýaşlar güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['power','n:9:6:2','sun',['روز کارکنان صنعت انرژی (دومین شنبهٔ سپتامبر)','Energetika senagatynyň işgärleriniň güni (sentýabr aýynyň ikinji şenbesi)'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['security','f:9-30','shield',['روز کارکنان نهادهای امنیت ملی ترکمنستان','Türkmenistanyň Milli howpsuzlyk edaralarynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['older','f:10-1','users',['روز جهانی سالمندان','Ýaşulularyň halkara güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['navy','f:10-9','waves',['روز نیروی دریایی ترکمنستان','Türkmenistanyň Harby-Deňiz Güýçleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['customs','f:11-4','compass',['روز کارکنان نهادهای گمرک ترکمنستان','Türkmenistanyň Gümrük edaralarynyň işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['harvest','n:11:0:2','bowl',['جشن برداشت (دومین یکشنبهٔ نوامبر)','Hasyl toýy (noýabr aýynyň ikinji ýekşenbesi)'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['oilgas','f:12-14','landmark',['روز کارکنان صنعت نفت و گاز و زمین‌شناسی','Nebitgaz senagaty we geologiýa işgärleriniň güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['niyazov','f:12-21','landmark',['روز یادبود نخستین رئیس‌جمهور ترکمنستان س. آ. نیازف (بزرگ صپرمراد ترکمن‌باشی)','Türkmenistanyň ilkinji Prezidenti S.A.Nyýazowy (Beýik Saparmyrat Türkmenbaşyny) ýatlama güni'],['مناسبت رسمی بدون تعطیلی؛ طبق فرمان رئیس‌جمهور، اگر در روز کاری باشد روز تعطیل نیست.','Resmi ýatlama güni; Prezidentiň karary boýunça iş güni bolsa dynç berilmeýär.']],
+    ['galla','n:7:0:3','bowl',['جشن گله (برداشت گندم)','Galla baýramy'],['جشن برداشت گندم، سومین یکشنبهٔ ژوئیه (به‌روایت ویکی‌پدیا).','Bugdaý ýygymy baýramy, iýulyň üçünji ýekşenbesi (Wikipediýa boýunça).']],
+    ['nowruz','f:3-21','sun',['جشن ملی بهار (نوروز)','Milli bahar baýramy'],['جشن آغاز بهار؛ از آیین‌های ثبت‌شده در فهرست یونسکو (به‌صورت مشترک با چند کشور). طبق ماده ۸۱ قانون کار ۲۱ و ۲۲ مارس تعطیل رسمی است و در برخی سال‌ها (وقتی ۲۲ مارس یکشنبه باشد) روز بعد هم تعطیل می‌شود.','Ýazyň başlanmagy baýramy; ÝUNESKO sanawyndaky ýörelgeleriň biri (birnäçe ýurt bilen bilelikde). 21-nji martdan başlap iň az iki gün dynç berilýär, käbir ýyllarda indiki gün hem goşulýar.']],
+    ['horse','n:4:0:-1','horse',['جشن اسب ترکمن (بِدِو)','Türkmen bedewiniň baýramy'],['جشن اسب آخال‌تکه با مسابقه، نمایش زیبایی و سوارکاری؛ پس از روز استقلال از مهم‌ترین جشن‌های کشور خوانده می‌شود (آخرین یکشنبهٔ آوریل).','Ahalteke atynyň baýramy; ýaryş, görkeziş we atçylyk bilen; Garaşsyzlyk gününden soň iň möhüm baýramlaryň biri diýilýär (aprelüň soňky ýekşenbesi).']],
+    ['victory','f:5-9','flag',['روز پیروزی در جنگ بزرگ میهنی ۱۹۴۱ تا ۱۹۴۵','1941–1945-nji ýyllaryň Beýik Watançylyk urşunda Ýeňiş güni'],['یادبود پیروزی در جنگ جهانی دوم؛ مناسبت رسمی و نه تعطیل.','Ikinji jahan urşundaky ýeňşi ýatlamak güni; resmi ýatlama, dynç güni däl.']],
+    ['revival','f:5-18','scroll',['روز قانون اساسی و پرچم دولتی ترکمنستان (۱۸ مه)','Türkmenistanyň Konstitusiýasynyň we Türkmenistanyň Döwlet baýdagynyň güni (18-nji maý)'],['۱۸ مه تعطیل رسمی است و طبق ماده ۸۱ قانون کار «روز قانون اساسی و پرچم دولتی ترکمنستان» نام دارد.','18-nji maý resmi dynç güni we Zähmet kodeksiniň 81-nji maddasyna görä «Türkmenistanyň Konstitusiýasynyň we Türkmenistanyň Döwlet baýdagynyň güni» diýlip atlandyrylýar.']],
     ['ashgabatday','f:5-25','pin',['روز شهر عشق‌آباد','Aşgabat şäheriniň güni'],['مناسبت رسمی برای پایتخت؛ روز تعطیل نیست.','Paýtagt üçin resmi ýatlama güni; dynç güni däl.']],
-    ['carpet','n:5:0:-1','gem',['روز قالی','Haly güni'],['از ۱۹۹۲ برگزار می‌شود؛ جوایزی به قالی‌بافان می‌دهند و کنسرت برگزار می‌شود (آخرین یکشنبهٔ مه).','1992-nji ýyldan bäri bellenilýär; haly dokaýjylara baýrak berilýär we konsertler geçirilýär (maýyň soňky ýekşenbesi).']],
-    ['culture','f:6-27','feather',['روز کارکنان فرهنگ و هنر و روز شعر مختومقلی فراغی','Medeniýet we sungat işgärleriniň we Magtymguly Pyragynyň şygyr güni'],['طبق فرمان رسمی، ۲۷ ژوئن هم روز کارکنان فرهنگ و هنر و هم روز شعر مختومقلی است؛ تعطیل نیست.','Resmi karara görä, 27-nji iýun medeniýet we sungat işgärleriniň hem-de Magtymguly Pyragynyň şygyr güni; dynç güni däl.']],
+    ['carpet','n:5:0:-1','gem',['جشن قالی ترکمن','Türkmen halysynyň baýramy'],['از ۱۹۹۲ برگزار می‌شود؛ جوایزی به قالی‌بافان می‌دهند و کنسرت برگزار می‌شود (آخرین یکشنبهٔ مه).','1992-nji ýyldan bäri bellenilýär; haly dokaýjylara baýrak berilýär we konsertler geçirilýär (maýyň soňky ýekşenbesi).']],
+    ['culture','f:6-27','feather',['روز کارکنان فرهنگ و هنر و روز شعر مختومقلی فراغی','Medeniýet we sungat işgärleriniň hem-de Magtymguly Pyragynyň şygryýet güni'],['طبق فرمان رسمی، ۲۷ ژوئن هم روز کارکنان فرهنگ و هنر و هم روز شعر مختومقلی است؛ تعطیل نیست.','Resmi karara görä, 27-nji iýun medeniýet we sungat işgärleriniň hem-de Magtymguly Pyragynyň şygyr güni; dynç güni däl.']],
     ['melon','n:8:0:2','bowl',['روز خربزه','Gawun güni'],['از ۱۹۹۴ جشنی برای خربزه، میوهٔ نمادین کشور، در دومین یکشنبهٔ اوت.','1994-nji ýyldan bäri ýurduň nyşanly miwesi gawuna bagyşlanan baýram, awgustyň ikinji ýekşenbesi.']],
     ['bakhshi','n:9:0:2','music',['روز باغشی','Bagşy güni'],['روز بزرگداشت خنیاگران و دوتارنوازان در دومین یکشنبهٔ سپتامبر.','Bagşylary we dutarçylary hormatlamak güni, sentýabryň ikinji ýekşenbesi.']],
-    ['independence','f:9-27','flag',['روز استقلال','Garaşsyzlyk güni'],['جشن رسمی استقلال؛ خود استقلال در ۲۷ اکتبر ۱۹۹۱ اعلام شد.','Resmi Garaşsyzlyk baýramy; garaşsyzlygyň özi 1991-nji ýylyň 27-nji oktýabrynda yglan edildi.']],
-    ['remembrance','f:10-6','landmark',['روز یادبود','Ýatlama güni'],['یادبود قربانیان زلزلهٔ ۱۹۴۸ عشق‌آباد.','1948-nji ýylda Aşgabat ýertitremesiniň pidalaryny ýatlamak.']],
+    ['independence','f:9-27','flag',['روز استقلال ترکمنستان','Türkmenistanyň Garaşsyzlyk güni'],['جشن رسمی استقلال؛ خود استقلال در ۲۷ اکتبر ۱۹۹۱ اعلام شد.','Resmi Garaşsyzlyk baýramy; garaşsyzlygyň özi 1991-nji ýylyň 27-nji oktýabrynda yglan edildi.']],
+    ['remembrance','f:10-6','landmark',['روز یادبود (حاطیرا)','Hatyra güni'],['یادبود قربانیان زلزلهٔ ۱۹۴۸ عشق‌آباد.','1948-nji ýylda Aşgabat ýertitremesiniň pidalaryny ýatlamak.']],
     ['neighbor','n:12:0:1','link',['روز همسایگی نیک','Ýagşy goňşuçylyk güni'],['اولین یکشنبهٔ دسامبر، بر پایهٔ ارزش همسایه‌داری.','Dekabryň ilkinji ýekşenbesi, goňşuçylyk gymmatlygyna daýanýar.']],
-    ['neutrality','f:12-12','shield',['روز بی‌طرفی','Bitaraplyk güni'],['۱۲ دسامبر ۱۹۹۵: مجمع عمومی سازمان ملل بی‌طرفی دائمی ترکمنستان را به رسمیت شناخت.','1995-nji ýylyň 12-nji dekabry: BMG Baş Assambleýasy Türkmenistanyň hemişelik bitaraplygyny ykrar etdi.']],
+    ['neutrality','f:12-12','shield',['روز بین‌المللی بی‌طرفی','Halkara Bitaraplyk güni'],['۱۲ دسامبر ۱۹۹۵: مجمع عمومی سازمان ملل بی‌طرفی دائمی ترکمنستان را به رسمیت شناخت.','1995-nji ýylyň 12-nji dekabry: BMG Baş Assambleýasy Türkmenistanyň hemişelik bitaraplygyny ykrar etdi.']],
     ['fitr','l:fitr','moon',['اورازا بایرام (عید فطر)','Oraza baýramy (Fitr baýramy)'],['پایان ماه رمضان. تاریخ از تقویم قمری محاسبه می‌شود و ممکن است یک روز با اعلام رسمی فرق کند.','Ramazan aýynyň soňy. Sene aý senenamasyndan hasaplanýar we resmi yglandan bir gün tapawutly bolup biler.']],
     ['adha','l:adha','moon',['گوربان بایرام (عید قربان)','Gurban baýramy (Gurban baýramy)'],['ده ذی‌الحجه؛ تاریخ تقریبی است و ممکن است یک روز با اعلام رسمی فرق کند.','Zülhijjäniň onunjy güni; sene takmynandyr we resmi yglandan bir gün tapawutly bolup biler.']]
   ];
@@ -248,7 +248,8 @@
     ['proverb','quote',['اتالار سوزی (ضرب‌المثل)','Atalar sözi'],['«سخن نیاکان» جمع‌بندی تجربهٔ چندنسل است. نمونهٔ نقل‌شده: «آب زندگی است، اسب بال است و قالی روح».','«Ata-babalaryň sözi» — nesilleriň tejribesiniň jemi. Getirilýän mysal: «Suw — durmuş, at — ganat, haly — ruh».']],
     ['nakyl','feather',['ناقیل','Nakyl'],['ضرب‌المثل‌های کوتاه و فشرده؛ اصطلاح «ناقیل» را ترک‌شناسان برای ترکمن به‌کار می‌برند.','Gysga, dykyz nakyllar; «nakyl» termini türkologlar tarapyndan türkmen üçin ulanylýar.']],
     ['riddle','search',['تاپماچا (معما)','Tapmaça'],['معماهای منظوم یا کوتاه که پاسخ را در پوشش استعاره پنهان می‌کنند؛ سرگرمی شبانه و آموزش کودکان.','Jogaby metafora bilen ýapýan şygyrly ýa-da gysga tapmaçalar; agşam güýmenjesi we çagalaryň terbiýesi.']],
-    ['lullaby','moon',['آله (لالایی)','Älle'],['آوازهای کودک برای خواباندن در گهواره؛ از قدیمی‌ترین قالب‌های آواز زنانه.','Çagany bäşikde ýatyrmak üçin aýdymlar; aýal aýdymlarynyň iň gadymy görnüşlerinden.']],
+    ['lullaby','moon',['هوودی (لالایی ترکمن)','Hüwdi'],['«هوودی» آوازی است که مادران برای خواباندن و پروراندن کودک می‌خوانند؛ بیشتر چهار سطری است و پایان سطرها با «هووا‌هوو، هیّا‌هی» همراه می‌شود و نام ژانر از همین «هو» می‌آید. منابع ترکمنی ریشهٔ آن را به ذکر (هو/هوو) می‌رسانند و به گمان از زمان اوغوزخان می‌دانند. مضمون‌ها: آرزوی بزرگ‌شدن، ازدواج، اسب و وطن و پند.','«Hüwdi» eneleriň çagany ýatyrmak we terbiýelemek üçin aýdýan aýdymydyr; köplenç dört setirli bolýar we setirleriň soňunda «hüwwa-hüw, heýýa-heý» hiňlenilýär; žanryň ady hem şu «hüw»-den gelýär. Türkmen çeşmeleri onuň kökünü zikire baglaýarlar we Oguz han döwründe dörän diýip çaklaýarlar. Mowzuklary: ulalmak, öýlenmek, at we watan arzuwy, pent-nesihat.']],
+    ['collections','book',['گردآوری ضرب‌المثل‌ها','Nakyllary ýygnamagyň taryhy'],['۱۹۲۵: گردآوری محمد گلدی‌یف با ۵۰۷ نقیل و ۵۲ ماتال؛ ۱۹۴۳: مقالهٔ بایمحمد گاریف با نزدیک ۸۰۰ نقیل؛ ۲۰۰۲: کتاب «ترکمن نقیللاری وه آتالار سوزی» از قربان‌دردی گلدی‌یف و آمانمیرات آلتی‌یف؛ ۲۰۰۵: گردآوری «میراث». «آتالار سوزی» ساده‌تر و مستقیم‌تر از «نقیل» توصیف می‌شود.','1925: Muhammet Geldiýewiň ýygyndysy, 507 nakyl we 52 matal; 1943: Baýmuhammet Garryýewiň makalasy, 800-e golaý nakyl; 2002: Gurbandurdy Geldiýew bilen Amanmyrat Altyýewiň «Türkmen nakyllary we atalar sözi» kitaby; 2005: «Miras» ýygyndysy. «Atalar sözi» «nakyl»-dan ýönekeý we göni diýlip düşündirilýär.']],
     ['tale','scroll',['ارتکی (قصه)','Erteki'],['قصه‌های پریان، حیوان و قهرمان که شب‌ها برای کودکان گفته می‌شد؛ شخصیتی چون ملانصرالدین در نقل‌های ترکمن هم دیده می‌شود.','Çagalara agşamlary aýdylýan perişde, haýwan we gahryman ertekileri; Molla Nasreddin ýaly keşpler türkmen rowaýatlarynda hem duş gelýär.']],
     ['epic','swords',['حماسه (گوروغلی)','Eposlar (Görogly)'],['«گوروغلی» حماسه‌ای است که باغشی‌ها می‌خوانند؛ هنر حماسه‌خوانی گوروغلی در ۲۰۱۵ به نام ترکمنستان در فهرست نمایندهٔ یونسکو ثبت شد.','«Görogly» bagşylaryň aýdýan eposydyr; Görogly dessan aýtmak sungaty 2015-nji ýylda Türkmenistanyň adyndan ÝUNESKO-nyň wekilçilikli sanawyna girizildi.']],
     ['nasreddin','mask',['ملانصرالدین','Molla Nasreddin'],['شخصیت طنز مشترک میان ملل شرق؛ «قصه‌های ملا نصرالدین» در فهرست یونسکو به نام چند کشور ثبت شده است.','Gündogar halklaryň umumy gülküli keşbi; «Molla Nasreddin hekaýalary» ÝUNESKO sanawynda birnäçe ýurduň adyndan bellige alyndy.']]
@@ -321,4 +322,278 @@
   Object.assign(DATA.tk.folklore.ui, {
     intro:'Bu bölümde diňe ýazuw ýygyndysynda ýa-da ylmy makalada görlen tekst berilýär we çeşmesi her kartyň aşagynda bar. Nakyllar iki internet ýygyndysyndan we bir uniwersitet makalasyndan alyndy (makala Geldiýew bilen Altyýewiň «Türkmen nakyllary we atalar sözi» kitabyna, Ankara 2002, salgylanýar). Tapmaçalaryň we ällelleriň teksti entek ygtybarly çeşme tapylmady we berilmeýär.',
     proverbsTitle:'Türkmen atalar sözünden mysallar', random:'Tötänleýin mysal', pending:'Tapmaçalar we älleller: entek ygtybarly ýazuw çeşmesi tapylmady.' });
+
+  /* ---------- folklore, round 2: more proverbs, riddles, hüwdi stanzas (all sourced) ---------- */
+  const MORE_PROVERBS = [
+    ['Agyzdan çykan söz atylan ok.','سخنی که از دهان بیرون آمد تیری است که رها شده.','atavatanA'],
+    ['Agzy gulply sandygy diş açmasa, dil açar.','صندوق قفل‌دار را اگر دندان نگشاید، زبان می‌گشاید.','atavatanA'],
+    ['Bir garybyň köňlüni «Hoş geldiň!» awlar.','دل غریب را «خوش آمدی» شکار می‌کند.','atavatanA'],
+    ['Gybat söz dag aşar.','سخن غیبت از کوه هم می‌گذرد.','atavatanA'],
+    ['Halk öz nakyllarynyň hili bilen tanalar.','مردم با کیفیت ضرب‌المثل‌هایشان شناخته می‌شوند.','atavatanA'],
+    ['Atalar sözi – akylyň gözi.','ضرب‌المثل چشمِ خرد است.','miras'],
+    ['Agzybirlik – döwletiň ambary, hazynasydyr.','همدلی انبار و خزانهٔ دولت است.','miras'],
+    ['Agzybirlik ojakdyr, agzybirlik saçakdyr.','همدلی کانون است، همدلی سفره است.','miras'],
+    ['Maşgalada agzybirlik bolsa, hazyna gerek däl.','اگر در خانواده همدلی باشد خزانه نمی‌خواهد.','miras'],
+    ['Türkmen düýe malyny – dünýe maly hasaplapdyr.','ترکمن شتر را مالِ دنیا شمرده است.','miras'],
+    ['Işlemedik – dişlemez.','کار نکرده نمی‌خورد.','yashlar'],
+    ['Söýenişen ýykylmaz.','کسانی که به هم تکیه کنند نمی‌افتند.','yashlar'],
+    ['Müň gaýgy bir iş bitirmez.','هزار غصه یک کار را به پایان نمی‌رساند.','yashlar'],
+    ['Tikensiz gül bolmaz, zähersiz bal.','گل بی‌خار نیست و عسل بی‌زهر.','atavatanB']
+  ];
+  DATA.fa.folklore.proverbs.push(...MORE_PROVERBS.map(x => ({ text:x[0], trans:x[1], srcs:x[2] })));
+  DATA.tk.folklore.proverbs.push(...MORE_PROVERBS.map(x => ({ text:x[0], trans:'', srcs:x[2] })));
+
+  const RIDDLES = [
+    ['Gulagy eşegiňki ýaly, aýagy itiňki ýaly, özi hem geçi ýaly boker.','گوشش مثل الاغ است، پایش مثل سگ و مثل بز می‌جهد (می‌دود).','خرگوش','Towşan','orientRid'],
+    ['Tomusda ýaldyrar – gyşda poslar.','تابستان می‌درخشد، زمستان زنگ می‌زند.','داس','Orak','orientRid']
+  ];
+  DATA.fa.folklore.riddles = RIDDLES.map(x => ({ text:x[0], trans:x[1], answer:x[2], srcs:x[4] }));
+  DATA.tk.folklore.riddles = RIDDLES.map(x => ({ text:x[0], trans:'', answer:x[3], srcs:x[4] }));
+
+  const HUWDI = [
+    ['Aýlanar-a, aýlanar,\nÖkdelikde saýlanar,\nMeniň balam ulalyp,\nSöýenine öýlener.','«آیلانار‌آ، آیلانار» (تکیه‌کلام آوازی)؛ در ماهری برگزیده می‌شود؛ فرزندم که بزرگ شود، با آن که دوست دارد ازدواج می‌کند. (ترجمهٔ آزاد من)','inash'],
+    ['Toýda tymar bagym sen,\nGünde gülüstanym sen.','در عروسی تعویذِ منی، هر روز گلستانِ منی. (ترجمهٔ فارسی بر پایهٔ برگردان روسی منبع)','orientHuw']
+  ];
+  DATA.fa.folklore.huwdi = HUWDI.map(x => ({ text:x[0], trans:x[1], srcs:x[2] }));
+  DATA.tk.folklore.huwdi = HUWDI.map(x => ({ text:x[0], trans:'', srcs:x[2] }));
+
+  Object.assign(DATA.fa.folklore.ui, {
+    intro:'در این بخش فقط متنی آمده که در یک منبع مکتوب یا رسمی دیده‌ام و منبعش زیر هر کارت هست (دکمهٔ کتاب). ضرب‌المثل‌ها از مجموعه‌های ترکمنی، سایت‌های دولتی ترکمنستان و یک مقالهٔ دانشگاهی آمده‌اند؛ ترجمهٔ فارسی از من است. لالایی ترکمنی «هوودی» نام دارد، نه «آله» (اشتباه نسخه‌های پیشین).',
+    riddlesTitle:'نمونه‌های تاپماچا (معما)', lullabyTitle:'نمونه‌هایی از هوودی (لالایی)', answer:'پاسخ', hide:'پنهان‌کردن پاسخ',
+    pending:'معماها و هوودی‌ها: فقط همین چند نمونهٔ دارای منبع پیدا شد؛ مجموعهٔ کامل‌تر نیازمند کتاب چاپی است.' });
+  Object.assign(DATA.tk.folklore.ui, {
+    intro:'Bu bölümde diňe ýazuw ýa-da resmi çeşmede görlen tekst berilýär we çeşmesi her kartyň aşagynda bar (kitap düwmesi). Nakyllar türkmen ýygyndylaryndan, Türkmenistanyň döwlet saýtlaryndan we bir uniwersitet makalasyndan alyndy. Türkmen çaga aýdymynyň ady «hüwdi», «älle» däl (öňki neşirlerdäki ýalňyşlyk).',
+    riddlesTitle:'Tapmaça mysallary', lullabyTitle:'Hüwdi mysallary', answer:'Jogaby', hide:'Jogaby ýap',
+    pending:'Tapmaçalar we hüwdüler: diňe şu çeşmeli mysallar tapyldy; doly ýygyndy çap kitaby talap edýär.' });
+  // nav subtitle / explore text: hüwdi instead of älle
+  DATA.tk.nav.folklore = DATA.tk.nav.folklore;
+  DATA.tk.subtitle.folklore = 'Atalar sözi, tapmaça, hüwdi we erteki';
+  DATA.tk.explore.folklore = 'Türkmen şahyrana halk döredijiliginiň žanrlary: atalar sözi, tapmaça, hüwdi, erteki we dessan.';
+  DATA.fa.subtitle.folklore = 'ضرب‌المثل، معما، هوودی و قصه';
+  DATA.fa.explore.folklore = 'راهنمای ژانرهای ادبیات شفاهی ترکمن، همراه با نمونه‌هایی با منبع: ضرب‌المثل، معما، هوودی (لالایی)، قصه و دستان.';
+
+  DATA.fa.calendar.ui.src.law = 'متن رسمی ترکمنی قانون کار (ماده ۸۱): فهرست تعطیلات و مناسبت‌ها، وزارت امور خارجه ترکمنستان';
+  DATA.fa.calendar.ui.src.azaHol = 'ترکمنستان، سرزمین جشن‌ها: ۱۲ ژانویه و جشن گله (رادیو آزادلیق)';
+  DATA.tk.calendar.ui.src.law = 'Zähmet kodeksiniň 81-nji maddasynyň resmi türkmen teksti: baýramlar we hatyra günleri sanawy, Türkmenistanyň DIM-i';
+  DATA.tk.calendar.ui.src.azaHol = 'Türkmenistan – baýramçylyklar ýurdy: 12-nji ýanwar we Galla baýramy (Azatlyk radiosy)';
+
+  // names: provenance note + source cards (update 1)
+  DATA.fa.names.note = (DATA.fa.names.note || '') + ' بخشی از نام‌ها از فرهنگ «نام‌های ترکمن» در کتاب «ترکمن‌ها» (دکتر محمد قیلیچ، بورسا ۱۹۹۸) به‌نقل از turkmenkultur.com آمده؛ معناها خلاصهٔ توضیح ترکمنیِ آن منبع‌اند و مواردی که خلاصه‌کردنشان مطمئن نبود حذف شد.';
+  DATA.tk.names.note = (DATA.tk.names.note || '') + ' Atlaryň bir bölegi turkmenkultur.com saýtynda getirilýän «Türkmenler» kitabyndaky (Dr. Mehmet Kılıç, Bursa 1998) türkmen at sözlüginden alyndy; manylar şol çeşmäniň düşündirişiniň gysgaldylan görnüşidir, ynamsyz gysgaldylanlary aýryldy.';
+  DATA.fa.sources.categories.push({ icon:'check', title:'نام‌ها، مناسبت‌ها و هوودی (آپدیت ۱)', text:'نام‌های تازه از فرهنگ نام‌های ترکمن در turkmenkultur.com/menu/ml/adlar/turkmen (حروف A تا Y). نام ترکمنی رسمی همهٔ مناسبت‌های تقویم از متن ترکمنی ماده ۸۱ قانون کار در سایت سفارت ترکمنستان در بیشکک. نام لالایی ترکمنی «هوودی» از yashlar.gov.tm و ashgabat.in؛ نام «آله» اشتباه بود و اصلاح شد.' });
+  DATA.tk.sources.categories.push({ icon:'check', title:'Atlar, baýramlar we hüwdi (täzelenme 1)', text:'Täze atlar turkmenkultur.com/menu/ml/adlar/turkmen sahypalaryndan (A-dan Y-a çenli). Senenamadaky baýramlaryň resmi türkmen atlary Bişkekdäki Türkmenistanyň ilçihanasynyň saýtyndaky Zähmet kodeksiniň 81-nji maddasynyň türkmen teksti boýunça. Türkmen çaga aýdymynyň ady «hüwdi» yashlar.gov.tm we ashgabat.in boýunça; «älle» ýalňyşlykdy we düzedildi.' });
+
+  /* ---------- folklore sets (update 2): text copied from turkmenkultur.com/menu/ml/t3/*.html and other cited pages ---------- */
+  // item: [Turkmen text, Persian translation, answer fa (riddles), answer tk (riddles), source id]
+  const SETS = [
+    { id:'riddles', kind:'riddle', src:'tkRid',
+      title:['تاپماچا (ماتال): معماهای ترکمنی','Matal (tapmaça)'],
+      intro:['در ترکمنی معما را «ماتال» هم می‌گویند: پرسشی استعاری دربارهٔ یک رویداد یا چیز که باید پاسخش را حدس زد. روی «پاسخ» بزنید.','Haýsy-da bolsa bir hadysa ýa-da zada degişli göçme manyda aýdylýan, jogabyny oýlap tapmaly soraga matal diýilýär.'],
+      items:[
+        ['Agzy gyzyl alamat, içi doly kyýamat, hassa girer sag çykar, bu nähili keramat.','دهانش سرخ نشانه، درونش پر از قیامت؛ بیمار وارد می‌شود، سالم بیرون می‌آید، این چه کرامتی است؟','تنور و نان','tamdyr bilen çörek'],
+        ['Agyl doly akja guzy, ertir tursam ýokja guzy.','آغل پر از برّهٔ سفید، صبح که برخیزم برّه‌ای نیست.','ستاره','ýyldyz'],
+        ['Atdan beýik, itden pes.','از اسب بلندتر، از سگ کوتاه‌تر.','زین','eýer'],
+        ['Başy-darak, guýrugy-orak.','سرش شانه، دمش داس.','خروس','horaz'],
+        ['Bir küýzede iki suw.','در یک کوزه دو آب.','تخم‌مرغ','ýumurtga'],
+        ['Bir zadym bar, daşa ursam döwülmeýär, suwa ursam döwülýär.','چیزی دارم؛ به سنگ بزنم نمی‌شکند، به آب بزنم می‌شکند.','کاغذ','kagyz'],
+        ['Daşy-oýunjak, içi-möjek.','بیرونش اسباب‌بازی، درونش حشره.','پیله','pile'],
+        ['Dona bürenmez, göze görünmez.','لباس نمی‌پوشد و دیده نمی‌شود.','صدا','ses'],
+        ['Gara güjük ýatyr-üýrmezek, öýe adam goýbermezek.','توله‌سگ سیاه خوابیده، پارس نمی‌کند، اما کسی را به خانه راه نمی‌دهد.','قفل','gulp'],
+        ['Gider-geler, ýol almaz.','می‌رود و می‌آید اما راه نمی‌رود.','تاب (گهواره)','sallançak'],
+        ['Eýesinden ýüz görmez, adam hatyryn bilmez.','از صاحبش رو نمی‌بیند و رودربایستی با آدم ندارد.','ترازو','terezi'],
+        ['Enem-atam bir ýüzük berdi, ýere gömsem çüýremez, gora gömsem tütemez.','پدر و مادرم انگشتری دادند؛ در خاک بگذارم نمی‌پوسد، در آتش بگذارم دود نمی‌کند.','نام آدم','adam ady'],
+        ['Iýmäge heserlije, on bir gat ak donluja.','خوردنش آرزوست، یازده لایه لباس سفید پوشیده.','پیاز','sogan'],
+        ['Iki enäniň on ogly, hemmesiniň ady bar.','دو مادر ده پسر دارند و همه نام دارند.','ده انگشتِ دو دست','iki eliň on barmagy'],
+        ['Iň güýçsüziň güýçlülerden hökmi zor.','ناتوان‌ترین، حکمش از زورمندان بیشتر است.','کودک','çaga'],
+        ['Kuwwaty-ýel, ölümi-suw.','نیرویش باد است و مرگش آب.','آتش','ot'],
+        ['Men gidýärin, ol galýar.','من می‌روم، او می‌ماند.','ردپا','yz'],
+        ['Suwda biter, suwda ýiter.','در آب می‌روید، در آب گم می‌شود.','نمک','duz'],
+        ['Ýaş gününde orak ýaly, orta ýaşda çörek ýaly.','در جوانی مثل داس، در میانسالی مثل نان.','ماه','aý'],
+        ['Ýeri ak, tohumy gara; el bilen ekerler, dil bilen orarlar.','زمینش سفید، بذرش سیاه؛ با دست می‌کارند و با زبان درو می‌کنند.','نوشته (خط)','hat'],
+        ['Gulagy eşegiňki ýaly, aýagy itiňki ýaly, özi hem geçi ýaly boker.','گوشش مثل الاغ است، پایش مثل سگ و مثل بز می‌جهد (می‌دود).','خرگوش','towşan','orientRid'],
+        ['Tomusda ýaldyrar – gyşda poslar.','تابستان می‌درخشد، زمستان زنگ می‌زند.','داس','orak','orientRid']
+      ]},
+    { id:'huwdi', kind:'verse', src:'tkHuw',
+      title:['هوودی: لالایی‌های کنار گهواره','Hüwdi'],
+      intro:['هوودی‌ها بیشتر کنار گهواره (سالانچاک) برای خواباندن کودک خوانده می‌شوند. ترجمه‌های فارسی آزادِ من‌اند.','Hüwdüler çagany uklatmak üçin, esasan, sallançak ýanynda aýdylýan aýdymlardyr.'],
+      items:[
+        ['Aýlanaýyn adyňdan,\nSallançakda badyňdan,\nBezenip ata çyksaň,\nÇykarmagyn ýadyňdan.\nHuwwa-huw...','قربان نامت، قربان (تکان) گهواره‌ات؛ وقتی آراسته بر اسب سوار شوی، مرا از یاد مبر. هووا-هو… (ترجمهٔ آزاد)'],
+        ['Allaý-allaý edeýin,\nBaga sallan edeýin,\nBagyň gyzyl gülüni,\nSaňa gurban edeýin.','الای‌الای می‌کنم، در باغ برایت تاب می‌اندازم؛ گلِ سرخِ باغ را قربانت می‌کنم. (ترجمهٔ آزاد)'],
+        ['Allaý-allaý el biter,\nNar agaja gül biter,\nÜç ýaşyna baranda,\nSaýrap duran dil biter.','الای‌الای، دست درمی‌آید؛ بر درخت انار گل می‌روید؛ وقتی سه ساله شوی، زبانِ سخن‌گو درمی‌آید. (ترجمهٔ آزاد)'],
+        ['Meniň gülüm näzikdir,\nUrmak, sökmek ýazykdyr,\nHer ýaňagyn ysgasaň,\nAlty aýlyk azykdyr.','گل من نازک است؛ زدن و دشنام‌دادن گناه است؛ اگر هر گونه‌اش را ببویی، توشهٔ شش ماه است. (ترجمهٔ آزاد)'],
+        ['Meniň ballym ýatypdyr,\nGyzyl güle batypdyr,\nGyzyl gülüň tikeni\nGül aýagyna batypdyr.','عسلِ من خوابیده، در گل سرخ فرو رفته؛ خارِ گل سرخ به پای گل خلیده. (ترجمهٔ آزاد)'],
+        ['Allalasam, aý seni,\nSöýsem, göwnüm jaý seni,\nGyş gyşlasam, ýaz seni\nGünde söýsem, az seni.','لالایی‌ات می‌کنم ای ماه؛ دوستت بدارم دلم آرام می‌گیرد؛ هر روز دوستت بدارم هم کم است. (ترجمهٔ آزاد، بخشی نامطمئن)'],
+        ['Mergen bolup, guş ursaň,\nDagdan keýik düşürseň,\nDüýä ýükläp getirip,\nKebap edip bişirseň.','اگر تیرانداز شوی و پرنده بزنی، از کوه آهو شکار کنی، بر شتر بار کنی و بیاوری و کباب بپزی… (آرزو برای کودک؛ ترجمهٔ آزاد)'],
+        ['Aýlanar-a, aýlanar,\nÖkdelikde saýlanar,\nMeniň balam ulalyp,\nSöýenine öýlener.','«آیلانار‌آ، آیلانار» (تکیه‌کلام آوازی)؛ در ماهری برگزیده می‌شود؛ فرزندم که بزرگ شود با آن که دوست دارد ازدواج می‌کند. (ترجمهٔ آزاد)','','','inash'],
+        ['Toýda tymar bagym sen,\nGünde gülüstanym sen.','در عروسی تعویذِ منی، هر روز گلستانِ منی. (ترجمه بر پایهٔ برگردان روسی منبع)','','','orientHuw']
+      ]},
+    { id:'kusht', kind:'verse', src:'tkKusht',
+      title:['کوشت‌دپمه: آواز و رقص عروسی (میراث یونسکو ۲۰۱۷)','Küştdepmele (Kuştdepdi)'],
+      intro:['بندهایی که همراه با پاکوبی در عروسی خوانده می‌شود؛ آیین «کوشت‌دپدی» در ۲۰۱۷ در فهرست نمایندهٔ یونسکو ثبت شد.','Küştdepmeler tans hereketleri bilen utgaşdyrylyp aýdylýar; «Kuştdepdi» 2017-nji ýylda ÝUNESKO-nyň wekilçilikli sanawyna girizildi.'],
+      items:[
+        ['Başlalyň-a, başlalyň,\nKüşt depmäge başlalyň.\nGazal aýdyp, küşt depip,\nGöwünleri hoşlalyň.','شروع کنیم، شروع کنیم؛ پاکوبی را آغاز کنیم؛ غزل بخوانیم و پا بکوبیم و دل‌ها را شاد کنیم. (ترجمهٔ آزاد)'],
+        ['Gapyňyzda atly bolsun,\nSaçagyňyz etli bolsun.\nTöý tutýan jemagatlar,\nToýuňyz gutly bolsun.','در خانه‌تان اسب باشد، سفره‌تان پرگوشت باد؛ ای جماعتِ جشن‌گیر، جشنتان مبارک. (ترجمهٔ آزاد)'],
+        ['Daglara gar ýapylsyn,\nÇöllere nur sepilsin.\nÝaş ýigidiň toýunda,\nÝadaman küşt depilsin.','بر کوه‌ها برف بنشیند، بر صحراها نور بپاشد؛ در جشنِ جوان، بی‌خستگی پاکوبی شود. (ترجمهٔ آزاد)'],
+        ['Haly bar-a, haly bar,\nHaly üstünde göli bar.\nGeliň, görüň obamyz\nZähmetsöýer ili bar.','قالی هست، قالی؛ روی قالی گل دارد؛ بیایید ببینید، دهکدهٔ ما مردمی زحمت‌دوست دارد. (ترجمهٔ آزاد)']
+      ]},
+    { id:'lale', kind:'verse', src:'tkLale',
+      title:['لاله‌ها: آوازهای زنانه','Läleler'],
+      intro:['لاله‌ها را عروس‌ها و دختران می‌سرایند و در آن‌ها رویداد، سرگذشت یا آرزویی بیان می‌شود.','Läleler gelin-gyzlar tarapyndan döredilip, olarda belli bir waka, aýratyn başdan geçirmeler, isleg-arzuwlar beýan edilýär.'],
+      items:[
+        ['Bu daglar bolmasaýdy,\nGeýenim solmasaýdy,\nDeň-duşlarym, aý gyzlar,\nAýralyk bolmasaýdy.','کاش این کوه‌ها نبود، لباسم رنگ نمی‌باخت؛ ای همسالانم، ای دختران، کاش جدایی نبود. (ترجمهٔ آزاد)'],
+        ['Suw akar, kenar gider,\nŞu janym ýanar gider,\nDegmäň gyzyň göwnüne,\nMyhmandyr, gonar gider.','آب می‌رود، کنار می‌ماند؛ جانم می‌سوزد و می‌رود؛ دل دختر را نیازارید، مهمان است، شبی می‌ماند و می‌رود. (ترجمهٔ آزاد)'],
+        ['Dutaryň perde-perde,\nHer perdesi bir ýerde,\nÝagşy gyz ýaman ýerde,\nMen ýanaýyn şol derde.','دوتارت پرده‌پرده است، هر پرده‌اش در جایی؛ دختر نیک در جای بد؛ من بسوزم از آن درد. (ترجمهٔ آزاد)'],
+        ['Suwa gitdim tas bilen,\nSuw aldym höwes bilen,\nÝary ýardan aýranyň,\nGüni geçsin ýas bilen.','با کاسه به سراغ آب رفتم، با اشتیاق آب برداشتم؛ آن که یار را از یار جدا می‌کند، روزگارش به سوگ بگذرد. (ترجمهٔ آزاد)']
+      ]},
+    { id:'monj', kind:'verse', src:'tkMonj',
+      title:['مونجوغاتدی: بندهای کوتاه بهاری و عاشقانه','Monjugatdylar'],
+      intro:['چهارپاره‌های کوتاه؛ بخشی دربارهٔ نوروز و بهار.','Gysga dörtlükler; käbiri Nowruz we bahar barada.'],
+      items:[
+        ['Nowruz geldi, ýaz geldi,\nGarga geldi, gaz geldi,\nOturan adamlara\nBilbilden owaz geldi.','نوروز آمد، بهار آمد؛ زاغ آمد، غاز آمد؛ برای نشستگان آوازِ بلبل آمد. (ترجمهٔ آزاد)'],
+        ['Çeşme-çeşme, çeşdim ýar,\nSalam berip geçdim, ýar!\nŞu salamym almasaň,\nMen hem senden geçdim, ýar!','چشمه‌چشمه، چشیدم ای یار؛ سلام کردم و گذشتم؛ اگر این سلامم را پاسخ ندهی، من هم از تو گذشتم، ای یار. (ترجمهٔ آزاد)']
+      ]},
+    { id:'dilek', kind:'line', src:'tkDilek',
+      title:['آلقیش و دیلک: دعاهای خیر','Alkyşlar we dilegler'],
+      intro:['جمله‌های دانایانه که به شنونده روحیه می‌دهند.','Adama ruhy duýgy berýän, onda hyruç, joşgun döredýän dana sözlemler.'],
+      items:[
+        ['Alnyň açyk bolsun!','پیشانی‌ات باز (بختت گشاده) باد!'],['Başyňyz dik bolsun!','سرتان بلند باد!'],['Biriň müň bolsun!','یکی‌ات هزار شود!'],['Gözüň aýdyň!','چشمت روشن!'],
+        ['Ýoluň ak bolsun, ýodaşyň Hak!','راهت گشاده باد و همراهت حق!'],['Ýaşyň uzak bolsun!','عمرت دراز باد!'],['Dünýä dursun, Türkmenistan dursun!','دنیا بپاید، ترکمنستان بپاید!'],
+        ['Giden ýerinden getirsin, eden işin bitirsin!','از هر جا که رفتی (برکت) بیاوری و هر کاری کنی به انجام برسد!'],['Jany sagyň maly tükel!','جانت سالم، مالت کامل!'],['Watanymyz abat dursun!','وطنمان آباد بماند!'],['Aýdanyň gelsin!','آنچه آرزو می‌کنی تحقق یابد!'],['Gadamyň batly bolsun!','گامت استوار باد!']
+      ]},
+    { id:'yrym', kind:'line', src:'tkYrym',
+      title:['یریم و ینانچ: باورهای عامیانه','Yrym we ynançlar'],
+      intro:['باورهای مردم؛ نه توصیهٔ علمی بلکه بخشی از فرهنگ.','Halk ynançlary; ylmy maslahat däl, medeniýetiň bir bölegi.'],
+      items:[
+        ['Çaýda dik duran boýçy görülse myhmana garaşylýar.','اگر در چای ساقهٔ ایستادهٔ چای دیده شود، باید منتظر مهمان بود.'],
+        ['Iýip oturan nanyňy gutarman ýene-de bir bölek nan döwüp alsaň myhmana garaşylýar.','اگر نانِ در حال خوردن را تمام نکرده تکهٔ دیگری بشکنی، منتظر مهمان باش.'],
+        ['Eliň aýasy gijese pul düşjekdir.','اگر کف دستت بخارد، پولی می‌رسد.'],
+        ['Çaganyň dişi gaçanda, täze diş dogry çyksyn diýip, goýun agylda gömülýär.','وقتی دندان کودک می‌افتد، آن را در آغل گوسفند دفن می‌کنند تا دندان تازه درست درآید.'],
+        ['Täze gelin gaýyn öýüne ilki gelende sag aýagy bilen girýär, onuň eli ýagdyr uny bulanylýar.','عروس تازه که نخستین بار به خانهٔ شوهر می‌آید با پای راست وارد می‌شود و دستش به روغن و آرد آغشته می‌شود.']
+      ]},
+    { id:'yan', kind:'verse', src:'tkYan',
+      title:['یانیلتماچ: ورزش زبان','Ýaňyltmaçlar'],
+      intro:['برای ورزش زبان کودکان و تمرین تلفظ واژه‌های دشوار.','Çagalaryň dilini ýençmäge, çylşyrymly sözleri dogry aýtmaga kömek edýär.'],
+      items:[
+        ['Birje çemçe şorja serçe çorbasy.','فقط یک قاشق از سوپ شورِ گنجشک. (تمرین ç/ş)'],
+        ['Sary sygryň sag şahy çep şahyna,\nçep şahy sag şahyna.','شاخ راستِ گاو زرد به شاخ چپش، شاخ چپش به شاخ راستش.'],
+        ['Ilerden bir goç gelýär,\nsag şahyn sol taşlap, sol şahyn sag taşlap.','از جلو قوچی می‌آید، شاخ راستش را به چپ می‌اندازد و شاخ چپش را به راست.']
+      ]},
+    { id:'ependi', kind:'verse', src:'tkShorta',
+      title:['شورتا سوزلر: لطیفه‌های اپندی (ملانصرالدین)','Şorta sözler (Ependi)'],
+      intro:['«اپندی» همان شخصیت مشهور ملانصرالدین در لطیفه‌های ترکمن است. در اینجا فقط نقطهٔ پایانیِ یکی از لطیفه‌ها آمده.','«Ependi» türkmen degişmelerinde Nasreddiniň ady.'],
+      items:[
+        ['Bu çorbanyň çorbasynyň çorbasy.','پایانِ لطیفهٔ «سوپِ سوپ»: دهقانی خرگوشی به اپندی هدیه می‌دهد؛ هفته‌ها بعد همسایه‌ها و همسایهٔ همسایه‌ها به‌نام او می‌آیند و اپندی هر بار سوپ را رقیق‌تر می‌کند تا در پایان کاسه‌ای آب می‌گذارد و می‌گوید: «این سوپِ سوپِ سوپ است!»']
+      ]}
+  ];
+  ['fa','tk'].forEach((l, i) => {
+    DATA[l].folklore.sets = SETS.map(st => ({ id:st.id, kind:st.kind, title:st.title[i], intro:st.intro[i],
+      items: st.items.map(it => ({ text:it[0], trans: i === 0 ? it[1] : '', answer: i === 0 ? (it[2] || '') : (it[3] || ''), srcs: it[4] || st.src })) }));
+  });
+  delete DATA.fa.folklore.riddles; delete DATA.tk.folklore.riddles; delete DATA.fa.folklore.huwdi; delete DATA.tk.folklore.huwdi;
+  Object.assign(DATA.fa.folklore.ui, { setsNote:'همهٔ بندها و معماها بدون تغییر از صفحه‌های بخش فولکلور سایت turkmenkultur.com (منبع زیر هر کارت) نقل شده‌اند؛ ترجمه‌های فارسی آزاد و از من‌اند.' });
+  Object.assign(DATA.tk.folklore.ui, { setsNote:'Ähli setirler we matallar turkmenkultur.com saýtynyň folklor sahypalaryndan üýtgedilmän getirildi (çeşme her kartyň aşagynda).' });
+
+  DATA.fa.sources.categories.push({ icon:'check', title:'فرهنگ شفاهی از turkmenkultur.com (آپدیت ۲)', text:'معماها (ماتال)، هوودی، کوشت‌دپمه، لاله، مونجوغاتدی، آلقیش و دیلک، یریم و ینانچ، یانیلتماچ و شورتا سوزلر از صفحه‌های بخش «folklor» همین سایت (turkmenkultur.com/menu/ml/t3/…) با ذکر منبع زیر هر کارت. ترجمه‌های فارسی آزاد و از من است و بازبینی بومی می‌خواهد.' });
+  DATA.tk.sources.categories.push({ icon:'check', title:'turkmenkultur.com-dan halk döredijiligi (täzelenme 2)', text:'Matallar, hüwdiler, küştdepmeler, läleler, monjugatdylar, alkyşlar we dilegler, yrym we ynançlar, ýaňyltmaçlar we şorta sözler şu saýtyň «folklor» bölüminiň sahypalaryndan (turkmenkultur.com/menu/ml/t3/…) alyndy, çeşme her kartyň aşagynda görkezilýär. Parsça terjimeler erkin we meniňkidir, ene dilli gürleýjiniň barlagyny talap edýär.' });
+
+  /* ---------- proverbs, update 3: from turkmenkultur.com/menu/ml/t3/nakyl.html ---------- */
+  const NAKYL = [
+    ['Agaç miwe berse, başy aşak.','درخت اگر میوه دهد، سرش پایین می‌آید.'],
+    ['Ajysy bolmadygyň, süýjüsi bolmaz.','آنچه تلخی ندارد شیرینی هم ندارد.'],
+    ['Az bolsun, uz bolsun.','کم باشد اما نیکو باشد.'],
+    ['Akyl ýaşda bolmaz, başda bolar.','خرد در سن نیست، در سر است.'],
+    ['Atylan ok daşdan gaýtmaz.','تیرِ رهاشده از سنگ برنمی‌گردد.'],
+    ['Baryny beren uýalmaz.','آن‌که هرچه دارد می‌دهد شرمنده نمی‌شود.'],
+    ['Başa bela iki barmak dilden geler.','بلا بر سر از دو انگشتِ زبان می‌آید.'],
+    ['Bedew-jul içinde, göwher kül içinde.','اسب نژاده زیر جُل است و گوهر زیر خاکستر.'],
+    ['Bir elde iki garpyz tutdurmaz.','در یک دست دو هندوانه نمی‌گنجد.'],
+    ['Bir ýazykdan är ölmez, hiç ýazyksyz är bolmaz.','مرد از یک خطا نمی‌میرد و مرد بی‌خطا هم نیست.'],
+    ['Dagy-daşy ýel pozar, adam arasyny söz pozar.','کوه و سنگ را باد خراب می‌کند و رابطهٔ آدم‌ها را سخن.'],
+    ['Dil bilen orak orsaň, bil agyrmaz.','اگر با زبان درو کنی کمرت درد نمی‌گیرد.'],
+    ['Düýe garrasa, köşegine eýerer.','شتر پیر شود از پی بچه‌اش می‌رود.'],
+    ['Enesini gör-de gyzyny al, gyrasyny gör-de bizini al.','مادر را ببین و دخترش را بگیر؛ لبه را ببین و درفش را بخر.'],
+    ['Är-aýalyň uruşy-ýaz gününiň ýagyşy.','دعوای زن و شوهر باران روز بهار است.'],
+    ['Gamyşy gowşak tutsaň, el gyýar.','نی را سست بگیری دست را می‌برد.'],
+    ['Geňeşli don gysga bolmaz.','جامهٔ با مشورت دوخته کوتاه نمی‌شود.'],
+    ['Gorkana goşa görner.','ترسو همه‌چیز را دوتا می‌بیند.'],
+    ['Göwni açygyň-ýoly açyk.','آن‌که دلش باز است راهش باز است.'],
+    ['Göge tüýkürseň, ýüzüňe düşer.','به آسمان تف بیندازی به رویت می‌افتد.'],
+    ['Gurt gören itiň agzy bir bolar.','دهانِ سگی که گرگ دیده یکی می‌شود (همه یک‌صدا می‌شوند).'],
+    ['Gülme goňşyňa, geler başyňa.','به همسایه نخند، بر سر خودت می‌آید.'],
+    ['Hasaply dost uzak gider.','دوستِ حساب‌شده دور می‌رود.'],
+    ['Iki at depişer, arasynda eşek öler.','دو اسب لگد می‌پرانند و الاغِ میانشان می‌میرد.'],
+    ['Ilim-günüm bolmasa, Aýym, Günüm dogmasyn.','اگر ایل و مردمم نباشند، ماهم و خورشیدم هم برنیاید.'],
+    ['It üýrer, kerwen geçer.','سگ پارس می‌کند و کاروان می‌گذرد.'],
+    ['Kesmeseň, ganamaz.','نبُری، خون نمی‌آید.'],
+    ['Mert özünden görer, namart-ýoldaşyndan.','مرد (گناه را) از خود می‌بیند و نامرد از همراهش.'],
+    ['Myhman-ataňdan uly.','مهمان از پدرت بزرگ‌تر است.'],
+    ['Myhman birinji gün-gyzyl, ikinji gün-kümüş, üçünji gün-mis, dördünji gün-pis.','مهمان روز اول زر است، روز دوم نقره، روز سوم مس و روز چهارم بد.'],
+    ['Serçeden gorkan-dary ekmez.','آن‌که از گنجشک بترسد ارزن نمی‌کارد.'],
+    ['Süýtde agzy bişen-suwy üfläp içer.','آن‌که دهانش از شیر سوخته آب را فوت کرده می‌نوشد.'],
+    ['Tyg ýarasy biter, söz ýarasy bitmez.','زخم شمشیر خوب می‌شود، زخم زبان خوب نمی‌شود.'],
+    ['Ýekäniň çaňy çykmaz.','از یک نفر گرد و خاک بلند نمی‌شود.'],
+    ['Ýorganyňa görä aýak uzat.','به اندازهٔ لحافت پا دراز کن.'],
+    ['Ýigide müň dürli hünär hem az.','برای جوان‌مرد هزار هنر هم کم است.'],
+    ['Ýagşy niýet-ýarym döwlet.','نیت نیک نیمی از دولت است.'],
+    ['Ýalançy ýarymaz, ogry baýymaz.','دروغگو رونق نمی‌گیرد، دزد ثروتمند نمی‌شود.'],
+    ['Zeleliň ýaryndan gaýtmak hem peýda.','برگشتن از نیمهٔ زیان هم سود است.'],
+    ['Ýigidi dostundan tana.','جوان‌مرد را از دوستش بشناس.'],
+    ['Il agzyny ýygyp bolmaz, çelek agzyny bogup bolmaz.','دهان مردم را نمی‌توان جمع کرد، دهان سطل را نمی‌توان بست.'],
+    ['Gazana ýanaşsaň, garasy ýokar.','به دیگ نزدیک شوی سیاهی‌اش می‌چسبد.'],
+    ['Ýatan öküze iým ýok.','برای گاو نرِ خوابیده علوفه نیست.'],
+    ['Öli arslandan-diri syçan.','موشِ زنده از شیرِ مرده بهتر است.'],
+    ['Pis pisi tapar, suw-pesi.','بد، بد را می‌یابد و آب، گودی را.'],
+    ['Ogrulyk eden uýalmaz, üstüne gelen uýalar.','دزد شرم نمی‌کند، آن‌که سرش برسد شرم می‌کند.'],
+    ['Haýwan ysgaşa-ysgaşa, adam soraşa-soraşa.','جانور با بوییدن و آدم با پرسیدن (به هم می‌رسند).'],
+    ['Ata kesbi-ogla halal.','پیشهٔ پدر بر پسر حلال است.']
+  ];
+  ['fa','tk'].forEach((l, i) => {
+    const have = new Set(DATA[l].folklore.proverbs.map(x => x.text));
+    NAKYL.forEach(x => { if(!have.has(x[0])) DATA[l].folklore.proverbs.push({ text:x[0], trans: i === 0 ? x[1] : '', srcs:'tkNakyl' }); });
+  });
+  const NAKYL_UNTRANSLATED = ['Azapsyz ýeriň ady ýok.',
+    'Aýrylmaz goňşyňa unutgysyz söz aýtma.',
+    'Akylla-yşarat, akmaga-kötek.',
+    'Arkaly köpek gurt alar.',
+    'At alma, eýer al.',
+    'At ürken ýerinden, är gorkan ýerinden.',
+    'Bijeli oglan aglamaz.',
+    'Bir okana bar, bir hem dokana.',
+    'Bu günki serçe düýnki serçä “jik-jik” öwreder.',
+    'Çagyrylan ýere irinme, çagyrylmadyk ýerde görünme.',
+    'Çala eşiden çatma ýykar, öte eşiden-öý.',
+    'Çekişmän, bekişmez.',
+    'Dagdan arkasy bolanyň, daşdan ýüregi bolar.',
+    'Don biçerler ýeňli-ýanly, dost tutarlar öňli-soňly.',
+    'Duşmany saklama, syryň bilmesin.',
+    'Duşmanyň peşeçe bolsa, pilçe gör.',
+    'Düýä münüp, hataba bukma.',
+    'Galpyň gazany gaýnamaz, gaýnasa-da baýnamaz.',
+    'Göwün göwünden suw içer, gamyş-bogundan.',
+    'Guýma gursak bolmasa, dürtme gursak neýlesin.',
+    'Kör hasasyn bir aldyrar.',
+    'Kötek güýçli bolsa, ýüň gazyk ýere gider.',
+    'Maslahatly biçilen don gysga bolmaz.',
+    'Mellekçä ýer berseň, ýer eýesini ýerden çykarar.',
+    'Oglan howlugar, tudana wagtynda bişer.',
+    'Ody özüňe bas, ötmese-kesekä.',
+    'Öwrenişen ýagy-uruşmaga ýagşy.',
+    'Öňüm bolandan, soňum bolsun.',
+    'Soňky tüýkülik-sakgal ezmez.',
+    'Sorap berenden-urup ber.',
+    'Süýde siňe seretseň, gan görner.',
+    'Sygryň şahyna ursaň, endamy syzlar.',
+    'Tapan-begener, tanan-alar.',
+    'Tomus depesi gaýnamadygyň-gyş gazany gaýnamaz.',
+    'Uly başlar, kiçi işlär.',
+    'Ýykylan göreşden goýmaz.',
+    'Ýakma bişersiň, gazma düşersiň.',
+    'Ýamandan boýuňy satyn al.'];
+  // Persian translation deliberately left empty: a native speaker should decide the wording later.
+  ['fa','tk'].forEach(l => {
+    const have = new Set(DATA[l].folklore.proverbs.map(x => x.text));
+    NAKYL_UNTRANSLATED.forEach(t => { if(!have.has(t)) DATA[l].folklore.proverbs.push({ text:t, trans:'', srcs:'tkNakyl' }); });
+  });
+  DATA.fa.sources.categories.push({ icon:'check', title:'ضرب‌المثل‌ها از turkmenkultur.com (آپدیت ۳)', text:'همهٔ نقیل‌های صفحهٔ «Nakyllar» همین سایت (turkmenkultur.com/menu/ml/t3/nakyl.html) افزوده شد. حدود ۴۸ مورد ترجمهٔ فارسی (از من) دارند؛ ۳۷ مورد دیگر عمداً بدون ترجمه مانده‌اند تا گویشور بومی تصمیم بگیرد.' });
+  DATA.tk.sources.categories.push({ icon:'check', title:'turkmenkultur.com-dan nakyllar (täzelenme 3)', text:'Şu saýtyň «Nakyllar» sahypasyndaky ähli nakyllar (turkmenkultur.com/menu/ml/t3/nakyl.html) goşuldy. 48-iniň parsça terjimesi bar (meniňki), galan 37-si bilkastlaýyn terjimesiz galdy — ene dilli gürleýji karar bersin.' });
 })();

@@ -265,6 +265,134 @@ Gülçemen|گل‌چمن|گل چمن|Gül + çemen|f
 Jeren|جرن|آهو، غزال|Jeren|f
 Ýyldyz|ییلدیز|ستاره|Ýyldyz|f
 Güler|گولر|خندان، شاد|Güler|f
+Açap|آچاپ|شگفت‌انگیز، زیبا (از «عجایب»)|Açaýyp owadan|f
+Agagül|آغاگل|گلِ برادران (aga + gül)|Agalarynyň güli|f
+Akjagül|آق‌جاگل|گلِ سپید (ak + gül)|Bagtly owadan gyz|f
+Asly|اصلی|نجیب و باتربیت (از اصل)|Asylly, terbiýeli|f
+Aýbike|آی‌بیکه|بانوی ماه‌صورت|Han-begiň aýaly; owadan gyz|f
+Aýla|آیلا|دختری که در ماه کامل زاده شده|Dolan aýda dünýä gelen|f
+Aýsel|آی‌سل|ماه‌ای که قامتش چون سرو است|Aý ýaly, selbi boýly|f
+Aýsen|آی‌سن|مثل ماه زیبا|Aý ýaly gözel|f
+Aýşagül|آیشاگل|گلِ زیبا، دراز عمر باد|Gül ýaly owadan, köp ýaşasyn|f
+Bibiniýaz|بیبی‌نیاز|نیازِ بانو (bibi + niýaz)|Dilenip-ýalbarlyp alnan|f
+Bibisara|بیبی‌سارا|بانوی محترم و آبرومند|Hormatly, abraýly|f
+Bike|بیکه|بیکه، بانو|Hormatly uly derejeli|f
+Jahanaý|جهان‌آی|جهان + آی (ماه)|Asmanyň aýy|f
+Jamal|جمال|جمال، زیبایی|Owadan gözel|f
+Jenan|جنان|جنان (بهشت‌ها)|Janlaryň jany|f
+Durna|دورنا|درنا (پرنده)|Durna guş ýaly, sabyrly|f
+Ejegyz|اجه‌گیز|دخترِ مادر (eje + gyz)|Ejesiniň gyzy|f
+Ejeke|اجکه|صورت محبوب‌نامِ «eje» (خواهر بزرگ، مادر)|Aýrylan uly aýaldoganynyň ady|f
+Ejow|اجو|صورت محبوب‌نامِ «eje»|Aýrylan ejäniň ady|f
+Ene|انه|مادر، بانوی بزرگ|Aýrylan enäniň ady|f
+Eneke|انکه|صورت محبوب‌نامِ «ene» (مادر)|Enekäniň ady|f
+Gülnur|گل‌نور|دختر زیبای گل‌نور|Gül ýaly nurly|f
+Hajat|حاجت|حاجت، خواسته|Isleg-arzuw edilip ýetilen|f
+Halima|حلیمه|بردبار و مهربان|Ýuwaş-rehimli|f
+Mama|ماما|دختری که نام مامای خود را گرفته|Mamasynyň ady|f
+Mamagül|ماماگل|ماما + گل (mama + gül)|Mamasynyň güli|f
+Maýa|مایا|آرام و مهربان|Ýuwaş mähirli|f
+Melek|ملک|فرشته، نیکوکار چون فرشته|Perişte|f
+Näz|ناز|ناز|Niýaz gysgalany|f
+Näzli|نازلی|دختر دلربا و زیبا|Näzli gözel gyz|f
+Nergis|نرگس|گل زردبرگ و زیبا، نرگس|Sary ýaprakly gül|f
+Nowbahar|نوبهار|دختری که در آغاز بهار زاده شد|Baharyň başlanan wagty|f
+Nowça|نوچه|نوجوان، تازه‌رس|Sagdyn, ýaş owadan|f
+Nowgül|نوگل|گل نو|Täze gül|f
+Ömür|عمر|عمر|Ömri bolsun, kän ýaşasyn|f
+Peri|پری|پری|Perizat ýaly owadan|f
+Ryzwan|رضوان|یکی از نام‌های بهشت|Jennetiň bir ady|f
+Selimä|سلیمه|سلیمه، سالم|Sagdyn-kemsiz|f
+Solmaz|سولماز|نپژمرد؛ همیشه تازه|Solmasyn, elmydama ter|f
+Şemşad|شمشاد|شمشاد (درخت)|Gaty, sagdyn agaç|f
+Tarlaň|تارلان|پرندهٔ شکاری شبیه باز|Laçyna meňzeş guş|f
+Turan|توران|توران (سرزمین ترکان)|Gadymy Türk ýurdy|f
+Ülker|اولکر|پروین (خوشهٔ ستارگان)|Ülker ýyldyzy|f
+Ýüpek|یوپک|ابریشم|Ýüpek ýaly ýumşak|f
+Kekil|کاکل|کاکل (موی بافته)|Käkilli saçly owadan|f
+Leýla|لیلی|لیلی (نام عاشقانه)|Leýli sözünden dörän|f
+Baýjan|بای‌جان|بای + جان|Baý hem jana ýakymly|u
+Baba|بابا|پسری که نام نیایش را گرفته|Babasynyň ady|m
+Babajan|باباجان|جانِ نیای خود|Babasynyň jany|m
+Babahan|بابا‌خان|خانِ بابای خود|Babasynyň Han ogly|m
+Babyr|بابیر|مثل ببر و پلنگ نیرومند باد|Bäbiýr, Ýolbars ýaly güýçli|m
+Baky|باقی|پایدار؛ دراز عمر باد|Köp ýaşasyn|m
+Balkan|بالکان|بالکان (کوه/ولایت)|Balkan dagynyň ady|m
+Baýar|بایار|توانگر و دولتمند|Baý-döwletli|m
+Baýly|بایلی|ثروتمند و دولتمند|Baý-döwletli|m
+Baýry|بایری|ثروتمند و باتجربه|Baý hem tejribeli|m
+Bazar|بازار|پسری که روز یکشنبه (بازار) زاده شد|Bazar güni dünýä gelen|m
+Begçe|بگچه|ارجمند؛ بگِ کوچک شادی‌آور|Kiçijik beg|m
+Böke|بوکه|پهلوان، نیرومند|Pälwan-güýçli|m
+Bugra|بوغرا|درشت و نیرومند چون شتر نر|Iki örküçli düýe ýaly|m
+Jepbar|جبار|جبار|Taňrynyň guly, güýçli|m
+Jüneýt|جنید|جنید|Goşun ýaly güýçli|m
+Çawdur|چاودور|چاودور (ایل ترکمن)|Gadymy Türkmen taýpasy|m
+Daňatar|دانتار|سپیده‌دم (daň + atar)|Daň atan wagty|m
+Diýar|دیار|وطن، سرزمین، ایل و دیار|Watan-ülke, il-gün|m
+Dörtguly|دورتگولی|«بندهٔ چهارم»: فرزند چهارم|Dördünji oglan|m
+Durmuş|دورموش|زندگی|Dursun, köp ýaşasyn|m
+Düşem|دوشم|پسری که دوشنبه زاده شد (düşenbe)|Düşenbe güni|m
+Emin|امین|مورد اطمینان و راستگو|Ynamly-dogurçyl|m
+Erkin|ارکین|آزاد زندگی کند|Azat-erkin|m
+Etrek|اترک|اترک (رود)|Etrek derýasy boýunda|m
+Faýzullah|فیض‌الله|فیض‌الله|Allahnyň faýzy siňen|m
+Fazyl|فاضل|دانا و بافضیلت|Bilimli, akylly, dana|m
+Gajar|قاجار|قاجار (ایل)|Gajar taýpasy|m
+Garly|گارلی|زاده در هوای برفی|Garly howada dünýä gelen|m
+Gaýrat|غیرت|غیرتمند و دلیر|Gaýratly-edermen|m
+Gorgan|گرگان|گرگان (شهر/رود)|Gala ýaly gorysyn|m
+Gürgen|گورگن|گورگن؛ از گرگان|Sagdyn agaç|m
+Habip|حبیب|حبیب|Hebip, ýakyn ýoldaş|m
+Hakan|خاقان|خاقان (فرمانروا)|Gadymy Türk han soltany|m
+Halil|خلیل|خلیل|Wepaly dost|m
+Hamid|حمید|حمید|Öwgä mynasyp|m
+Haýdar|حیدر|حیدر (شیر)|Arslan-ederman|m
+Hekim|حکیم|حکیم|Bilgir-tebip|m
+Magtym|مختوم|مختوم (لقب: آقا، سرور)|Aga, ýolbaşçy|m
+Mahmud|محمود|محمود|Öwgüli|m
+Maşal|مشعل|مشعل، روشن و درخشان|Şöhleli, nurly|m
+Mämi|مامی|صورت کوتاهِ «محمد»|Mämed gysgalany|m
+Mejid|مجید|مجید|Görmegöý, şanly|m
+Muhammed|محمد|محمد|Öwgä mynasyp|m
+Murtaza|مرتضی|مرتضی|Saýlanan|m
+Mustafa|مصطفی|مصطفی|Saýlanan|m
+Nagmat|نعمت|نعمت|Döwletli|m
+Nygmat|نعمت|نعمت|Nagmat, döwletli|m
+Oguz|اوغوز|اوغوز (اوغوزخان)|Awuz, päk niýet|m
+Omar|عمر|عمر|Dört çaryýaryň biri|m
+Polat|پولات|پولات (فولاد)|Polat ýaly berk|m
+Rahmet|رحمت|رحمت|Rehim etmek|m
+Resul|رسول|رسول|Ilçi, pygambar|m
+Reşit|رشید|رشید|Akylly, akly kemala ýeten|m
+Ryza|رضا|رضا|Kanagatly|m
+Said|سعید|سعید|Bagtly oglan|m
+Sanjar|سنجر|سنجر (سلطان سلجوقی)|Duşmanlary sançýan, ýeňýän|m
+Sapa|صفا|صفا و آسایش|Safa, rahat|m
+Sary|ساری|پسر بور و زیبا؛ نام ایل ساریق|Saryýagyz gelşikli oglan|m
+Saýat|سایات|نام ایل ترکمن، کوتاه‌شدهٔ «صیاد»|Türkmen taýpasy|m
+Seljuk|سلجوق|سلجوق (بنیان‌گذار)|Oguz Türkmenleriň serdary|m
+Selim|سلیم|سلیم|Sagdyn-kemsiz|m
+Seýdi|سیدی|سیدی|Seýit|m
+Seýfullah|سیف‌الله|سیف‌الله|Allahnyň gylyjy|m
+Sumbar|سومبار|سومبار (رود)|Sumbar derýasynyň ady|m
+Subhan|سبحان|سبحان|Öwgi, söhrat|m
+Şäher|شاهر|زاده در شهر|Şäherde dünýä gelen|m
+Şeýda|شیدا|بسیار عاشق و دلباخته|Hetden aş aşyk|m
+Şir|شیر|شیر، دلاور|Şir-ýolbar|m
+Tejen|تجن|تجن (رود)|Tejende dünýä gelen|m
+Tirkeş|تیرکش|تیردان؛ پسران بسیار شود|Kän oglan bolsun|m
+Töre|تؤره|سرور و پیشوا؛ رسم و آیین|Baştutan, başlyk|m
+Ugur|اوغور|بخت، مقصود، سو، شانس|Bagt, maksat, tarap|m
+Umid|امید|امید و آرزو را برآورده کند|Umid-tmany ödejek|m
+Ýahýa|یحیی|یحیی|Ýahýa pygambaryň ady|m
+Ýalkym|یالقیم|درخشان و نورانی|Ýalkymly-nurly|m
+Ýaşar|یاشار|بسیار زندگی کند و نمیرد|Kän ýaşar, ölmez|m
+Ýylgaý|یلقای|نام یک تیرهٔ ترکمن|Türkmen tiresiniň ady|m
+Isa|عیسی|عیسی|Isa pygambaryň ady|m
+Kerem|کرم|بخشندگی و گشاده‌دستی|Sahyllyk, eli açyklyk|m
+Kowus|کاووس|کاووس؛ کمان و ستاره و یاری|Kawus, ýaý, ýyldyz|m
+Körpe|کورپه|کوچک‌ترین فرزند|Iň kiçi perzend|m
 Akgyz|آق‌قیز|دختر روشن‌روی (ak + gyz)|Ak + gyz|f
 Akja|آق‌جا|روشن، سپید|Akja, ak|f
 Altyna|آلتینا|زرین (از altyn)|Altyn|f
