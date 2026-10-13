@@ -65,6 +65,9 @@ window.TS_EXT = (function(){
     nakylA2:  { t:['نقیل‌ها و اتالار سوزی، گردآوری (۲)','Türkmen nakyllary we atalar sözi (A_2)'], u:'http://turkmen-ca.blogspot.com/2011/08/turkmen-nakyllary-we-atalar-sozi-2.html' },
     dergi:    { t:['مقالهٔ مقایسهٔ ضرب‌المثل‌های ترکمن و ترکی استانبولی (DergiPark)','Türkmen we Stambul türkçesindäki nakyllaryň deňeşdirilişi (DergiPark)'], u:'https://dergipark.org.tr/tr/download/article-file/2154127' },
     tkNakyl:  { t:['فولکلور: نقیل‌ها (ضرب‌المثل) — turkmenkultur.com','Folklor: nakyllar — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/nakyl.html' },
+    tkDutar1: { t:['تامدیرا ساپاگی (۱): ساختار و پرده‌ها — turkmenkultur.com','Tamdyra sapagy (1) — turkmenkultur.com'], u:'https://turkmenkultur.com/menu/mr/t1/dutar1.html' },
+    tkDutar5: { t:['رِوایت‌های آیدیم‌ساز ترکمن (۵) — turkmenkultur.com','Türkmen aýdym-saz rowaýatlaryndan (5) — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/mr/t1/dutar5.html' },
+    tkTaryh:  { t:['«تاریخ ترکمنستان» (۱۹۵۹، نسخهٔ دیجیتال) — فقط مطالعه، دارای نگاه شوروی','Türkmenistanyň taryhy (1959) — diňe okamak üçin, Sowet garaýşy bar'], u:'https://turkmenkultur.com/menu/ml/taryh/turkmenistan-taryhy/list.html' },
     tkRid:    { t:['فولکلور: ماتال‌ها (معماها) — turkmenkultur.com','Folklor: matallar — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/matal.html' },
     tkHuw:    { t:['فولکلور: هوودی‌ها — turkmenkultur.com','Folklor: hüwdiler — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/huwdi.html' },
     tkKusht:  { t:['فولکلور: کوشت‌دپمه‌ها — turkmenkultur.com','Folklor: küştdepmeler — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/kusht.html' },
@@ -112,6 +115,7 @@ window.TS_EXT = (function(){
     [/سنجر|Sanjar/i, [], ['Ahmad Sanjar']],
     [/سلجوق|Seljuk|Seljuk/i, [], ['Seljuk Empire']],
     [/خوارزم|Horezm/i, [], ['Khwarazmian dynasty']],
+    [/اسکندر|Isgender|پارت|Parfiýa|کوشان|Kuşan|افتالی|Eftalit|افریغی|Afrigit/i, ['tkTaryh'], []],
     [/مغول|Mongol/i, [], ['Mongol conquest of Central Asia']],
     [/قره‌قویونلو|Garagoýunly|آق‌قویونلو|Akgoýunly/i, [], ['Kara Koyunlu','Aq Qoyunlu']],
     [/نادرشاه|Nedir Şa|Nadyr/i, [], ['Nader Shah']],
@@ -806,11 +810,15 @@ window.TS_EXT = (function(){
       const chips = types.map(k => `<button type="button" class="map-chip${musicState.type === k ? ' on' : ''}" data-mtype="${k}">${lab(k)}</button>`).join('');
       const ins = m.instruments.filter(x => musicState.type === 'all' || x.type === musicState.type).filter(x => !C().state.query || C().matches(x.title + ' ' + x.text));
       const cards = ins.map(x => `<article class="item-card reveal"><div class="item-head"><span class="icon-wrap"><span class="icon" data-icon="${x.icon}"></span></span><div><h3>${x.title}</h3><span class="badge">${u.types[x.type]}</span></div></div><p>${x.text}</p>${C().cardTools(x.title)}</article>`).join('');
+      const duts = (m.dutar || []).filter(x => !C().state.query || C().matches(x.title + ' ' + x.text)).map(x => `<article class="item-card proverb-card reveal" data-srcs="${x.srcs}"><div class="item-head"><span class="icon-wrap"><span class="icon" data-icon="music"></span></span><h3>${x.title}</h3></div><p>${x.text}</p>${C().cardTools(x.title)}</article>`).join('');
+      const legs = (m.legends || []).filter(x => !C().state.query || C().matches(x.title + ' ' + x.text)).map(x => `<article class="item-card proverb-card reveal" data-srcs="${x.srcs}"><div class="item-head"><span class="icon-wrap"><span class="icon" data-icon="scroll"></span></span><h3>${x.title}</h3></div><p>${x.text}</p>${C().cardTools(x.title.split(' · ')[0])}</article>`).join('');
       const gen = m.genres.filter(x => !C().state.query || C().matches(x.title + ' ' + x.text)).map(x => `<article class="item-card reveal"><div class="item-head"><span class="icon-wrap"><span class="icon" data-icon="${x.icon}"></span></span><h3>${x.title}</h3></div><p>${x.text}</p>${C().cardTools(x.title)}</article>`).join('');
       return C().sectionHead(d, 'music', 'music') + `
         <div class="x-box music-hero reveal">${DUTAR_ART}<div><h3>${u.bakhshi}</h3><p>${u.bakhshiText}</p></div></div>
         <h3 class="subheading reveal">${u.instruments}</h3><div class="map-chips reveal">${chips}</div>
         <div class="card-grid">${cards || C().emptyState(L[lang()].noItems)}</div>
+        <h3 class="subheading reveal">${u.dutarTitle}</h3><div class="card-grid proverb-grid">${duts}</div>
+        <h3 class="subheading reveal">${u.legendsTitle}</h3><p class="x-intro reveal">${u.legendsNote}</p><div class="card-grid proverb-grid">${legs}</div>
         <h3 class="subheading reveal">${u.genres}</h3><div class="card-grid">${gen}</div>
         <div class="dict-note reveal"><span class="icon" data-icon="info"></span><p>${u.facts}</p></div>
         <div class="dict-note reveal" style="margin-top:12px"><span class="icon" data-icon="info"></span><p>${u.note}</p></div>`;
