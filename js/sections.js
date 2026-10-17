@@ -80,6 +80,33 @@ window.TS_EXT = (function(){
     tasinHome:{ t:['tasinhorjun.org: Halk Ertekileri','tasinhorjun.org: Halk Ertekileri'], u:'https://tasinhorjun.org/category/tales/' },
     kitapcy:  { t:['گردآوری و بررسی فولکلور ترکمن (kitapcy.com)','Türkmen halk döredijiliginiň öwrenilişi (kitapcy.com)'], u:'http://kitapcy.com/news/turkmen_halk_doredijiliginin_owrenilisi_3/2018-11-12-3331' },
     sciNowruz:{ t:['ژورنال «علم و فناوری جوانان»، نوروز (science.gov.tm)','Ýaşlaryň ylmy we tehnikasy (science.gov.tm)'], u:'https://science.gov.tm/storage/files/journals/127.pdf' },
+    musHist:  { t:['موزهٔ دولتی ترکمنستان: تاریخچه (museum.gov.tm)','Türkmenistanyň Döwlet muzeýi (museum.gov.tm)'], u:'https://www.museum.gov.tm/tm/content/1320' },
+    musEtno:  { t:['موزهٔ قوم‌نگاری و سرزمین‌شناسی (museum.gov.tm)','Etnografiýa we ülkäni öwreniş muzeýi (museum.gov.tm)'], u:'https://museum.gov.tm/tm/museum/118' },
+    musArt:   { t:['موزهٔ هنرهای تجسمی (museum.gov.tm)','Şekillendiriş sungaty muzeýi (museum.gov.tm)'], u:'https://www.museum.gov.tm/tm/content/1322' },
+    musVirt:  { t:['تور مجازی ۳۶۰ درجه (virtualmuseum.gov.tm)','360° wirtual syýahat (virtualmuseum.gov.tm)'], u:'https://virtualmuseum.gov.tm/magtymguly_muzey/index-en.html' },
+    wikiLib:  { t:['کتابخانهٔ دولتی ترکمنستان (ویکی‌پدیا)','Türkmenistanyň Döwlet kitaphanasy (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/State_Library_of_Turkmenistan' },
+    wikiCons: { t:['کنسرواتوار ملی ترکمنستان (ویکی‌پدیا)','Türkmen milli konserwatoriýasy (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Turkmen_National_Conservatory' },
+    tkLit19:  { t:['ادبیات سدهٔ ۱۹ ترکمن (turkmenkultur.com)','XIX asyr türkmen edebiýaty (turkmenkultur.com)'], u:'https://www.turkmenkultur.com/menu/ml/t8/asyr1.html' },
+    tkMolla:  { t:['ملانفس: زندگی و آثار (turkmenkultur.com)','Mollanepes (turkmenkultur.com)'], u:'https://www.turkmenkultur.com/menu/ml/t8/mollanepes.html' },
+    tkKemine: { t:['کمینه: زندگی و آثار (turkmenkultur.com)','Kemine (turkmenkultur.com)'], u:'https://www.turkmenkultur.com/menu/ml/t8/kemine.html' },
+    tkMagtym: { t:['مختومقلی: زندگی و آثار (turkmenkultur.com)','Magtymguly (turkmenkultur.com)'], u:'https://turkmenkultur.com/menu/ml/t8/magtymguly.html' },
+    wikiTkLit:{ t:['ادبیات ترکمن (ویکی‌پدیای ترکمنی)','Türkmen edebiýaty (Wikipediýa)'], u:'https://tk.wikipedia.org/wiki/T%C3%BCrkmen_edebi%C3%BDaty' },
+    tmCinema: { t:['پرتال دولتی ترکمنستان: تاریخ سینمای ملی','turkmenistan.gov.tm: Milli kinonyň taryhy'], u:'https://www.turkmenistan.gov.tm/en/post/97840/new-film-will-tell-history-national-cinema' },
+    wikiCine: { t:['سینمای ترکمنستان (ویکی‌پدیا)','Türkmenistanyň kinosy (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Cinema_of_Turkmenistan' },
+    wikiAlty: { t:['آلتی قارلی‌یف (ویکی‌پدیا)','Alty Garlyýew (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Alty_Karliev' },
+    wikiNarl: { t:['خوجه‌قلی نارلی‌یف (ویکی‌پدیا)','Hojaguly Narlyýew (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Khodzhakuli_Narliev' },
+    ehraf:    { t:['خلاصهٔ فرهنگ ترکمن (eHRAF، دانشگاه ییل)','Türkmen medeniýeti (eHRAF, Ýel uniwersiteti)'], u:'https://ehrafworldcultures.yale.edu/cultures/rm02/summary' },
+    wikiTribe:{ t:['ایل‌های ترکمن (ویکی‌پدیا)','Türkmen tireleri (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Turkmen_tribes' },
+    iraqiTurkmen:{ t:['ترکمن‌های عراق (ویکی‌پدیا)','Yrak türkmenleri (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Iraqi_Turkmen' },
+    unpo:     { t:['ترکمن‌های عراق (UNPO)','Yrak türkmenleri (UNPO)'], u:'https://unpo.org/iraqi-turkmen/' },
+    mrg:      { t:['ترکمن‌ها در عراق (گروه حقوق اقلیت‌ها)','Yrakda türkmenler (Azlyk hukuklary topary)'], u:'https://minorityrights.org/communities/turkmen/' },
+    persecIraq:{ t:['فشار بر ترکمن‌های عراق در دورهٔ بعث (ویکی‌پدیا)','Baas döwründe Yrak türkmenlerine basyş (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Persecution_of_Iraqi_Turkmen_in_Ba%27athist_Iraq' },
+    iraqiGenocide:{ t:['ترکمن‌های عراق و داعش (ویکی‌پدیا)','Yrak türkmenleri we DAIŞ (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Iraqi_Turkmen_genocide' },
+    iranTurkmen:{ t:['ترکمن‌های ایران (ویکی‌پدیا)','Eýran türkmenleri (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Iranian_Turkmens' },
+    turkmenSahra:{ t:['ترکمن‌صحرا (ویکی‌پدیا)','Türkmen sährasy (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Turkmen_Sahra' },
+    afghanTurkmen:{ t:['ترکمن‌های افغانستان (ویکی‌پدیا)','Owganystan türkmenleri (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Afghan_Turkmens' },
+    turkmensWiki:{ t:['ترکمن‌ها (ویکی‌پدیا)','Türkmenler (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Turkmens' },
+    turkmeneliWiki:{ t:['ترکمن‌ایلی (ویکی‌پدیا)','Türkmeneli (Wikipediýa)'], u:'https://en.wikipedia.org/wiki/Turkmeneli' },
     tkRid:    { t:['فولکلور: ماتال‌ها (معماها) — turkmenkultur.com','Folklor: matallar — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/matal.html' },
     tkHuw:    { t:['فولکلور: هوودی‌ها — turkmenkultur.com','Folklor: hüwdiler — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/huwdi.html' },
     tkKusht:  { t:['فولکلور: کوشت‌دپمه‌ها — turkmenkultur.com','Folklor: küştdepmeler — turkmenkultur.com'], u:'https://www.turkmenkultur.com/menu/ml/t3/kusht.html' },
@@ -141,11 +168,24 @@ window.TS_EXT = (function(){
     [/استقلال|Garaşsyzlyk/i, [], ['Independence of Turkmenistan']],
     [/بی‌طرفی|Bitaraplyk/i, [], ['Neutrality of Turkmenistan']],
     [/جنید|Junaýyt/i, [], ['Junaid Khan']],
-    [/مختومقلی|Magtymguly|فراغی|Pyragy/i, ['magt'], ['Magtymguly Pyragy']],
-    [/عروسی|toýy|Gelin|گلین|جهیزیه|Sep:|سِپ|آت‌قولاق|At gulak|بازی‌های آیینی|سرپوش دختر/i, ['wedding','wedding2','weddingSci'], []],
-    [/گردآوری و انواع قصه|Ertekileri ýygnamak/i, ['kitapcy'], []],
-    [/نام‌ها و افسانهٔ نوروز|Nowruzyň atlary/i, ['sciNowruz'], []],
-    [/ثبت‌های یونسکو|ÝUNESKO belliklerinin/i, ['emKusht','emCarpet','emCulture'], []],
+    [/ملانفس|Mollanepes/i, ['tkMolla','tkLit19'], []],
+    [/کمینه|Kemine/i, ['tkKemine','tkLit19'], []],
+    [/سیدی|Seýdi|زلیلی|Zelili|مطاجی|Mätäji|آزادی|Azady|آندلیب|Andalyp/i, ['tkLit19','wikiTkLit'], []],
+    [/مختومقلی|Magtymguly|فراغی|Pyragy/i, ['magt','tkMagtym'], ['Magtymguly Pyragy']],
+    [/عروسی|toýy|Gelin|گلین|جهیزیه|Sep:|سِپ|آت‌قولاق|At gulak|بازی‌های آیینی|سرپوش دختر/i, ['wedding','wedding2','weddingSci'], [], true],
+    [/سینمای ترکمن: صد سال|دورسون|Dursun|Türkmen kinosy/i, ['tmCinema','wikiCine'], [], true],
+    [/آلتی قارلی‌یف|Alty Garlyýew/i, ['wikiAlty','wikiCine'], [], true],
+    [/گلین \(۱۹۷۲|«Gelin» \(1972/i, ['wikiNarl','wikiCine'], []],
+    [/چاروا و چومور|«ترکمن» و زبان ادبی|ایل‌های بزرگ در منابع|Çarwa we çomur|«Türkmen» ady|Uly tireleriň sanawy/i, ['ehraf','wikiTribe'], [], true],
+    [/موزهٔ دولتی ترکمنستان|Türkmenistanyň Döwlet muzeýi/i, ['musHist','musVirt'], [], true],
+    [/موزهٔ قوم‌نگاری|Etnografiýa we ülkäni/i, ['musEtno'], [], true],
+    [/موزهٔ هنرهای تجسمی|Şekillendiriş sungaty/i, ['musArt'], [], true],
+    [/موزهٔ مجازی|Wirtual muzeý/i, ['musVirt'], [], true],
+    [/کتابخانهٔ دولتی|Döwlet kitaphanasy/i, ['wikiLib'], [], true],
+    [/کنسرواتوار|konserwatoriýasy/i, ['wikiCons'], [], true],
+    [/گردآوری و انواع قصه|Ertekileri ýygnamak/i, ['kitapcy'], [], true],
+    [/نام‌ها و افسانهٔ نوروز|Nowruzyň atlary/i, ['sciNowruz'], [], true],
+    [/ثبت‌های یونسکو|ÝUNESKO belliklerinin/i, ['emKusht','emCarpet','emCulture'], [], true],
     [/ابوالغازی|Abulgazy/i, ['toyo'], ['Abu al-Ghazi Bahadur']],
     [/بیرام خان|Baýram han/i, [], ['Bairam Khan']],
     [/نمد|Keçe/i, [], ['Felt']],
@@ -164,7 +204,11 @@ window.TS_EXT = (function(){
   };
   function sourcesFor(section, text){
     const direct = new Set(), topics = new Set();
-    RULES.forEach(([re, ds, ts]) => { if(re.test(text)){ ds.forEach(x => direct.add(x)); ts.forEach(x => topics.add(x)); } });
+    for(const [re, ds, ts, only] of RULES){
+      if(!re.test(text)) continue;
+      if(only){ return ds.map(id => SRC[id]).concat(ts.slice(0, 2).map(wiki)).slice(0, 4); }
+      ds.forEach(x => direct.add(x)); ts.forEach(x => topics.add(x));
+    }
     const def = SECTION_DEFAULT[section] || [[], []];
     if(!direct.size && !topics.size){ def[0].forEach(x => direct.add(x)); def[1].forEach(x => topics.add(x)); }
     const out = [...direct].map(id => SRC[id]);
@@ -894,6 +938,18 @@ window.TS_EXT = (function(){
   };
 
   /* =======================================================
+     World Turkmens
+     ======================================================= */
+  X.routes.world = {
+    render(d){
+      const w = d.world, q = C().state.query;
+      const cards = w.items.filter(x => !q || C().matches(x.title + ' ' + x.text)).map(x => `<article class="item-card proverb-card reveal" data-srcs="${x.srcs}"><div class="item-head"><span class="icon-wrap"><span class="icon" data-icon="${x.icon}"></span></span><h3>${x.title}</h3></div><p>${x.text}</p>${C().cardTools(x.title)}</article>`).join('');
+      return C().sectionHead(d, 'world', 'compass') + `<div class="dict-note reveal"><span class="icon" data-icon="info"></span><p>${w.ui.intro}</p></div><div class="card-grid proverb-grid">${cards || C().emptyState(L[lang()].noItems)}</div>`;
+    },
+    wire(){}
+  };
+
+  /* =======================================================
      Timeline period filter + scrubber (history)
      ======================================================= */
   const PERIOD_OF = [].concat(Array(4).fill('ancient'), Array(12).fill('medieval'), Array(7).fill('tribes'), Array(4).fill('soviet'), Array(6).fill('modern'));
@@ -954,6 +1010,7 @@ window.TS_EXT = (function(){
     d.calendar.events.forEach(e => push('calendar', e.icon, e.title));
     d.music.instruments.forEach(e => push('music', e.icon, e.title)); d.music.genres.forEach(e => push('music', e.icon, e.title));
     d.folklore.items.forEach(e => push('folklore', e.icon, e.title));
+    (d.world ? d.world.items : []).forEach(e => push('world', e.icon, e.title));
     return out;
   };
   return X;
