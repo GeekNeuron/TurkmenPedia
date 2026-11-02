@@ -6,7 +6,7 @@
    resolved relative to this file's own location.
    ========================================================= */
 
-const CACHE_VERSION = 'turkmenpedia-v6';
+const CACHE_VERSION = 'turkmenpedia-v8';
 
 // Everything the app needs to run with no network, including the 1.2 MB
 // extended dictionary (loaded lazily by the page, cached here up front).
@@ -22,6 +22,7 @@ const APP_SHELL = [
   'js/names.js',
   'js/dictionary.js',
   'js/dictionary-extended-fa.js',
+  'js/map-geo.js',
   'js/sections.js',
   'js/app.js',
   'manifest.json',
@@ -33,6 +34,9 @@ const APP_SHELL = [
   'fonts/Vazirmatn-Black.woff2',
   'icons/icon.svg',
   'icons/icon-192.png',
+  'icons/icon-180.png',
+  'icons/icon-32.png',
+  'icons/icon-16.png',
   'icons/icon-512.png',
   'icons/icon-maskable-192.png',
   'icons/icon-maskable-512.png'
@@ -72,7 +76,18 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Assets: serve from cache instantly, refresh in the background.
+  // Code (JS/CSS/JSON/HTML): network first, so index.html and scripts never get out of sync after a deploy.
+  if (/\.(js|css|json|html)$/.test(url.pathname)) {
+    event.respondWith(
+      fetch(req).then((res) => {
+        if (res && res.ok) { const copy = res.clone(); caches.open(CACHE_VERSION).then((c) => c.put(req, copy)); }
+        return res;
+      }).catch(() => caches.match(req))
+    );
+    return;
+  }
+
+  // Static media (fonts, icons): cache first, refresh in the background.
   event.respondWith(
     caches.match(req).then((cached) => {
       const net = fetch(req).then((res) => {

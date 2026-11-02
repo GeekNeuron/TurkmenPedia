@@ -1046,15 +1046,53 @@ html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after{
 
 /* ---- map ---- */
 .map-wrap{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-l); overflow:hidden; box-shadow:var(--shadow); }
+/* ---- Map: cartographic palette (light / dark) ---- */
+:root{
+  --map-water:#cfe3ea; --map-shore:rgba(120,170,195,.38); --map-grat:rgba(42,29,21,.07); --map-tick:rgba(42,29,21,.42);
+  --map-ctry:#e9e3d6; --map-ctry-line:#b9ae98; --map-tm:#f7ecd2; --map-tm-line:#9C2B2E;
+  --map-vel-line:rgba(156,43,46,.38); --map-lake:#bcd8e3; --map-river:#7eaec2;
+  --map-sand:rgba(214,170,92,.24); --map-dune:rgba(168,120,52,.38); --map-mount:rgba(120,92,66,.24);
+  --map-halo:#fffcf6; --map-label:#6b5a48;
+}
+[data-theme="dark"]{
+  --map-water:#102329; --map-shore:rgba(70,130,150,.28); --map-grat:rgba(243,233,218,.07); --map-tick:rgba(243,233,218,.4);
+  --map-ctry:#241b12; --map-ctry-line:#4a3b29; --map-tm:#33261a; --map-tm-line:#D9636A;
+  --map-vel-line:rgba(217,99,106,.42); --map-lake:#0c1b20; --map-river:#3f7f95;
+  --map-sand:rgba(224,172,82,.12); --map-dune:rgba(224,172,82,.28); --map-mount:rgba(201,183,159,.16);
+  --map-halo:#181109; --map-label:#c9b79f;
+}
+.map-water{ fill:var(--map-water); }
+.map-shore{ fill:var(--map-water); stroke:var(--map-shore); stroke-width:7; stroke-linejoin:round; }
+.map-grat{ stroke:var(--map-grat); stroke-width:1; shape-rendering:crispEdges; }
+.map-tick{ font-size:9px; fill:var(--map-tick); pointer-events:none; direction:ltr; }
+.map-ctry{ fill:var(--map-ctry); stroke:var(--map-ctry-line); stroke-width:.8; stroke-linejoin:round; }
+.map-tm{ fill:var(--map-tm); animation:fade-in .9s var(--ease) backwards; }
+.map-tm-border{ fill:none; stroke:var(--map-tm-line); stroke-width:1.9; stroke-linejoin:round; pointer-events:none; }
+.map-vel{ fill:none; stroke:var(--map-vel-line); stroke-width:1; stroke-dasharray:5 3; stroke-linejoin:round; }
+.map-karakum{ fill:var(--map-sand); }
+.map-dune-dot{ fill:var(--map-dune); }
+.map-kopet{ fill:var(--map-mount); }
+.map-lake{ fill:var(--map-lake); stroke:var(--map-river); stroke-width:.8; }
+.map-river{ fill:none; stroke:var(--map-river); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+.map-vel-label{ font-size:11px; font-weight:800; fill:var(--map-tm-line); opacity:.6; pointer-events:none; paint-order:stroke; stroke:var(--map-tm); stroke-width:2.5px; }
+.map-water-name{ font-size:9.5px; font-style:italic; fill:#4f8aa2; pointer-events:none; paint-order:stroke; stroke:var(--map-water); stroke-width:2.5px; }
+[data-theme="dark"] .map-water-name{ fill:#7fb7cc; }
+.map-feat{ font-size:11px; font-style:italic; fill:var(--map-label); opacity:.75; pointer-events:none; }
+.map-feat-mount{ font-weight:700; }
+.map-ctx-dot{ fill:var(--map-halo); stroke:var(--map-label); stroke-width:1.4; }
+.map-ctx.own .map-ctx-dot{ stroke:var(--map-tm-line); }
+.map-ctx-name{ font-size:10.5px; font-weight:600; fill:var(--map-label); pointer-events:none; paint-order:stroke; stroke:var(--map-halo); stroke-width:3px; stroke-linejoin:round; }
+.map-scale path{ fill:none; stroke:var(--map-label); stroke-width:1.4; }
+.map-scale text{ font-size:10px; fill:var(--map-label); }
+.map-north path{ fill:var(--map-label); opacity:.8; }
+.map-north text{ font-size:10px; font-weight:700; fill:var(--map-label); }
+.map-geo{ paint-order:stroke; stroke:var(--map-halo); stroke-width:2.5px; }
 #tsMap{ display:block; width:100%; height:auto; }
-.map-land{ fill:var(--bg); }
-.map-sea{ fill:rgba(var(--accent-rgb),.22); stroke:rgba(var(--accent-rgb),.5); stroke-width:1.2; }
-.map-tm{ fill:rgba(var(--secondary-rgb),.13); stroke:var(--secondary); stroke-width:2; stroke-linejoin:round; stroke-dasharray:1400; animation:map-draw 1.6s var(--ease) backwards; }
 @keyframes map-draw{ from{ stroke-dashoffset:1400; fill-opacity:0; } to{ stroke-dashoffset:0; } }
 .map-geo{ font-size:11px; fill:var(--ink-soft); opacity:.55; letter-spacing:.04em; pointer-events:none; }
 .map-area{ opacity:.26; stroke:none; cursor:pointer; transform-box:fill-box; transform-origin:center; transition:opacity var(--dur-2) var(--ease), transform var(--dur-2) var(--ease); animation:fade-in .9s var(--ease) backwards; animation-delay:calc(var(--i) * 120ms + 500ms); }
 .map-area:hover, .map-area:focus-visible, .map-area.sel{ opacity:.5; transform:scale(1.04); outline:none; }
-.map-area-label{ font-size:12px; font-weight:800; fill:var(--ink); opacity:.7; pointer-events:none; paint-order:stroke; stroke:var(--bg); stroke-width:3px; }
+.map-area-label{ font-size:12px; font-weight:800; fill:var(--ink); opacity:.7; pointer-events:none; paint-order:stroke; stroke:var(--map-halo); stroke-width:3px; }
 .layer-tribe, .map-pin, .map-name{ transition:opacity var(--dur-2) var(--ease); }
 .layer-tribe.off, .map-pin.off, .map-name.off{ opacity:0; pointer-events:none; }
 .map-pin{ cursor:pointer; outline:none; }
@@ -1193,7 +1231,7 @@ html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after{
 .cal-num{ align-self:flex-start; min-width:26px; height:26px; padding:0 6px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; font-size:.88rem; font-weight:800; font-variant-numeric:tabular-nums; }
 .cal-sec{ position:absolute; top:7px; inset-inline-end:8px; font-size:.64rem; color:var(--ink-soft); opacity:.85; }
 .cal-evs{ display:flex; flex-direction:column; gap:2px; margin-top:2px; min-width:0; }
-.cal-chip{ font-style:normal; font-size:.64rem; font-weight:700; line-height:1.35; padding:1px 6px; border-radius:6px; background:color-mix(in srgb, var(--tc) 18%, transparent); color:var(--tc); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cal-chip{ font-style:normal; font-size:.64rem; font-weight:700; line-height:1.35; padding:1px 6px; border-radius:6px; background:var(--surface-2,rgba(128,128,128,.14)); background:color-mix(in srgb, var(--tc) 18%, transparent); color:var(--tc); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .cal-more{ font-style:normal; font-size:.62rem; color:var(--ink-soft); padding-inline-start:4px; }
 .cal-legend{ display:flex; flex-wrap:wrap; gap:14px; margin:12px 2px 4px; font-size:.76rem; color:var(--ink-soft); }
 .cal-legend span{ display:inline-flex; align-items:center; gap:6px; }
@@ -1209,7 +1247,7 @@ html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after{
 .cal-ev > .icon{ width:22px; height:22px; flex:none; color:var(--tc); margin-top:2px; }
 .cal-ev h4{ font-size:.95rem; font-weight:800; display:inline; margin-inline-end:8px; }
 .cal-ev p{ font-size:.85rem; line-height:1.85; color:var(--ink-soft); margin-top:4px; }
-.cal-tag{ display:inline-block; font-size:.66rem; font-weight:800; padding:2px 9px; border-radius:999px; background:color-mix(in srgb, var(--tc,var(--ink-soft)) 16%, transparent); color:var(--tc,var(--ink-soft)); margin-inline-end:4px; }
+.cal-tag{ display:inline-block; font-size:.66rem; font-weight:800; padding:2px 9px; border-radius:999px; background:var(--surface-2,rgba(128,128,128,.14)); background:color-mix(in srgb, var(--tc,var(--ink-soft)) 16%, transparent); color:var(--tc,var(--ink-soft)); margin-inline-end:4px; }
 .cal-tag.lunar{ --tc:#7a4f9a; }
 .cal-none{ font-size:.85rem; color:var(--ink-soft); padding:8px 2px; }
 .cal-list{ display:flex; flex-direction:column; gap:6px; }
@@ -1260,7 +1298,7 @@ html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after{
 .cal-stat.work{ border-color:var(--secondary); }
 .cal-row{ grid-template-columns:62px 1fr auto; align-items:start; padding:10px 12px; }
 .cal-row.past{ opacity:.6; } .cal-row.now{ box-shadow:0 0 0 2px var(--tc); }
-.cal-rdate{ display:flex; flex-direction:column; align-items:center; gap:2px; background:color-mix(in srgb, var(--tc) 14%, transparent); border-radius:10px; padding:6px 2px; }
+.cal-rdate{ display:flex; flex-direction:column; align-items:center; gap:2px; background:var(--surface-2,rgba(128,128,128,.14)); background:color-mix(in srgb, var(--tc) 14%, transparent); border-radius:10px; padding:6px 2px; }
 .cal-rdate b{ font-size:1.05rem; color:var(--tc); }
 .cal-rdate small{ font-size:.62rem; color:var(--ink-soft); }
 .cal-rbody{ display:flex; flex-direction:column; gap:3px; min-width:0; }
@@ -1331,3 +1369,19 @@ html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after{
 .riddle-ans{ font-size:1rem; font-weight:800; color:var(--accent); animation:rise-in var(--dur-3) var(--ease); }
 .riddle-tr{ font-size:.84rem; color:var(--ink-soft); line-height:1.85; }
 .proverb-grid{ align-items:start; }
+
+
+/* Long pages (folklore, names, calendar): skip layout/paint work for off-screen cards */
+.item-card, .proverb-card, .riddle-card, .name-card, .cal-row { content-visibility:auto; contain-intrinsic-size:auto 120px; }
+/* Visible keyboard focus for div-based links */
+.explore-card:focus-visible, .global-result-item:focus-visible { outline:2px solid var(--accent, #9C2B2E); outline-offset:2px; }
+
+html[lang="tk"] .map-vel-label{ letter-spacing:.14em; text-transform:uppercase; }
+html[lang="tk"] .map-feat, html[lang="tk"] .map-geo{ letter-spacing:.1em; }
+html[lang="fa"] .map-geo, html[lang="fa"] .map-feat{ letter-spacing:0; }
+/* tribe areas: lighter so the real geography stays readable */
+.map-area{ opacity:.17; }
+.map-area:hover, .map-area:focus-visible, .map-area.sel{ opacity:.42; }
+.map-feat-water{ fill:#4f8aa2; opacity:.9; letter-spacing:0; paint-order:stroke; stroke:var(--map-water); stroke-width:2.5px; }
+[data-theme="dark"] .map-feat-water{ fill:#7fb7cc; }
+.map-credit{ margin-top:6px; font-size:.74rem; color:var(--ink-soft); opacity:.8; }

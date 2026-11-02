@@ -6,12 +6,19 @@
 (function(){
   'use strict';
 
+  /* localStorage can throw (blocked cookies, some private modes). Fall back to memory. */
+  const LS = (function(){
+    try{ const t = '__ts_probe'; window.LS.setItem(t, '1'); window.LS.removeItem(t); return window.localStorage; }
+    catch(e){ const m = {}; return { getItem:k => (k in m ? m[k] : null), setItem:(k, v) => { m[k] = String(v); }, removeItem:k => { delete m[k]; } }; }
+  })();
+  const prefersDark = () => { try{ return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); }catch(e){ return false; } };
+
   const state = {
-    lang: localStorage.getItem('ts-lang') || 'fa',
-    theme: localStorage.getItem('ts-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
-    fontSize: localStorage.getItem('ts-font-size') || 'medium',
-    contrast: localStorage.getItem('ts-contrast') === 'true',
-    readerMode: localStorage.getItem('ts-reader-mode') === 'true',
+    lang: LS.getItem('ts-lang') || 'fa',
+    theme: LS.getItem('ts-theme') || (prefersDark() ? 'dark' : 'light'),
+    fontSize: LS.getItem('ts-font-size') || 'medium',
+    contrast: LS.getItem('ts-contrast') === 'true',
+    readerMode: LS.getItem('ts-reader-mode') === 'true',
     route: 'dashboard',
     query: '',
     dictView: 'topic',
@@ -21,7 +28,7 @@
     namesCat: 'all',
     namesGen: false,
     gnTribe: null,
-    quiz: { index:0, score:0, answered:false, selected:null, finished:false }
+    quiz: { index:0, score:0, answered:false, selected:null, finished:false, perms:{} }
   };
 
   const el = {
@@ -98,7 +105,7 @@
      --------------------------------------------------------- */
   function applyTheme(){
     el.html.setAttribute('data-theme', state.theme);
-    localStorage.setItem('ts-theme', state.theme);
+    LS.setItem('ts-theme', state.theme);
     const meta = document.querySelector('meta[name="theme-color"]');
     if(meta) meta.setAttribute('content', state.theme === 'dark' ? '#181109' : '#F4EDE1');
   }
@@ -114,20 +121,20 @@
      --------------------------------------------------------- */
   function applyFontSize(){
     el.html.setAttribute('data-font-size', state.fontSize);
-    localStorage.setItem('ts-font-size', state.fontSize);
+    LS.setItem('ts-font-size', state.fontSize);
     [...el.fontSizeControl.children].forEach(btn=>{
       btn.classList.toggle('active', btn.dataset.size === state.fontSize);
     });
   }
   function applyContrast(){
     el.html.setAttribute('data-contrast', state.contrast ? 'true' : 'false');
-    localStorage.setItem('ts-contrast', state.contrast ? 'true' : 'false');
+    LS.setItem('ts-contrast', state.contrast ? 'true' : 'false');
     el.contrastToggle.setAttribute('aria-checked', state.contrast ? 'true' : 'false');
     el.contrastToggle.classList.toggle('on', state.contrast);
   }
   function applyReaderMode(){
     el.html.setAttribute('data-reader-mode', state.readerMode ? 'true' : 'false');
-    localStorage.setItem('ts-reader-mode', state.readerMode ? 'true' : 'false');
+    LS.setItem('ts-reader-mode', state.readerMode ? 'true' : 'false');
     el.readerModeToggle.setAttribute('aria-checked', state.readerMode ? 'true' : 'false');
     el.readerModeToggle.classList.toggle('on', state.readerMode);
   }
@@ -145,8 +152,25 @@
     state.readerMode = !state.readerMode;
     applyReaderMode();
   });
-  function openSettings(){ el.settingsOverlay.classList.add('open'); }
-  function closeSettings(){ el.settingsOverlay.classList.remove('open'); }
+  let settingsReturnFocus = null;
+  function openSettings(){
+    settingsReturnFocus = document.activeElement;
+    el.settingsOverlay.classList.add('open');
+    setTimeout(()=> el.settingsCloseBtn.focus(), 30);
+  }
+  function closeSettings(){
+    if(!el.settingsOverlay.classList.contains('open')) return;
+    el.settingsOverlay.classList.remove('open');
+    if(settingsReturnFocus && settingsReturnFocus.focus) settingsReturnFocus.focus();
+  }
+  el.settingsPanel.addEventListener('keydown', (e)=>{
+    if(e.key !== 'Tab') return;
+    const f = [...el.settingsPanel.querySelectorAll('button:not([hidden]), [href], input, select, [tabindex]:not([tabindex="-1"])')].filter(x => !x.disabled);
+    if(!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  });
   el.settingsBtn.addEventListener('click', openSettings);
   el.settingsCloseBtn.addEventListener('click', closeSettings);
   el.settingsOverlay.addEventListener('click', (e)=>{ if(e.target === el.settingsOverlay) closeSettings(); });
@@ -166,7 +190,7 @@
 
   function setLang(lang){
     state.lang = lang;
-    localStorage.setItem('ts-lang', lang);
+    LS.setItem('ts-lang', lang);
     applyLangAttrs();
     buildNav();
     applySettingsLabels();
@@ -283,7 +307,9 @@
     const raw = location.hash.replace('#','');
     const qIndex = raw.indexOf('?q=');
     if(qIndex === -1) return { route: raw, query: '' };
-    return { route: raw.slice(0, qIndex), query: decodeURIComponent(raw.slice(qIndex + 3)) };
+    let q = raw.slice(qIndex + 3);
+    try{ q = decodeURIComponent(q); }catch(e){ /* malformed %-escape: keep the raw text instead of crashing */ }
+    return { route: raw.slice(0, qIndex), query: q };
   }
 
   function navigateTo(route, query){
@@ -313,7 +339,7 @@
   }
 
   window.addEventListener('hashchange', ()=>{
-    localStorage.setItem('ts-last-route', parseHash().route);
+    LS.setItem('ts-last-route', parseHash().route);
     applyHash();
     closeMobileSearch();
   });
@@ -341,10 +367,16 @@
     return dp[n];
   }
 
+  const norm = (t) => String(t || '').toLowerCase()
+    .replace(/[\u064A\u0649]/g, '\u06CC').replace(/\u0643/g, '\u06A9')
+    .replace(/[\u064B-\u065F\u0670\u0640\u200C\u200F\u200E]/g, '')
+    .replace(/[\u06F0-\u06F9]/g, c => String(c.charCodeAt(0) - 0x06F0))
+    .replace(/[\u0660-\u0669]/g, c => String(c.charCodeAt(0) - 0x0660));
+
   function looseMatch(str, query){
     if(!query) return true;
     if(!str) return false;
-    const s = str.toLowerCase();
+    const s = norm(str); query = norm(query);
     if(s.includes(query)) return true;
     if(query.length < 3 || s.length > 60) return false;
     const threshold = query.length >= 6 ? 2 : 1;
@@ -364,7 +396,18 @@
   /* The 1.2 MB extended dictionary is loaded on demand (and at idle time),
      so the first paint never waits for it. */
   const extReady = () => typeof DICTIONARY_EXTENDED_FA !== 'undefined';
-  let extLoading = null;
+  let extLoading = null, extCache = null;
+  function extList(){
+    if(extCache) return extCache;
+    const seen = new Set();
+    extCache = DICTIONARY_EXTENDED_FA.filter(e => { const k = e.tk + '|' + e.pos + '|' + e.fa; if(seen.has(k)) return false; seen.add(k); return true; });
+    return extCache;
+  }
+  const POS_LABEL = {
+    fa:{ n:'اسم', v:'فعل', adj:'صفت', adv:'قید', 'ph. v.':'عبارت فعلی', comp:'ترکیب', 'comp n':'ترکیب اسمی', 'comp adj':'ترکیب وصفی', 'comp adv':'ترکیب قیدی', 'comp v':'ترکیب فعلی', 'comp pron':'ترکیب ضمیری', 'comp superl':'ترکیب عالی', caus:'فعل سببی', 'v caus':'فعل سببی', interj:'شبه‌جمله', conj:'حرف ربط', num:'عدد', pron:'ضمیر', particle:'حرف', sfx:'پسوند', 'conj sfx':'پسوند ربطی', superl:'صفت عالی', 'der.':'مشتق', dem:'اشاره' },
+    tk:{ n:'at', v:'işlik', adj:'sypat', adv:'hal', 'ph. v.':'işlik ibora', comp:'goşma', 'comp n':'goşma at', 'comp adj':'goşma sypat', 'comp adv':'goşma hal', 'comp v':'goşma işlik', 'comp pron':'goşma çalyşma', 'comp superl':'goşma artykmaç', caus:'işlik (etdirýän)', 'v caus':'işlik (etdirýän)', interj:'sesleme', conj:'baglaýjy', num:'san', pron:'çalyşma', particle:'ýöňkeme', sfx:'goşulma', 'conj sfx':'goşulma', superl:'artykmaç', 'der.':'önüm', dem:'görkeziji' }
+  };
+  const posLabel = p => (p && (POS_LABEL[state.lang][p] || p)) || '';
   function loadExt(){
     if(extReady()) return Promise.resolve();
     if(!extLoading){
@@ -400,7 +443,7 @@
     DICTIONARY.categories.forEach(cat=>{
       cat.words.forEach(w=> idx.push({ section:'dictionary', label: d.nav.dictionary, title: w.tk + ' — ' + w.fa, icon:'translate' }));
     });
-    if(extReady()) DICTIONARY_EXTENDED_FA.forEach(e=>{
+    if(extReady()) extList().forEach(e=>{
       idx.push({ section:'dictionary', label: d.nav.dictionary, title: e.tk + ' — ' + e.fa, icon:'translate' });
     });
     searchIndexCache[state.lang] = idx;
@@ -414,7 +457,8 @@
     if(!q){ hideGlobalResults(); return; }
     const d = DATA[state.lang];
     const idx = buildSearchIndex(d);
-    const results = idx.filter(it => it.section !== state.route && it.title.toLowerCase().includes(q)).slice(0, 8);
+    const nq = norm(q);
+    const results = idx.filter(it => it.section !== state.route && norm(it.title).includes(nq)).slice(0, 8);
     if(!results.length){ hideGlobalResults(); return; }
     el.globalResults.innerHTML = `<div class="global-results-title">${d.ui.globalResultsTitle}</div>` +
       results.map((r, n) => `
@@ -425,7 +469,10 @@
     paintIcons(el.globalResults);
     el.globalResults.hidden = false;
     el.globalResults.querySelectorAll('.global-result-item').forEach(node=>{
-      node.addEventListener('click', ()=>{ const route = node.dataset.route; hideGlobalResults(); navigateTo(route, state.query); });
+      node.setAttribute('role', 'link'); node.tabIndex = 0;
+      const go = ()=>{ const route = node.dataset.route; hideGlobalResults(); navigateTo(route, state.query); };
+      node.addEventListener('click', go);
+      node.addEventListener('keydown', e=>{ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
     });
   }
 
@@ -475,6 +522,11 @@
   /* ---------------------------------------------------------
      Copy-link (deep link to a single card) + report issue
      --------------------------------------------------------- */
+  const ISSUES_URL = 'https://github.com/GeekNeuron/TurkmenPedia/issues/new';
+  const TOOL_LABELS = {
+    fa:{ link:'کپی پیوند', report:'گزارش خطا', src:'منابع', share:'ساخت تصویر' },
+    tk:{ link:'Baglanyşygy göçür', report:'Ýalňyşlygy habar ber', src:'Çeşmeler', share:'Surat döret' }
+  };
   function buildDeepLink(section, title){
     return location.origin + location.pathname + '#' + section + '?q=' + encodeURIComponent(title);
   }
@@ -493,16 +545,19 @@
         const report = `TurkmenPedia — ${d.ui.reportIssue}\n` + d.nav[section] + ' / ' + btn.dataset.reportTitle + '\n' + new Date().toISOString();
         copyText(report);
         showToast(d.ui.linkCopied);
+        const url = ISSUES_URL + '?title=' + encodeURIComponent('[' + d.nav[section] + '] ' + btn.dataset.reportTitle) + '&body=' + encodeURIComponent(report + '\n\n' + buildDeepLink(section, btn.dataset.reportTitle) + '\n\n');
+        window.open(url, '_blank', 'noopener');
       });
     });
     if(window.TS_EXT) TS_EXT.bindCardTools(root, section);
   }
   function cardTools(title){
+    const T = TOOL_LABELS[state.lang], t = String(title).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
     return `<span class="card-tools">
-      <button class="ct-btn" data-copy-title="${title.replace(/"/g,'&quot;')}" title="link"><span class="icon" data-icon="copy"></span></button>
-      <button class="ct-btn" data-report-title="${title.replace(/"/g,'&quot;')}" title="report"><span class="icon" data-icon="mail"></span></button>
-      <button class="ct-btn" data-src title="sources"><span class="icon" data-icon="book"></span></button>
-      <button class="ct-btn" data-share title="share image"><span class="icon" data-icon="image"></span></button>
+      <button type="button" class="ct-btn" data-copy-title="${t}" title="${T.link}" aria-label="${T.link}"><span class="icon" data-icon="copy"></span></button>
+      <button type="button" class="ct-btn" data-report-title="${t}" title="${T.report}" aria-label="${T.report}"><span class="icon" data-icon="mail"></span></button>
+      <button type="button" class="ct-btn" data-src title="${T.src}" aria-label="${T.src}"><span class="icon" data-icon="book"></span></button>
+      <button type="button" class="ct-btn" data-share title="${T.share}" aria-label="${T.share}"><span class="icon" data-icon="image"></span></button>
     </span>`;
   }
 
@@ -939,7 +994,7 @@
     DICTIONARY.categories.forEach(cat => cat.words.forEach(w => rows.push([w.tk, w.faScript, w.fa, cat.id])));
     if(format === 'csv'){
       const csv = toCSV(rows, ['turkmen','persian_script','persian','category']);
-      downloadBlob(csv, 'turkmenpedia-dictionary.csv', 'text/csv;charset=utf-8');
+      downloadBlob('\uFEFF' + csv, 'turkmenpedia-dictionary.csv', 'text/csv;charset=utf-8');
     } else {
       const json = rows.map(r => ({ turkmen:r[0], persian_script:r[1], persian:r[2], category:r[3] }));
       downloadBlob(JSON.stringify(json, null, 2), 'turkmenpedia-dictionary.json', 'application/json');
@@ -1023,8 +1078,8 @@
       loadExt().then(() => { if(state.route === 'dictionary') render(); }).catch(() => {});
       return html + `<div class="empty-state reveal"><span class="icon" data-icon="clock"></span><p>${state.lang === 'fa' ? 'در حال بارگذاری واژه‌نامهٔ گسترده…' : 'Giňeldilen sözlük ýüklenýär…'}</p></div>`;
     }
-    const results = DICTIONARY_EXTENDED_FA.filter(e =>
-      looseMatch(e.tk, q) || e.fa.includes(q) || (e.faScript && e.faScript.includes(q)) || (e.ex && (e.ex.tk.toLowerCase().includes(q) || e.ex.fa.includes(q)))
+    const results = extList().filter(e =>
+      looseMatch(e.tk, q) || norm(e.fa).includes(norm(q)) || (e.faScript && norm(e.faScript).includes(norm(q))) || (e.ex && (norm(e.ex.tk).includes(norm(q)) || norm(e.ex.fa).includes(norm(q))))
     );
     if(!results.length){
       html += `<div class="empty-state reveal"><span class="icon" data-icon="search"></span><p>${d.ui.extNoResults}</p></div>`;
@@ -1040,7 +1095,7 @@
         <div class="ext-card-head">
           <span class="ext-tk">${e.tk}</span>
           ${e.faScript ? `<span class="ext-phon">[${e.faScript}]</span>` : (e.phon ? `<span class="ext-phon">[${e.phon}]</span>` : '')}
-          <span class="ext-pos">${e.pos}</span>
+          ${e.pos ? `<span class="ext-pos">${posLabel(e.pos)}</span>` : ''}
         </div>
         <p class="ext-en">${e.fa}</p>
         ${e.ex ? `<p class="ext-example"><strong>${d.ui.extExampleLabel}</strong> <em>${e.ex.tk}</em> — ${e.ex.fa}</p>` : ''}
@@ -1115,15 +1170,24 @@
 
   /* ---------- Quiz ---------- */
   function resetQuiz(){
-    state.quiz = { index:0, score:0, answered:false, selected:null, finished:false };
+    state.quiz = { index:0, score:0, answered:false, selected:null, finished:false, perms:{} };
+  }
+  function quizPerm(i, n){
+    const p = state.quiz.perms;
+    if(!p[i]){
+      const a = Array.from({ length:n }, (_, k) => k);
+      for(let k = n - 1; k > 0; k--){ const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; }
+      p[i] = a;
+    }
+    return p[i];
   }
   function renderQuiz(d){
     const qz = state.quiz;
     const total = d.quiz.questions.length;
-    const best = parseInt(localStorage.getItem('ts-quiz-best') || '0', 10);
+    const best = parseInt(LS.getItem('ts-quiz-best') || '0', 10);
 
     if(qz.finished){
-      if(qz.score > best) localStorage.setItem('ts-quiz-best', String(qz.score));
+      if(qz.score > best) LS.setItem('ts-quiz-best', String(qz.score));
       const finalBest = Math.max(qz.score, best);
       return sectionHead(d, 'quiz', 'trophy') + `
         <div class="quiz-card reveal quiz-result">
@@ -1135,13 +1199,15 @@
     }
 
     const question = d.quiz.questions[qz.index];
-    const optionsHtml = question.options.map((opt, i) => {
+    const perm = quizPerm(qz.index, question.options.length);   // perm[displayed] = original option index
+    const isRight = (shown) => perm[shown] === question.correct;
+    const optionsHtml = perm.map((orig, i) => {
       let cls = 'quiz-option';
       if(qz.answered){
-        if(i === question.correct) cls += ' correct';
+        if(orig === question.correct) cls += ' correct';
         else if(i === qz.selected) cls += ' wrong';
       }
-      return `<button class="${cls}" data-index="${i}" ${qz.answered ? 'disabled' : ''}>${opt}</button>`;
+      return `<button type="button" class="${cls}" data-index="${i}" ${qz.answered ? 'disabled' : ''}>${question.options[orig]}</button>`;
     }).join('');
 
     return sectionHead(d, 'quiz', 'trophy') + `
@@ -1151,9 +1217,9 @@
         <h3 class="quiz-question">${question.q}</h3>
         <div class="quiz-options">${optionsHtml}</div>
         ${qz.answered ? `
-          <div class="quiz-feedback ${qz.selected === question.correct ? 'ok':'bad'}">
-            <span class="icon" data-icon="${qz.selected === question.correct ? 'check':'x'}"></span>
-            <span>${qz.selected === question.correct ? d.ui.quizCorrect : d.ui.quizWrong + ' ' + question.options[question.correct]}</span>
+          <div class="quiz-feedback ${isRight(qz.selected) ? 'ok':'bad'}">
+            <span class="icon" data-icon="${isRight(qz.selected) ? 'check':'x'}"></span>
+            <span>${isRight(qz.selected) ? d.ui.quizCorrect : d.ui.quizWrong + ' ' + question.options[question.correct]}</span>
           </div>
           <p class="quiz-explain">${question.explain}</p>
           <button class="btn btn-solid" id="quizNextBtn">${qz.index+1 < total ? d.ui.quizNext : d.ui.quizFinish}</button>
@@ -1228,7 +1294,10 @@
       });
     }
     el.content.querySelectorAll('.explore-card[data-route]').forEach(card=>{
-      card.addEventListener('click', ()=>{ location.hash = card.dataset.route; });
+      card.setAttribute('role', 'link'); card.tabIndex = 0;
+      const go = ()=>{ location.hash = card.dataset.route; };
+      card.addEventListener('click', go);
+      card.addEventListener('keydown', e=>{ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
     });
 
     if(state.route === 'genealogy') wireGenealogy();
@@ -1287,7 +1356,7 @@
           const idx = parseInt(btn.dataset.index, 10);
           state.quiz.selected = idx;
           state.quiz.answered = true;
-          if(idx === d.quiz.questions[state.quiz.index].correct) state.quiz.score++;
+          if(quizPerm(state.quiz.index, d.quiz.questions[state.quiz.index].options.length)[idx] === d.quiz.questions[state.quiz.index].correct) state.quiz.score++;
           render();
         });
       });
@@ -1364,7 +1433,7 @@
   function boot(){
     let { route, query } = parseHash();
     if(!validRoutes.includes(route)){
-      const remembered = localStorage.getItem('ts-last-route');
+      const remembered = LS.getItem('ts-last-route');
       route = validRoutes.includes(remembered) ? remembered : 'dashboard';
       query = '';
     }

@@ -39,9 +39,6 @@ window.TS_EXT = (function(){
     yashlarH: { t:['هوودی‌ها (پورتال جوانان ترکمنستان)','Hüwdüler (yashlar.gov.tm)'], u:'https://yashlar.gov.tm/item/2198' },
     atavatanA:{ t:['ضرب‌المثل‌هایی دربارهٔ زبان و سخن، با ترجمهٔ انگلیسی (آتاواتان ترکمنستان)','Dil, söz hakynda nakyllar Iňlis dilinde (Atavatan Türkmenistan)'], u:'https://www.atavatan-turkmenistan.com/dil-soz-hakynda-nakyllar-inlis-dilinde/' },
     atavatanB:{ t:['«گل بی‌خار نیست»؛ درس آتالار سوزی (آتاواتان ترکمنستان)','Atalar sözi: Tikensiz gül bolmaz, zähersiz bal (Atavatan Türkmenistan)'], u:'https://atavatan-turkmenistan.com/atalar-sozi-tikensiz-gul-bolmaz-zahersiz-bal/' },
-    orientRid:{ t:['معماهای ترکمن (Orient.tm)','Türkmen tapmaçalary (Orient.tm)'], u:'https://orient.tm/turkmenskie-zagadki-i-hitrye-voprosy-ot-nekotoryh-narodov-mira/' },
-    orientHuw:{ t:['هوودی، لالایی-تعویذ (Orient.tm)','Hüwdi — aýdym-oberegi (Orient.tm)'], u:'https://orient.tm/pesni-oberegi-turkmenskaya-huvdi-v-animacionnoj-serii-kolybelnye-mira/' },
-    inash:    { t:['هوودی چیست؟ (InAshgabat)','Hüwdi näme? (InAshgabat)'], u:'https://ashgabat.in/2021/11/20/huwdi-name/' },
     azaColl:  { t:['تاریخ گردآوری ضرب‌المثل‌های ترکمن (رادیو آزادلیق)','Nakyllary we atalar sözüni ýygnamagyň taryhy (Azatlyk radiosy)'], u:'https://www.azathabar.com/a/29706364.html' },
     carpetU:  { t:['قالی‌بافی سنتی ترکمن — پروندهٔ یونسکو (۲۰۱۹)','Türkmen halyçylyk sungaty — ÝUNESKO resminamasy (2019)'], u:'https://ich.unesco.org/en/RL/traditional-turkmen-carpet-making-art-in-turkmenistan-01486' },
     whc:      { t:['میراث جهانی یونسکو — ترکمنستان','ÝUNESKO Bütindünýä mirasy — Türkmenistan'], u:'https://whc.unesco.org/en/statesparties/tm' },
@@ -309,13 +306,13 @@ window.TS_EXT = (function(){
   /* =======================================================
      MAP
      ======================================================= */
-  const VB = { w:800, lonMin:51.4, lonMax:68.2, latMin:34.2, latMax:43.4 };
-  const KX = VB.w / (VB.lonMax - VB.lonMin), KY = KX / Math.cos(39 * Math.PI / 180);
-  VB.h = Math.round((VB.latMax - VB.latMin) * KY);
-  const px = lon => ((lon - VB.lonMin) * KX).toFixed(1), py = lat => ((VB.latMax - lat) * KY).toFixed(1);
-  const poly = pts => pts.map(p => px(p[0]) + ',' + py(p[1])).join(' ');
-  const TM_OUTLINE = [[52.9,42.0],[54.7,42.0],[56.0,41.3],[57.1,41.3],[58.5,42.0],[59.3,42.3],[60.0,41.4],[61.0,41.2],[62.2,39.9],[63.5,39.4],[64.2,38.9],[65.2,38.4],[66.0,37.4],[66.5,37.35],[65.5,37.2],[64.5,36.3],[63.1,35.85],[61.2,36.6],[60.4,36.5],[59.3,37.5],[58.4,37.7],[57.4,37.95],[56.5,38.2],[55.4,38.1],[54.7,37.5],[53.9,37.35],[53.7,38.5],[53.0,39.3],[53.1,40.3],[52.8,41.0],[53.0,41.4]];
-  const CASPIAN = [[51.4,43.4],[52.9,42.0],[53.0,41.4],[52.8,41.0],[53.1,40.3],[53.0,39.3],[53.7,38.5],[53.9,37.35],[54.0,36.9],[53.0,36.8],[51.4,36.7]];
+  const G = window.TS_GEO || { vb:{ w:800, h:564, lonMin:51.4, lonMax:68.2, latMin:34.2, latMax:43.4 }, countries:{}, velayats:[], lakes:[], rivers:[], places:[], labels:[], kopet:'', karakum:'', karakumCore:'' };
+  const VB = G.vb;                                   // Web Mercator view, built by tools/build-map-geo.py
+  const KX = VB.w / (VB.lonMax - VB.lonMin);         // px per degree of longitude
+  const mercY = lat => Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360));
+  const SY = KX * 180 / Math.PI;
+  const px = lon => ((lon - VB.lonMin) * KX).toFixed(1), py = lat => ((mercY(VB.latMax) - mercY(lat)) * SY).toFixed(1);
+  const kyAt = lat => KX / Math.cos(lat * Math.PI / 180);   // px per degree of latitude at this latitude
   const KIND_COLOR = { city:'var(--primary)', heritage:'var(--secondary)', history:'#7a4f9a', nature:'#3f8a5b', iran:'var(--accent)' };
   const AREA_COLOR = { teke:'#9a2b2b', yomut:'#2c6e8f', ersari:'#b8741a', saryk:'#4d8a4a', salor:'#7a4f9a', chowdur:'#8a5a44' };
   const mapState = { layers:{ city:true, heritage:true, history:true, nature:true, iran:true, tribe:true }, sel:null };
@@ -324,30 +321,66 @@ window.TS_EXT = (function(){
     render(d){
       const m = d.map, u = m.ui;
       const chips = Object.keys(u.layers).map(k => `<button type="button" class="map-chip${mapState.layers[k] ? ' on' : ''}" data-layer="${k}"><i style="background:${k === 'tribe' ? 'linear-gradient(90deg,#9a2b2b,#2c6e8f,#b8741a)' : KIND_COLOR[k]}"></i>${u.layers[k]}</button>`).join('');
-      const areas = m.areas.map((a, i) => `<ellipse class="map-area" data-area="${a.id}" tabindex="0" role="button" aria-label="${esc(a.title)}" cx="${px(a.lon)}" cy="${py(a.lat)}" rx="${(a.r * KX).toFixed(1)}" ry="${(a.r * KY).toFixed(1)}" fill="${AREA_COLOR[a.id]}" style="--i:${i}"/>`).join('');
+      const areas = m.areas.map((a, i) => `<ellipse class="map-area" data-area="${a.id}" tabindex="0" role="button" aria-label="${esc(a.title)}" cx="${px(a.lon)}" cy="${py(a.lat)}" rx="${(a.r * KX).toFixed(1)}" ry="${(a.r * kyAt(a.lat)).toFixed(1)}" fill="${AREA_COLOR[a.id]}" style="--i:${i}"/>`).join('');
       const labels = m.areas.map(a => `<text class="map-area-label" x="${px(a.lon)}" y="${py(a.lat - a.r * 0.8)}" text-anchor="middle">${a.title}</text>`).join('');
       const pts = m.points.map((p, i) => `<g class="map-pin kind-${p.kind}" data-pt="${p.id}" tabindex="0" role="button" aria-label="${esc(p.title)}" transform="translate(${px(p.lon)} ${py(p.lat)})" style="--i:${i}"><circle r="15" class="hit"/><circle r="7" fill="${KIND_COLOR[p.kind]}" class="dot"/><circle r="7" class="pulse" fill="none" stroke="${KIND_COLOR[p.kind]}"/></g>`).join('');
-      const NAME_POS = { gokdepe:[-11,-8,'end'], nisa:[-11,16,'end'], ashgabat:[11,-8,'start'], altyn:[11,16,'start'], torkaman:[-11,4,'end'], gonbad:[-11,4,'end'], turkmenbashy:[11,-6,'start'] };
+      const NAME_POS = { gokdepe:[-11,-8,'end'], nisa:[-11,16,'end'], ashgabat:[11,-8,'start'], altyn:[11,16,'start'], torkaman:[-11,4,'end'], maraveh:[-11,-10,'end'], gonbad:[-11,4,'end'], turkmenbashy:[11,-6,'start'] };
       const names = m.points.map(p => { const o = NAME_POS[p.id] || [11, 4, 'start']; return `<text class="map-name kind-${p.kind}" x="${+px(p.lon) + o[0]}" y="${+py(p.lat) + o[1]}" text-anchor="${o[2]}">${p.title.replace(/\s*\(.*\)/, '')}</text>`; }).join('');
+      const lg = lang(), nmOf = o => o[lg];
+      let grat = '';
+      for(let lo = 52; lo <= 68; lo += 2) grat += `<line class="map-grat" x1="${px(lo)}" y1="0" x2="${px(lo)}" y2="${VB.h}"/><text class="map-tick" x="${+px(lo) + 3}" y="11">${lo}°E</text>`;
+      for(let la = 35; la <= 43; la++) grat += `<line class="map-grat" x1="0" y1="${py(la)}" x2="${VB.w}" y2="${py(la)}"/><text class="map-tick" x="4" y="${+py(la) - 3}">${la}°N</text>`;
+      const ctry = ['KAZ', 'UZB', 'TJK', 'AFG', 'IRN'].map(k => G.countries[k] ? `<path class="map-ctry" d="${G.countries[k]}"/>` : '').join('');
+      const shore = Object.keys(G.countries).map(k => `<path class="map-shore" d="${G.countries[k]}"/>`).join('');
+      const vels = G.velayats.map(v => `<path class="map-vel" d="${v.d}"/>`).join('');
+      const velLabels = G.velayats.map(v => `<text class="map-vel-label" x="${px(v.lon)}" y="${py(v.lat)}" text-anchor="middle">${nmOf(v)}</text>`).join('');
+      const lakes = G.lakes.map(l => `<path class="map-lake" d="${l.d}"/>`).join('');
+      const rivers = G.rivers.map(r => `<path class="map-river" d="${r.d}"/>`).join('');
+      const waterNames = G.lakes.map(l => `<text class="map-water-name" x="${px(l.lon)}" y="${py(l.lat)}" text-anchor="middle">${nmOf(l)}</text>`).join('') +
+        G.rivers.filter(r => r.lon).map(r => `<text class="map-water-name" x="${px(r.lon)}" y="${py(r.lat)}" text-anchor="middle" transform="rotate(${r.rot} ${px(r.lon)} ${py(r.lat)}) translate(0 -4)">${nmOf(r)}</text>`).join('');
+      const feat = G.labels.map(f => `<text class="map-feat map-feat-${f.cls}" x="${px(f.lon)}" y="${py(f.lat)}" text-anchor="middle" transform="rotate(${f.rot} ${px(f.lon)} ${py(f.lat)})">${nmOf(f)}</text>`).join('');
+      const near = (p, q) => Math.abs(p.lon - q.lon) < 0.45 && Math.abs(p.lat - q.lat) < 0.3;
+      const ctx = G.places.filter(p => !m.points.some(q => near(p, q))).map(p => `<g class="map-ctx${p.own ? ' own' : ''}"><circle class="map-ctx-dot" cx="${px(p.lon)}" cy="${py(p.lat)}" r="${p.own ? 3 : 2.6}"/><text class="map-ctx-name" x="${+px(p.lon) + 6}" y="${+py(p.lat) + 3.5}">${nmOf(p)}</text></g>`).join('');
+      const kmPx = KX / (111.32 * Math.cos(39 * Math.PI / 180)), bar = Math.round(200 * kmPx), by = VB.h - 16;
+      const scale = `<g class="map-scale" transform="translate(16 ${by})"><path d="M0 0v-5M0 0h${bar}M${bar} 0v-5M${bar / 2} 0v-3"/><text x="0" y="-9">${lg === 'fa' ? '۲۰۰ کیلومتر' : '200 km'}</text></g><g class="map-north" transform="translate(${VB.w - 26} 34)"><path d="M0 -14L6 6L0 2L-6 6Z"/><text y="20" text-anchor="middle">N</text></g>`;
       return C().sectionHead(d, 'map', 'pin') + `
         <p class="x-intro reveal">${u.intro}</p>
         <div class="map-chips reveal">${chips}</div>
         <div class="map-wrap reveal">
           <svg id="tsMap" viewBox="0 0 ${VB.w} ${VB.h}" role="img" aria-label="${d.nav.map}">
-            <rect width="${VB.w}" height="${VB.h}" class="map-land"/>
-            <polygon points="${poly(CASPIAN)}" class="map-sea"/>
-            <text class="map-geo" x="${px(52.15)}" y="${py(38.7)}" text-anchor="middle">${u.caspian}</text>
+            <defs>
+              <clipPath id="tmClip"><path d="${G.countries.TKM || ''}"/></clipPath>
+              <filter id="mapBlur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="11"/></filter>
+              <pattern id="mapDunes" width="10" height="10" patternUnits="userSpaceOnUse"><circle class="map-dune-dot" cx="2" cy="2.5" r=".9"/><circle class="map-dune-dot" cx="7" cy="7.5" r=".9"/></pattern>
+            </defs>
+            <rect width="${VB.w}" height="${VB.h}" class="map-water"/>
+            ${grat}
+            ${shore}
+            ${ctry}
+            <path d="${G.countries.TKM || ''}" class="map-tm"/>
+            <g clip-path="url(#tmClip)">
+              <path d="${G.karakum}" class="map-karakum" filter="url(#mapBlur)"/>
+              <path d="${G.karakumCore}" fill="url(#mapDunes)" opacity=".55"/>
+              <g class="map-vels">${vels}</g>
+            </g>
+            <path d="${G.kopet}" class="map-kopet" filter="url(#mapBlur)"/>
+            ${lakes}${rivers}
+            <path d="${G.countries.TKM || ''}" class="map-tm-border"/>
+            <text class="map-geo" x="${px(52.5)}" y="${py(38.7)}" text-anchor="middle">${u.caspian}</text>
             <text class="map-geo" x="${px(56.5)}" y="${py(35.3)}" text-anchor="middle">${u.iranLabel}</text>
             <text class="map-geo" x="${px(64.2)}" y="${py(35.1)}" text-anchor="middle">${u.afgLabel}</text>
-            <text class="map-geo" x="${px(65.3)}" y="${py(41.3)}" text-anchor="middle">${u.uzbLabel}</text>
+            <text class="map-geo" x="${px(65.9)}" y="${py(41.6)}" text-anchor="middle">${u.uzbLabel}</text>
             <text class="map-geo" x="${px(56.3)}" y="${py(43.0)}" text-anchor="middle">${u.kazLabel}</text>
-            <polygon points="${poly(TM_OUTLINE)}" class="map-tm"/>
+            ${velLabels}${feat}${waterNames}
             <g class="layer-tribe${mapState.layers.tribe ? '' : ' off'}">${areas}${labels}</g>
+            <g class="map-ctx-layer">${ctx}</g>
             <g class="layer-pins">${pts}${names}</g>
+            ${scale}
           </svg>
         </div>
         <div class="map-detail" id="mapDetail"><p class="map-hint">${u.tapHint}</p></div>
-        <p class="x-note reveal">${u.tribeNote}</p>`;
+        <p class="x-note reveal">${u.tribeNote}</p>
+        <p class="map-credit">${lang() === 'fa' ? 'مرزها، رودها و دریاچه‌ها: Natural Earth (مالکیت عمومی). سایهٔ بیابان و کوهستان تقریبی است.' : 'Borders, rivers and lakes: Natural Earth (public domain). Desert and mountain shading is approximate.'}</p>`;
     },
     wire(){
       const d = D(), m = d.map, u = m.ui, root = C().el.content;

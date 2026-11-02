@@ -85,7 +85,7 @@
     ['yomut',38.6,54.7,1.1,['یموت','Ýomut'],['نواحی غربی و کرانهٔ خزر و بخش‌هایی از ترکمن‌صحرا.','Günbatar sebitler, Hazar kenary we Türkmen sährasynyň käbir bölekleri.']],
     ['ersari',38.9,63.8,1.2,['ارساری','Ärsary'],['کرانه‌های آمودریا و ولایت لبپ.','Amyderýanyň ýakalary we Lebap welaýaty.']],
     ['saryk',36.9,62.3,0.9,['ساریق','Saryk'],['جنوب مرو و پنده؛ گل‌شان روی پرچم است.','Merwiň günortasy we Pende; göli baýdakda.']],
-    ['salor',36.5,60.9,0.5,['سالور','Salyr'],['حوالی سرخس؛ ایل کهن و پرنفوذ پیشین.','Sarahsyň töwereginde; öň gadymy we abraýly tire.']],
+    ['salor',37.0,60.9,0.5,['سالور','Salyr'],['حوالی سرخس؛ ایل کهن و پرنفوذ پیشین.','Sarahsyň töwereginde; öň gadymy we abraýly tire.']],
     ['chowdur',41.3,57.6,1.0,['چودور','Çowdur'],['تاریخاً مانقیشلاق و خوارزم، یعنی شمال‌غرب.','Taryhy taýdan Mangyşlak we Horezm, ýagny demirgazyk-günbatar.']]
   ];
   const MAPUI = [
@@ -231,7 +231,7 @@
   const MUSIC_GENRES = [
     ['dessan','scroll',['دستان','Dessan'],['روایت بلند حماسی یا عاشقانه که باغشی با دوتار می‌خواند؛ حماسهٔ گوروغلی و «شاسنم و غریب» از نمونه‌هاست. هنر حماسه‌خوانی گوروغلی در فهرست یونسکو ثبت شده است.','Bagşynyň dutar bilen aýdýan uzyn gahrymançylyk ýa-da söýgi hekaýasy; Görogly we «Şasenem-Garyp» mysallar. Göroglynyň dessan aýtmak sungaty ÝUNESKO sanawynda.']],
     ['tirme','feather',['تیرمه','Tirme'],['آوازی بر پایهٔ شعر شاعرانی مانند مختومقلی، کمینه یا سیدی.','Magtymguly, Kemine ýa-da Seýdi ýaly şahyrlaryň şygyrlaryna esaslanan aýdym.']],
-    ['opera','landmark',['اپرای ترکمن','Türkmen operasy'],['«شاسنم و غریب» (۱۹۴۴) نخستین اپرای ترکمن است؛ اثر دانتر اووزوف و آدریان شاپوشنیکوف.','«Şasenem we Garyp» (1944) ilkinji türkmen operasydyr; Danatar Öwezow bilen Adrian Şaposhnikowyň eseri.']],
+    ['opera','landmark',['اپرای ترکمن','Türkmen operasy'],['«شاسنم و غریب» (۱۹۴۴) معمولاً نخستین اپرای ملی ترکمن شمرده می‌شود؛ اثر دانتر اووزوف و آدریان شاپوشنیکوف.','«Şasenem we Garyp» (1944) adatça ilkinji milli türkmen operasy hasaplanýar; Danatar Öwezow bilen Adrian Şaposhnikowyň eseri.']],
     ['orchestra','users',['ارکستر سازهای ملی','Milli sazlar orkestri'],['ساهی جپباروف در ۱۹۳۰ها نخستین ارکستر سازهای ملی را بنیان گذاشت (به‌روایت منابع دانشنامه‌ای).','Sähy Jepbarow 1930-njy ýyllarda ilkinji milli sazlar orkestrini esaslandyrdy (ensiklopedik çeşmelere görä).']],
     ['dance','sun',['آیین آواز و رقص کوشتدپدی','Kuştdepdi aýdym-tans däbi'],['از کهن‌ترین رقص‌های ترکمن شمرده می‌شود و با لباس‌های سرخ و قهوه‌ای اجرا می‌شود. این آیین آواز و رقص در ۲۰۱۷ در فهرست نمایندهٔ میراث ناملموس یونسکو ثبت شد؛ بعضی منابع می‌گویند سنت ترکمن رقص چندانی ندارد، که با ثبت یونسکو جور نیست و بیشتر به موسیقی غیرآیینی برمی‌گردد.','Iň gadymy türkmen tanslarynyň biri hasaplanýar we gyzyl-goňur eşikler bilen ýerine ýetirilýär. Bu aýdym-tans däbi 2017-nji ýylda ÝUNESKO-nyň ruhy miras sanawyna girizildi; käbir çeşmeler türkmen däbinde tans köp däl diýýärler, ýöne bu ÝUNESKO belligi bilen gabat gelmeýär.']]
   ];
