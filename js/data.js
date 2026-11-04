@@ -15,7 +15,7 @@ const NAV_ITEMS = [
   { id:'genealogy',   icon:'tree'      },
   { id:'clothing',    icon:'shirt'     },
   { id:'cuisine',     icon:'bowl'      },
-  { id:'arts',        icon:'music'     },
+  { id:'arts',        icon:'palette'   },
   { id:'language',    icon:'letters'   },
   { id:'names',      icon:'tag'       },
   { id:'dictionary',  icon:'translate' },

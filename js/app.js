@@ -1259,7 +1259,7 @@
       case 'genealogy':  html = renderGenealogy(d); break;
       case 'clothing':   html = renderClothing(d); break;
       case 'cuisine':    html = renderCuisine(d); break;
-      case 'arts':       html = renderCardListSection(d, 'arts', 'music'); break;
+      case 'arts':       html = renderCardListSection(d, 'arts', 'palette'); break;
       case 'language':   html = renderLanguage(d); break;
       case 'names':      html = renderNames(d); break;
       case 'dictionary': html = renderDictionary(d); break;

@@ -8,7 +8,7 @@ const fs = require('fs'), vm = require('vm'), path = require('path');
 const root = path.join(__dirname, '..', 'js') + path.sep;
 const sb = { console, window: {}, document: {}, localStorage: { getItem(){ return null; }, setItem(){} }, navigator: {} };
 sb.window = sb; vm.createContext(sb);
-const files = ['icons.js','data.js','data-extra.js','data-new.js','genealogy.js','names.js','dictionary.js','map-geo.js','sections.js'];
+const files = ['icons.js','data.js','data-extra.js','data-new.js','genealogy.js','names.js','dictionary.js','map-data.js','map-geo.js','map-tiles.js','sections.js'];
 vm.runInContext(files.map(f => fs.readFileSync(root + f, 'utf8')).join('\n;\n') +
   '\n;globalThis.__E={DATA,NAV_ITEMS,ICONS,GEO:window.TS_GEO};', sb);
 const { DATA, NAV_ITEMS, ICONS } = sb.__E;
@@ -42,6 +42,23 @@ keys.filter((k, i) => keys.indexOf(k) !== i).forEach(k => bad('duplicate SRC key
   }
 })(DATA.fa, 'fa');
 
+// 3b. every navigation item has an icon, and no two sections share one
+const navIcons = NAV_ITEMS.map(n => n.icon);
+NAV_ITEMS.forEach(n => { if(!names.has(n.icon)) bad(`nav item ${n.id} uses unknown icon "${n.icon}"`); });
+navIcons.filter((x, i) => navIcons.indexOf(x) !== i).forEach(x => bad(`two navigation items share the icon "${x}"`));
+
+
+// 3c. the icon in the page header must match the icon in the navigation menu
+(function(){
+  const nav = Object.fromEntries(NAV_ITEMS.map(n => [n.id, n.icon]));
+  ['app.js', 'sections.js'].forEach(f => {
+    const code = fs.readFileSync(root + f, 'utf8');
+    for(const m of code.matchAll(/(?:sectionHead|renderCardListSection)\(d,\s*'(\w+)',\s*'(\w+)'/g)){
+      if(nav[m[1]] && nav[m[1]] !== m[2]) bad(`${f}: page header for "${m[1]}" uses icon "${m[2]}" but the menu uses "${nav[m[1]]}"`);
+    }
+  });
+})();
+
 // 4. quiz
 DATA.fa.quiz.questions.forEach((q, i) => {
   if(q.options.length < 2 || !(q.correct >= 0 && q.correct < q.options.length)) bad('quiz #' + (i + 1) + ' bad correct index');
@@ -63,6 +80,28 @@ else {
   if(GEO.velayats.length !== 5) bad('expected 5 velayats, got ' + GEO.velayats.length);
   ['fa', 'tk'].forEach(L => [...GEO.velayats, ...GEO.lakes, ...GEO.rivers, ...GEO.places, ...GEO.labels].forEach(o => { if(!o[L]) bad(`geo object ${o.id} has no ${L} name`); }));
 }
+
+
+// 5b. map extras: regions / statistics / tile providers
+(function(){
+  const GEO = sb.__E.GEO, TL = sb.TS_TILES;
+  const ids = new Set(GEO.regions.map(r => r.id));
+  ['fa', 'tk'].forEach(L => {
+    const m = DATA[L].map;
+    if(!m.regions || !m.stats) return bad(L + ': map.regions / map.stats missing (js/map-data.js)');
+    ids.forEach(id => { if(!m.regions.some(r => r.id === id)) bad(`${L}: region "${id}" has outline but no text`); });
+    m.regions.forEach(r => { if(!ids.has(r.id)) bad(`${L}: region text "${r.id}" has no outline`); r.srcs.forEach(x => { if(!m.stats.sources.some(s => s.id === x)) bad(`${L}: region ${r.id} cites unknown source ${x}`); }); });
+    const sum = m.stats.vel.reduce((a, r) => a + r.pct, 0);
+    if(Math.abs(sum - 100) > 0.11) bad(`${L}: velayat shares sum to ${sum.toFixed(1)}, expected 100`);
+    m.stats.world.forEach(r => { if(!(r.v > 0)) bad(`${L}: stats row ${r.id} has no numeric value`); r.srcs.forEach(x => { if(!m.stats.sources.some(s => s.id === x)) bad(`${L}: stats row ${r.id} cites unknown source ${x}`); }); });
+    m.stats.sources.forEach(x => { if(!/^https:\/\//.test(x.u)) bad(`${L}: source ${x.id} is not https`); });
+    ['osm', 'topo', 'light'].forEach(k => { if(!m.ui.base[k]) bad(`${L}: missing basemap label ${k}`); });
+  });
+  Object.entries(TL || {}).forEach(([k, t]) => {
+    if(!/^https:\/\//.test(t.url) || !t.url.includes('{z}') || !t.url.includes('{x}') || !t.url.includes('{y}')) bad(`tile source ${k}: url must be https with {z}/{x}/{y}`);
+    if(!t.attr || !t.attrUrl) bad(`tile source ${k}: attribution is required`);
+  });
+})();
 
 // 6. text hygiene
 const all = []; (function s(o, p){ if(typeof o === 'string') all.push([p, o]); else if(Array.isArray(o)) o.forEach((x, i) => s(x, p + '[' + i + ']')); else if(o && typeof o === 'object') for(const k in o) s(o[k], p + '.' + k); })(DATA, 'DATA');

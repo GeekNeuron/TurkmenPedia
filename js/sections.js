@@ -306,7 +306,7 @@ window.TS_EXT = (function(){
   /* =======================================================
      MAP
      ======================================================= */
-  const G = window.TS_GEO || { vb:{ w:800, h:564, lonMin:51.4, lonMax:68.2, latMin:34.2, latMax:43.4 }, countries:{}, velayats:[], lakes:[], rivers:[], places:[], labels:[], kopet:'', karakum:'', karakumCore:'' };
+  const G = window.TS_GEO || { vb:{ w:800, h:564, lonMin:51.4, lonMax:68.2, latMin:34.2, latMax:43.4 }, countries:{}, velayats:[], lakes:[], rivers:[], places:[], labels:[], regions:[], kopet:'', karakum:'', karakumCore:'' };
   const VB = G.vb;                                   // Web Mercator view, built by tools/build-map-geo.py
   const KX = VB.w / (VB.lonMax - VB.lonMin);         // px per degree of longitude
   const mercY = lat => Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360));
@@ -314,18 +314,86 @@ window.TS_EXT = (function(){
   const px = lon => ((lon - VB.lonMin) * KX).toFixed(1), py = lat => ((mercY(VB.latMax) - mercY(lat)) * SY).toFixed(1);
   const kyAt = lat => KX / Math.cos(lat * Math.PI / 180);   // px per degree of latitude at this latitude
   const KIND_COLOR = { city:'var(--primary)', heritage:'var(--secondary)', history:'#7a4f9a', nature:'#3f8a5b', iran:'var(--accent)' };
-  const AREA_COLOR = { teke:'#9a2b2b', yomut:'#2c6e8f', ersari:'#b8741a', saryk:'#4d8a4a', salor:'#7a4f9a', chowdur:'#8a5a44' };
-  const mapState = { layers:{ city:true, heritage:true, history:true, nature:true, iran:true, tribe:true }, sel:null };
+  const AREA_COLOR = { teke:'#a12f33', yomut:'#2a6f94', ersari:'#b87414', saryk:'#4a8b45', salor:'#7a4f9a', chowdur:'#8a5a44' };
+  const AREA_COLOR_DARK = { teke:'#e88b8f', yomut:'#74b9de', ersari:'#e8ac5c', saryk:'#93d08d', salor:'#bd9fe4', chowdur:'#d6a98f' };
+  const TAG_AT = { ersari:[64.45, 38.0], yomut:[54.65, 38.8] };   // capsule label positions that would otherwise collide with pins
+  const tcVars = id => `--tc:${AREA_COLOR[id]};--tcd:${AREA_COLOR_DARK[id]}`;
+  const TILES = window.TS_TILES || {};
+  const ZMAX = 12;
+  const mapState = { layers:{ city:true, heritage:true, history:true, nature:true, iran:true, tribe:true, diaspora:true }, sel:null, base:'vector', zoom:1, x:0, y:0, cleanup:null };
+  const SVGNS = 'http://www.w3.org/2000/svg', XLINK = 'http://www.w3.org/1999/xlink';
+
+  /* ---- pure helpers (exported on X.maplib so tests can cross-check them) ---- */
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lonOfX = x => VB.lonMin + x / KX;
+  const latOfY = y => (2 * Math.atan(Math.exp(mercY(VB.latMax) - y / SY)) - Math.PI / 2) * 180 / Math.PI;
+  const tileLon = (x, z) => x / 2 ** z * 360 - 180;
+  const tileLat = (y, z) => { const n = Math.PI - 2 * Math.PI * y / 2 ** z; return 180 / Math.PI * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n))); };
+  const lonTile = (lon, z) => Math.floor((lon + 180) / 360 * 2 ** z);
+  const latTile = (lat, z) => { const r = lat * Math.PI / 180; return Math.floor((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * 2 ** z); };
+
+  /** Tiles covering the SVG view `v` ({x,y,w,h} in SVG units) at zoom z, with their SVG-unit rectangles. */
+  function tilesFor(v, z, margin){
+    const n = 2 ** z, mx = (margin || 0) * v.w, my = (margin || 0) * v.h;
+    const x0 = clamp(lonTile(lonOfX(v.x - mx), z), 0, n - 1), x1 = clamp(lonTile(lonOfX(v.x + v.w + mx), z), 0, n - 1);
+    const y0 = clamp(latTile(latOfY(v.y - my), z), 0, n - 1), y1 = clamp(latTile(latOfY(v.y + v.h + my), z), 0, n - 1);
+    const size = 360 / n * KX, out = [];
+    for(let y = y0; y <= y1; y++) for(let x = x0; x <= x1; x++){
+      out.push({ z, x, y, sx:(tileLon(x, z) - VB.lonMin) * KX, sy:(mercY(VB.latMax) - mercY(tileLat(y, z))) * SY, size });
+    }
+    return out;
+  }
+  /** Tile zoom whose 256px tiles are drawn at about 1:1 on screen (slightly sharper for HiDPI). */
+  function tileZoomFor(zoom, screenW, maxZ){
+    const pxPerDeg = screenW / ((VB.w / zoom) / KX);
+    return clamp(Math.round(Math.log2(pxPerDeg * 360 / 256) + 0.4), 3, maxZ || 12);
+  }
+  function tileUrl(src, t, theme){
+    const subs = src.subdomains || '';
+    return src.url.replace('{s}', subs ? subs[(t.x + t.y) % subs.length] : '').replace('{theme}', theme || 'light')
+      .replace('{z}', t.z).replace('{x}', t.x).replace('{y}', t.y);
+  }
+  X.maplib = { px, py, lonOfX, latOfY, tilesFor, tileZoomFor, tileUrl, tileLon, tileLat };
+
+  /* Tribe ranges as dot-density clouds: no hard boundary (the real ranges are fuzzy and overlapping).
+     Deterministic per tribe: a jittered hex lattice, thinned by a smooth falloff whose reach is wobbled by
+     low-order harmonics so the cloud is organic rather than elliptical. Dots are drawn as zero-length round-cap
+     segments, so the whole cloud is one path. */
+  const rngOf = seed => { let t = seed >>> 0; return () => { t = (t + 0x6D2B79F5) >>> 0; let r = Math.imul(t ^ t >>> 15, 1 | t); r ^= r + Math.imul(r ^ r >>> 7, 61 | r); return ((r ^ r >>> 14) >>> 0) / 4294967296; }; };
+  function tribeDots(a){
+    const seed = [...a.id].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7);
+    const rand = rngOf(seed), cx = +px(a.lon), cy = +py(a.lat), rx = a.r * KX, ry = a.r * kyAt(a.lat);
+    const ph1 = rand() * 6.283, ph2 = rand() * 6.283, a1 = 0.16 + rand() * 0.08, a2 = 0.09 + rand() * 0.06;
+    const sp = 4.6, out = [];
+    let row = 0;
+    for(let y = cy - ry * 1.4; y <= cy + ry * 1.4; y += sp * 0.866, row++){
+      for(let x = cx - rx * 1.4 + (row % 2) * sp / 2; x <= cx + rx * 1.4; x += sp){
+        const jx = x + (rand() - 0.5) * sp * 0.75, jy = y + (rand() - 0.5) * sp * 0.75, keep = rand();
+        const dx = (jx - cx) / rx, dy = (jy - cy) / ry, th = Math.atan2(dy, dx);
+        const dn = Math.hypot(dx, dy) / (1 + a1 * Math.sin(3 * th + ph1) + a2 * Math.sin(5 * th + ph2));
+        if(dn > 1.15 || keep > Math.exp(-1.7 * dn * dn) * 1.12 + 0.015) continue;
+        out.push(`M${jx.toFixed(1)} ${jy.toFixed(1)}h0`);
+      }
+    }
+    return out.join('');
+  }
+
+  const at = (x, y) => `data-at="${x},${y}" transform="translate(${x} ${y})"`;
 
   X.routes.map = {
     render(d){
-      const m = d.map, u = m.ui;
-      const chips = Object.keys(u.layers).map(k => `<button type="button" class="map-chip${mapState.layers[k] ? ' on' : ''}" data-layer="${k}"><i style="background:${k === 'tribe' ? 'linear-gradient(90deg,#9a2b2b,#2c6e8f,#b8741a)' : KIND_COLOR[k]}"></i>${u.layers[k]}</button>`).join('');
-      const areas = m.areas.map((a, i) => `<ellipse class="map-area" data-area="${a.id}" tabindex="0" role="button" aria-label="${esc(a.title)}" cx="${px(a.lon)}" cy="${py(a.lat)}" rx="${(a.r * KX).toFixed(1)}" ry="${(a.r * kyAt(a.lat)).toFixed(1)}" fill="${AREA_COLOR[a.id]}" style="--i:${i}"/>`).join('');
-      const labels = m.areas.map(a => `<text class="map-area-label" x="${px(a.lon)}" y="${py(a.lat - a.r * 0.8)}" text-anchor="middle">${a.title}</text>`).join('');
-      const pts = m.points.map((p, i) => `<g class="map-pin kind-${p.kind}" data-pt="${p.id}" tabindex="0" role="button" aria-label="${esc(p.title)}" transform="translate(${px(p.lon)} ${py(p.lat)})" style="--i:${i}"><circle r="15" class="hit"/><circle r="7" fill="${KIND_COLOR[p.kind]}" class="dot"/><circle r="7" class="pulse" fill="none" stroke="${KIND_COLOR[p.kind]}"/></g>`).join('');
+      const m = d.map, u = m.ui, st = m.stats;
+      const SWATCH = { tribe:'linear-gradient(90deg,#9a2b2b,#2c6e8f,#b8741a)', diaspora:'repeating-linear-gradient(45deg,var(--map-dia) 0 2px,transparent 2px 4px)' };
+      const chips = Object.keys(u.layers).map(k => `<button type="button" class="map-chip${mapState.layers[k] ? ' on' : ''}" data-layer="${k}"><i style="background:${SWATCH[k] || KIND_COLOR[k]}"></i>${u.layers[k]}</button>`).join('');
+      const bases = ['vector', 'osm', 'topo', 'light'].filter(k => k === 'vector' || TILES[k]).map(k => `<button type="button" class="map-chip map-base${mapState.base === k ? ' on' : ''}" data-base="${k}">${u.base[k]}</button>`).join('');
+      const byBig = m.areas.slice().sort((p, q) => q.r - p.r);
+      const dotDefs = byBig.map(a => `<path id="dots-${a.id}" d="${tribeDots(a)}"/>`).join('');
+      const dotsets = byBig.map(a => `<g class="map-dotset" data-dots="${a.id}" style="${tcVars(a.id)}"><use class="map-dots-halo" href="#dots-${a.id}"/><use class="map-dots" href="#dots-${a.id}"/></g>`).join('');
+      const areas = byBig.map((a, i) => `<ellipse class="map-area" data-area="${a.id}" tabindex="0" role="button" aria-label="${esc(a.title)}" cx="${px(a.lon)}" cy="${py(a.lat)}" rx="${(a.r * KX * 0.95).toFixed(1)}" ry="${(a.r * kyAt(a.lat) * 0.95).toFixed(1)}" style="${tcVars(a.id)}"/>`).join('');
+      const labels = m.areas.map(a => { const w = Math.round(a.title.length * 6.4 + 24); return `<g class="map-area-tag" data-area-tag="${a.id}" ${at(px((TAG_AT[a.id] || [a.lon])[0]), py((TAG_AT[a.id] || [0, a.lat - a.r * 0.62])[1]))} style="${tcVars(a.id)}"><rect x="${-w / 2}" y="-9" width="${w}" height="18" rx="9"/><circle cx="${-w / 2 + 9}" cy="0" r="3"/><text x="5" y="3.8" text-anchor="middle">${a.title}</text></g>`; }).join('');
+      const pts = m.points.map((p, i) => `<g class="map-pin kind-${p.kind}" data-pt="${p.id}" tabindex="0" role="button" aria-label="${esc(p.title)}" ${at(px(p.lon), py(p.lat))} style="--i:${i}"><circle r="15" class="hit"/><circle r="7" fill="${KIND_COLOR[p.kind]}" class="dot"/><circle r="7" class="pulse" fill="none" stroke="${KIND_COLOR[p.kind]}"/></g>`).join('');
       const NAME_POS = { gokdepe:[-11,-8,'end'], nisa:[-11,16,'end'], ashgabat:[11,-8,'start'], altyn:[11,16,'start'], torkaman:[-11,4,'end'], maraveh:[-11,-10,'end'], gonbad:[-11,4,'end'], turkmenbashy:[11,-6,'start'] };
-      const names = m.points.map(p => { const o = NAME_POS[p.id] || [11, 4, 'start']; return `<text class="map-name kind-${p.kind}" x="${+px(p.lon) + o[0]}" y="${+py(p.lat) + o[1]}" text-anchor="${o[2]}">${p.title.replace(/\s*\(.*\)/, '')}</text>`; }).join('');
+      const names = m.points.map(p => { const o = NAME_POS[p.id] || [11, 4, 'start']; return `<g class="map-name kind-${p.kind}" ${at(px(p.lon), py(p.lat))}><text x="${o[0]}" y="${o[1]}" text-anchor="${o[2]}">${p.title.replace(/\s*\(.*\)/, '')}</text></g>`; }).join('');
       const lg = lang(), nmOf = o => o[lg];
       let grat = '';
       for(let lo = 52; lo <= 68; lo += 2) grat += `<line class="map-grat" x1="${px(lo)}" y1="0" x2="${px(lo)}" y2="${VB.h}"/><text class="map-tick" x="${+px(lo) + 3}" y="11">${lo}°E</text>`;
@@ -339,81 +407,242 @@ window.TS_EXT = (function(){
       const waterNames = G.lakes.map(l => `<text class="map-water-name" x="${px(l.lon)}" y="${py(l.lat)}" text-anchor="middle">${nmOf(l)}</text>`).join('') +
         G.rivers.filter(r => r.lon).map(r => `<text class="map-water-name" x="${px(r.lon)}" y="${py(r.lat)}" text-anchor="middle" transform="rotate(${r.rot} ${px(r.lon)} ${py(r.lat)}) translate(0 -4)">${nmOf(r)}</text>`).join('');
       const feat = G.labels.map(f => `<text class="map-feat map-feat-${f.cls}" x="${px(f.lon)}" y="${py(f.lat)}" text-anchor="middle" transform="rotate(${f.rot} ${px(f.lon)} ${py(f.lat)})">${nmOf(f)}</text>`).join('');
+      const regInfo = id => (m.regions || []).find(x => x.id === id);
+      const regBg = (G.regions || []).map(r => `<path class="map-reg-bg" d="${r.d}"/>`).join('');
+      const regs = (G.regions || []).map(r => `<path class="map-reg" data-reg="${r.id}" tabindex="0" role="button" aria-label="${esc((regInfo(r.id) || {}).title || nmOf(r))}" d="${r.d}"/>`).join('');
+      const regLabels = (G.regions || []).map(r => `<text class="map-reg-label" x="${px(r.lon)}" y="${py(r.lat)}" text-anchor="middle">${nmOf(r)}</text>`).join('');
       const near = (p, q) => Math.abs(p.lon - q.lon) < 0.45 && Math.abs(p.lat - q.lat) < 0.3;
-      const ctx = G.places.filter(p => !m.points.some(q => near(p, q))).map(p => `<g class="map-ctx${p.own ? ' own' : ''}"><circle class="map-ctx-dot" cx="${px(p.lon)}" cy="${py(p.lat)}" r="${p.own ? 3 : 2.6}"/><text class="map-ctx-name" x="${+px(p.lon) + 6}" y="${+py(p.lat) + 3.5}">${nmOf(p)}</text></g>`).join('');
+      const ctx = G.places.filter(p => !m.points.some(q => near(p, q))).map(p => `<g class="map-ctx${p.own ? ' own' : ''}" ${at(px(p.lon), py(p.lat))}><circle class="map-ctx-dot" r="${p.own ? 3 : 2.6}"/><text class="map-ctx-name" x="6" y="3.5">${nmOf(p)}</text></g>`).join('');
       const kmPx = KX / (111.32 * Math.cos(39 * Math.PI / 180)), bar = Math.round(200 * kmPx), by = VB.h - 16;
       const scale = `<g class="map-scale" transform="translate(16 ${by})"><path d="M0 0v-5M0 0h${bar}M${bar} 0v-5M${bar / 2} 0v-3"/><text x="0" y="-9">${lg === 'fa' ? '۲۰۰ کیلومتر' : '200 km'}</text></g><g class="map-north" transform="translate(${VB.w - 26} 34)"><path d="M0 -14L6 6L0 2L-6 6Z"/><text y="20" text-anchor="middle">N</text></g>`;
+
+      /* ---- statistics block ---- */
+      const nSrc = id => { const i = (st.sources || []).findIndex(s => s.id === id); return i < 0 ? '' : `<a class="ms-ref" href="${st.sources[i].u}" target="_blank" rel="noopener noreferrer" title="${esc(st.sources[i].t)}">${lg === 'fa' ? String(i + 1).replace(/\d/g, c => '۰۱۲۳۴۵۶۷۸۹'[c]) : i + 1}</a>`; };
+      const maxV = Math.max(...st.world.map(r => r.v));
+      const worldRows = st.world.map(r => `<div class="ms-row${r.onMap ? ' on-map' : ''}"><div class="ms-name">${r.name}${r.onMap ? `<span class="ms-tag">${st.onMap}</span>` : ''}</div><div class="ms-bar" aria-hidden="true"><i style="width:${Math.max(2, r.v / maxV * 100).toFixed(1)}%"></i></div><div class="ms-val">${r.val}</div><div class="ms-note">${r.note} ${r.srcs.map(nSrc).join('')}</div></div>`).join('');
+      const velRows = st.vel.map(r => `<div class="ms-row vel"><div class="ms-name">${r.name}</div><div class="ms-bar" aria-hidden="true"><i style="width:${(r.pct / 22.9 * 100).toFixed(1)}%"></i></div><div class="ms-val">${r.val}</div></div>`).join('');
+      const srcList = (st.sources || []).map((s, i) => `<li><a href="${s.u}" target="_blank" rel="noopener noreferrer">${esc(s.t)}</a></li>`).join('');
+      const statsHtml = `<section class="map-stats reveal" aria-label="${esc(st.title)}">
+          <h3 class="ms-title">${st.title}</h3>
+          <p class="x-note">${st.intro}</p>
+          <h4 class="ms-sub">${st.worldTitle}</h4>
+          <div class="ms-rows">${worldRows}</div>
+          <p class="ms-total">${st.total}</p>
+          <h4 class="ms-sub">${st.velTitle}</h4>
+          <div class="ms-rows">${velRows}</div>
+          <p class="x-note">${st.velNote}</p>
+          <p class="x-note">${st.caveat}</p>
+          <details class="ms-sources"><summary>${st.sourcesLabel}</summary><ol>${srcList}</ol><p class="x-note">${st.updated}</p></details>
+        </section>`;
+
       return C().sectionHead(d, 'map', 'pin') + `
         <p class="x-intro reveal">${u.intro}</p>
         <div class="map-chips reveal">${chips}</div>
+        <div class="map-chips map-bases-row reveal" role="group" aria-label="${u.base.title}"><span class="map-bases-t">${u.base.title}</span>${bases}</div>
         <div class="map-wrap reveal">
           <svg id="tsMap" viewBox="0 0 ${VB.w} ${VB.h}" role="img" aria-label="${d.nav.map}">
             <defs>
               <clipPath id="tmClip"><path d="${G.countries.TKM || ''}"/></clipPath>
+              <g id="dotDefs">${dotDefs}</g>
+              <clipPath id="landClip"><path d="${Object.keys(G.countries).map(k => G.countries[k]).join('')}"/></clipPath>
               <filter id="mapBlur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="11"/></filter>
               <pattern id="mapDunes" width="10" height="10" patternUnits="userSpaceOnUse"><circle class="map-dune-dot" cx="2" cy="2.5" r=".9"/><circle class="map-dune-dot" cx="7" cy="7.5" r=".9"/></pattern>
+              <pattern id="mapHatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="map-hatch-line" x1="0" y1="0" x2="0" y2="7"/></pattern>
             </defs>
             <rect width="${VB.w}" height="${VB.h}" class="map-water"/>
+            <g class="map-tiles"></g>
             ${grat}
             ${shore}
             ${ctry}
             <path d="${G.countries.TKM || ''}" class="map-tm"/>
             <g clip-path="url(#tmClip)">
               <path d="${G.karakum}" class="map-karakum" filter="url(#mapBlur)"/>
-              <path d="${G.karakumCore}" fill="url(#mapDunes)" opacity=".55"/>
+              <path d="${G.karakumCore}" fill="url(#mapDunes)" class="map-dunes" opacity=".55"/>
               <g class="map-vels">${vels}</g>
             </g>
             <path d="${G.kopet}" class="map-kopet" filter="url(#mapBlur)"/>
             ${lakes}${rivers}
+            <g class="layer-dia${mapState.layers.diaspora ? '' : ' off'}">${regBg}${regs}${regLabels}</g>
             <path d="${G.countries.TKM || ''}" class="map-tm-border"/>
             <text class="map-geo" x="${px(52.5)}" y="${py(38.7)}" text-anchor="middle">${u.caspian}</text>
             <text class="map-geo" x="${px(56.5)}" y="${py(35.3)}" text-anchor="middle">${u.iranLabel}</text>
-            <text class="map-geo" x="${px(64.2)}" y="${py(35.1)}" text-anchor="middle">${u.afgLabel}</text>
+            <text class="map-geo" x="${px(66.3)}" y="${py(34.65)}" text-anchor="middle">${u.afgLabel}</text>
             <text class="map-geo" x="${px(65.9)}" y="${py(41.6)}" text-anchor="middle">${u.uzbLabel}</text>
             <text class="map-geo" x="${px(56.3)}" y="${py(43.0)}" text-anchor="middle">${u.kazLabel}</text>
+            <g class="layer-tribe${mapState.layers.tribe ? '' : ' off'}"><g class="map-areas" clip-path="url(#landClip)">${dotsets}${areas}</g></g>
             ${velLabels}${feat}${waterNames}
-            <g class="layer-tribe${mapState.layers.tribe ? '' : ' off'}">${areas}${labels}</g>
+            <g class="layer-tribe-tags${mapState.layers.tribe ? '' : ' off'}">${labels}</g>
+            
             <g class="map-ctx-layer">${ctx}</g>
             <g class="layer-pins">${pts}${names}</g>
             ${scale}
           </svg>
+          <div class="map-ctrl" role="group" aria-label="${u.zoomHint}">
+            <button type="button" data-zoom="in" aria-label="${u.zoomIn}" title="${u.zoomIn}">+</button>
+            <button type="button" data-zoom="out" aria-label="${u.zoomOut}" title="${u.zoomOut}">−</button>
+            <button type="button" data-zoom="reset" class="map-zlabel" aria-label="${u.zoomReset}" title="${u.zoomReset} — ${u.zoomHint}">1×</button>
+          </div>
+          <div class="map-status" role="status" aria-live="polite"></div>
+          <div class="map-attr"></div>
         </div>
         <div class="map-detail" id="mapDetail"><p class="map-hint">${u.tapHint}</p></div>
         <p class="x-note reveal">${u.tribeNote}</p>
-        <p class="map-credit">${lang() === 'fa' ? 'مرزها، رودها و دریاچه‌ها: Natural Earth (مالکیت عمومی). سایهٔ بیابان و کوهستان تقریبی است.' : 'Borders, rivers and lakes: Natural Earth (public domain). Desert and mountain shading is approximate.'}</p>`;
+        <p class="x-note reveal">${u.diaNote}</p>
+        <p class="map-credit">${u.credit}</p>
+        ${statsHtml}`;
     },
     wire(){
+      if(mapState.cleanup){ mapState.cleanup(); mapState.cleanup = null; }
       const d = D(), m = d.map, u = m.ui, root = C().el.content;
       const svg = root.querySelector('#tsMap'), detail = root.querySelector('#mapDetail');
+      const wrap = root.querySelector('.map-wrap'), statusEl = wrap.querySelector('.map-status'), attrEl = wrap.querySelector('.map-attr'), zlabel = wrap.querySelector('.map-zlabel');
+      const tg = svg.querySelector('.map-tiles');
+
+      /* ---- layers ---- */
       const applyLayers = () => {
         svg.querySelectorAll('.map-pin, .map-name').forEach(n => {
           const kind = [...n.classList].find(c => c.startsWith('kind-')).slice(5);
           n.classList.toggle('off', !mapState.layers[kind]);
         });
-        svg.querySelector('.layer-tribe').classList.toggle('off', !mapState.layers.tribe);
+        svg.querySelectorAll('.layer-tribe, .layer-tribe-tags').forEach(n => n.classList.toggle('off', !mapState.layers.tribe));
+        svg.querySelector('.layer-dia').classList.toggle('off', !mapState.layers.diaspora);
       };
-      applyLayers();
       root.querySelectorAll('[data-layer]').forEach(b => b.addEventListener('click', () => {
         const k = b.dataset.layer; mapState.layers[k] = !mapState.layers[k]; b.classList.toggle('on', mapState.layers[k]); applyLayers();
       }));
-      const show = (title, text, route, q, color) => {
-        detail.innerHTML = `<div class="map-card" style="--c:${color}"><h3>${title}</h3><p>${text}</p>${route ? `<a class="gn-link" href="#${route}?q=${encodeURIComponent(q)}"><span class="icon" data-icon="link"></span>${u.more}: ${d.nav[route]}<span class="gn-link-q">${q}</span></a>` : ''}</div>`;
+
+      /* ---- view (zoom / pan) ---- */
+      const view = () => {
+        const w = VB.w / mapState.zoom, h = VB.h / mapState.zoom;
+        mapState.x = clamp(mapState.x, 0, VB.w - w); mapState.y = clamp(mapState.y, 0, VB.h - h);
+        return { x:mapState.x, y:mapState.y, w, h };
+      };
+      let tileTimer = 0, tilesRaf = 0;
+      const applyView = () => {
+        const v = view(), k = 1 / mapState.zoom;
+        svg.setAttribute('viewBox', `${v.x.toFixed(2)} ${v.y.toFixed(2)} ${v.w.toFixed(2)} ${v.h.toFixed(2)}`);
+        svg.style.setProperty('--zk', k.toFixed(4));
+        svg.querySelectorAll('[data-at]').forEach(n => { const p = n.dataset.at.split(','); n.setAttribute('transform', `translate(${p[0]} ${p[1]}) scale(${k.toFixed(4)})`); });
+        svg.style.touchAction = mapState.zoom > 1 ? 'none' : 'pan-y';
+        svg.classList.toggle('is-zoomed', mapState.zoom > 1);
+        const z = mapState.zoom; zlabel.textContent = (Number.isInteger(z) ? z : z.toFixed(1)) + '×';
+        refreshTiles(false);
+      };
+      const zoomAt = (cx, cy, factor) => {
+        const r = svg.getBoundingClientRect(), v = view();
+        const fx = r.width ? (cx - r.left) / r.width : 0.5, fy = r.height ? (cy - r.top) / r.height : 0.5;
+        const ux = v.x + fx * v.w, uy = v.y + fy * v.h, nz = clamp(mapState.zoom * factor, 1, ZMAX);
+        if(nz === mapState.zoom) return;
+        mapState.zoom = nz; mapState.x = ux - fx * (VB.w / nz); mapState.y = uy - fy * (VB.h / nz);
+        applyView();
+      };
+      const centre = () => { const r = svg.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+      wrap.querySelectorAll('[data-zoom]').forEach(b => b.addEventListener('click', () => {
+        const a = b.dataset.zoom;
+        if(a === 'reset'){ mapState.zoom = 1; mapState.x = 0; mapState.y = 0; applyView(); }
+        else zoomAt(...centre(), a === 'in' ? 1.6 : 1 / 1.6);
+      }));
+      svg.addEventListener('dblclick', e => { e.preventDefault(); zoomAt(e.clientX, e.clientY, 2); });
+      svg.addEventListener('wheel', e => { if(!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.25 : 0.8); }, { passive:false });
+
+      const ptrs = new Map(); let drag = null, pinchD = 0, suppress = false, raf = 0;
+      const sched = () => { if(raf) return; raf = requestAnimationFrame(() => { raf = 0; applyView(); }); };
+      svg.addEventListener('pointerdown', e => {
+        if(e.pointerType === 'mouse' && e.button !== 0) return;
+        ptrs.set(e.pointerId, { x:e.clientX, y:e.clientY });
+        if(ptrs.size === 1){ const v = view(); drag = { sx:e.clientX, sy:e.clientY, vx:v.x, vy:v.y, moved:false }; }
+        else if(ptrs.size === 2){ const [a, b] = [...ptrs.values()]; pinchD = Math.hypot(a.x - b.x, a.y - b.y); drag = null; suppress = true; }
+      });
+      svg.addEventListener('pointermove', e => {
+        if(!ptrs.has(e.pointerId)) return;
+        ptrs.set(e.pointerId, { x:e.clientX, y:e.clientY });
+        if(ptrs.size === 2){
+          const [a, b] = [...ptrs.values()], dist = Math.hypot(a.x - b.x, a.y - b.y);
+          if(pinchD > 0 && dist > 0){ zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, dist / pinchD); }
+          pinchD = dist; return;
+        }
+        if(!drag) return;
+        const dx = e.clientX - drag.sx, dy = e.clientY - drag.sy;
+        if(!drag.moved && Math.hypot(dx, dy) > 5 && mapState.zoom > 1){ drag.moved = true; suppress = true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} svg.classList.add('is-panning'); }
+        if(drag.moved){
+          const r = svg.getBoundingClientRect(), w = VB.w / mapState.zoom, h = VB.h / mapState.zoom;
+          mapState.x = drag.vx - dx / (r.width || VB.w) * w; mapState.y = drag.vy - dy / (r.height || VB.h) * h; sched();
+        }
+      });
+      const endPtr = e => { ptrs.delete(e.pointerId); if(ptrs.size < 2) pinchD = 0; if(!ptrs.size){ drag = null; svg.classList.remove('is-panning'); setTimeout(() => { suppress = false; }, 0); } };
+      svg.addEventListener('pointerup', endPtr); svg.addEventListener('pointercancel', endPtr);
+      svg.addEventListener('click', e => { if(suppress){ e.stopPropagation(); e.preventDefault(); } }, true);
+
+      /* ---- raster basemap (optional, loaded lazily) ---- */
+      const theme = () => document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const srcNow = () => mapState.base !== 'vector' ? TILES[mapState.base] : null;
+      const keyNow = () => { const s = srcNow(); return s ? mapState.base + (s.themed ? ':' + theme() : '') : 'vector'; };
+      const setStatus = (t, ms) => { statusEl.textContent = t || ''; statusEl.classList.toggle('on', !!t); if(t && ms) setTimeout(() => { if(statusEl.textContent === t) setStatus(''); }, ms); };
+      const setAttr = () => { const s = srcNow(); attrEl.innerHTML = s && svg.classList.contains('base-raster') ? `<a href="${s.attrUrl}" target="_blank" rel="noopener noreferrer">${esc(s.attr)}</a>` : ''; };
+      const markBases = () => root.querySelectorAll('[data-base]').forEach(b => b.classList.toggle('on', b.dataset.base === mapState.base));
+      const fallback = () => { mapState.base = 'vector'; markBases(); refreshTiles(true); setStatus(u.tileFail, 9000); };
+      let ok = 0, bad = 0;
+      function refreshTiles(force){
+        if(!svg.isConnected) return;
+        const src = srcNow(), key = keyNow();
+        if(!src){ tg.textContent = ''; tg.dataset.key = ''; svg.classList.remove('base-raster', 'base-osm', 'base-topo', 'base-light'); setAttr(); return; }
+        if(force || tg.dataset.key !== key){ tg.textContent = ''; tg.dataset.key = key; ok = bad = 0; svg.classList.remove('base-raster', 'base-osm', 'base-topo', 'base-light'); setAttr(); setStatus(u.tileLoading); }
+        const r = svg.getBoundingClientRect(), z = tileZoomFor(mapState.zoom, r.width || VB.w, src.maxZoom);
+        const list = tilesFor(view(), z, 0.12);
+        if(list.length > 90) return;
+        const want = new Set(list.map(t => `${t.z}/${t.x}/${t.y}`));
+        list.forEach(t => {
+          const k = `${t.z}/${t.x}/${t.y}`;
+          if([...tg.children].some(n => n.dataset.k === k)) return;
+          const im = document.createElementNS(SVGNS, 'image'), url = tileUrl(src, t, theme());
+          im.setAttribute('class', 'map-tile'); im.setAttribute('preserveAspectRatio', 'none');
+          im.setAttribute('x', (t.sx - 0.3).toFixed(2)); im.setAttribute('y', (t.sy - 0.3).toFixed(2));
+          im.setAttribute('width', (t.size + 0.6).toFixed(2)); im.setAttribute('height', (t.size + 0.6).toFixed(2));
+          im.dataset.k = k; im.dataset.u = url;
+          im.setAttributeNS(XLINK, 'xlink:href', url); im.setAttribute('href', url);
+          im.addEventListener('load', () => {
+            ok++; im.classList.add('ready');
+            if(!svg.classList.contains('base-raster')){ svg.classList.add('base-raster', 'base-' + mapState.base); setStatus(''); setAttr(); }
+          });
+          im.addEventListener('error', () => { bad++; im.remove(); if(ok === 0 && bad >= 4) fallback(); });
+          tg.appendChild(im);
+        });
+        clearTimeout(tileTimer);
+        tileTimer = setTimeout(() => { [...tg.children].forEach(n => { if(!want.has(n.dataset.k)) n.remove(); }); }, 700);
+      }
+      root.querySelectorAll('[data-base]').forEach(b => b.addEventListener('click', () => { mapState.base = b.dataset.base; markBases(); refreshTiles(true); }));
+      const obs = new MutationObserver(() => refreshTiles(false));
+      obs.observe(document.documentElement, { attributes:true, attributeFilter:['data-theme'] });
+      const onResize = () => refreshTiles(false);
+      window.addEventListener('resize', onResize);
+      mapState.cleanup = () => { obs.disconnect(); window.removeEventListener('resize', onResize); clearTimeout(tileTimer); };
+
+      /* ---- details ---- */
+      const srcLinks = ids => (ids || []).map(id => { const s = ((m.stats || {}).sources || []).find(x => x.id === id); return s ? `<a href="${s.u}" target="_blank" rel="noopener noreferrer">${esc(s.t)}</a>` : ''; }).filter(Boolean).join(' · ');
+      const show = (title, text, route, q, color, extra) => {
+        detail.innerHTML = `<div class="map-card" style="--c:${color}"><h3>${title}</h3><p>${text}</p>${extra ? `<p class="map-card-src">${extra}</p>` : ''}${route ? `<a class="gn-link" href="#${route}?q=${encodeURIComponent(q)}"><span class="icon" data-icon="link"></span>${u.more}: ${d.nav[route]}<span class="gn-link-q">${q}</span></a>` : ''}</div>`;
         C().paintIcons(detail);
       };
-      const clear = () => svg.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
-      svg.querySelectorAll('[data-pt]').forEach(n => {
-        const go = () => { const p = m.points.find(x => x.id === n.dataset.pt); clear(); n.classList.add('sel'); show(p.title, p.text, p.route, p.q, KIND_COLOR[p.kind]); };
-        n.addEventListener('click', go); n.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
+      const clear = () => { svg.querySelectorAll('.sel').forEach(n => n.classList.remove('sel')); svg.classList.remove('has-sel'); };
+      const focusTribe = (id, on) => { const g = svg.querySelector(`[data-dots="${id}"]`); if(g) g.classList.toggle('hov', on); };
+      const key = (n, go) => { n.addEventListener('click', go); n.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } }); };
+      svg.querySelectorAll('[data-pt]').forEach(n => key(n, () => { const p = m.points.find(x => x.id === n.dataset.pt); clear(); n.classList.add('sel'); show(p.title, p.text, p.route, p.q, KIND_COLOR[p.kind]); }));
+      const pickArea = id => { const a = m.areas.find(x => x.id === id); clear(); svg.classList.add('has-sel'); svg.querySelectorAll(`[data-dots="${id}"], [data-area="${id}"], [data-area-tag="${id}"]`).forEach(n => n.classList.add('sel')); show(a.title, a.text, 'tribes', a.title, AREA_COLOR[a.id]); };
+      svg.querySelectorAll('[data-area], [data-area-tag]').forEach(n => {
+        const id = n.dataset.area || n.dataset.areaTag;
+        key(n, () => pickArea(id));
+        n.addEventListener('pointerenter', () => focusTribe(id, true)); n.addEventListener('pointerleave', () => focusTribe(id, false));
+        n.addEventListener('focus', () => focusTribe(id, true)); n.addEventListener('blur', () => focusTribe(id, false));
       });
-      svg.querySelectorAll('[data-area]').forEach(n => {
-        const go = () => { const a = m.areas.find(x => x.id === n.dataset.area); clear(); n.classList.add('sel'); show(a.title, a.text, 'tribes', a.title, AREA_COLOR[a.id]); };
-        n.addEventListener('click', go); n.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
-      });
+      svg.querySelectorAll('[data-reg]').forEach(n => key(n, () => { const r = (m.regions || []).find(x => x.id === n.dataset.reg); if(!r) return; clear(); n.classList.add('sel'); show(r.title, r.text, null, '', 'var(--map-dia)', srcLinks(r.srcs)); }));
       const q = C().state.query;
       if(q) svg.querySelectorAll('[data-pt]').forEach(n => { const p = m.points.find(x => x.id === n.dataset.pt); if(C().looseMatch(p.title, q)) n.classList.add('hit'); });
+
+      applyLayers(); markBases(); applyView();
     }
   };
 
+  
   /* =======================================================
      CARPETS
      ======================================================= */
