@@ -6,7 +6,7 @@
    resolved relative to this file's own location.
    ========================================================= */
 
-const CACHE_VERSION = 'turkmenpedia-v9';
+const CACHE_VERSION = 'turkmenpedia-v14';
 
 // Everything the app needs to run with no network, including the 1.2 MB
 // extended dictionary (loaded lazily by the page, cached here up front).
@@ -22,10 +22,16 @@ const APP_SHELL = [
   'js/names.js',
   'js/dictionary.js',
   'js/dictionary-extended-fa.js',
+  'js/genealogy-extra.js',
   'js/map-data.js',
   'js/map-geo.js',
   'js/map-tiles.js',
+  'js/world-extra.js',
+  'js/culture-extra.js',
+  'js/content-extra.js',
+  'js/quiz-extra.js',
   'js/sections.js',
+  'js/bibliography.js',
   'js/app.js',
   'manifest.json',
   'fonts/Vazirmatn-Regular.woff2',

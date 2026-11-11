@@ -8,7 +8,7 @@
 
   /* localStorage can throw (blocked cookies, some private modes). Fall back to memory. */
   const LS = (function(){
-    try{ const t = '__ts_probe'; window.LS.setItem(t, '1'); window.LS.removeItem(t); return window.localStorage; }
+    try{ const t = '__ts_probe'; window.localStorage.setItem(t, '1'); window.localStorage.removeItem(t); return window.localStorage; }
     catch(e){ const m = {}; return { getItem:k => (k in m ? m[k] : null), setItem:(k, v) => { m[k] = String(v); }, removeItem:k => { delete m[k]; } }; }
   })();
   const prefersDark = () => { try{ return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); }catch(e){ return false; } };
@@ -28,7 +28,7 @@
     namesCat: 'all',
     namesGen: false,
     gnTribe: null,
-    quiz: { index:0, score:0, answered:false, selected:null, finished:false, perms:{} }
+    quiz: { mode:null, order:[], index:0, score:0, answered:false, selected:null, finished:false, perms:{}, missed:[], showReview:false, saved:false }
   };
 
   const el = {
@@ -438,6 +438,7 @@
     pushAll('books', d.books.items, it => it.title);
     pushAll('influences', d.influences.items, it => it.title);
     GENEALOGY.build(state.lang).sons.forEach(son => son.tribes.forEach(tr => idx.push({ section:'genealogy', label:d.nav.genealogy, title: tr.name + ' — ' + son.name, icon:'tree' })));
+    ((d.genealogy.extra || {}).modern || []).forEach(m => idx.push({ section:'genealogy', label:d.nav.genealogy, title: m.name, icon:'tree' }));
     if(window.TS_EXT) TS_EXT.search(state.lang).forEach(x => idx.push(x));
     TS_NAMES.build(state.lang).forEach(n=> idx.push({ section:'names', label: d.nav.names, title: n.tk + ' — ' + n.mean, icon:'tag' }));
     DICTIONARY.categories.forEach(cat=>{
@@ -720,10 +721,57 @@
     const link = tribe.link
       ? `<a class="gn-link" href="#${tribe.link.route}?q=${encodeURIComponent(tribe.link.q)}"><span class="icon" data-icon="link"></span>${t.related}: ${t.sections[tribe.link.route] || d.nav[tribe.link.route]}<span class="gn-link-q">${tribe.link.q}</span></a>`
       : '';
+    const ex = (d.genealogy && d.genealogy.extra) || null;
+    const mean = ex && tribe.meaning && tribe.meaning.length
+      ? `<div class="gn-mean"><h4>${ex.ui.meaningTitle}</h4><ul>${tribe.meaning.map(([k, v]) => `<li><b>${k}:</b> ${v}</li>`).join('')}</ul></div>` : '';
+    const later = ex && tribe.later ? `<p class="gn-later"><b>${ex.ui.laterTitle}:</b> ${tribe.later}</p>` : '';
     return `<div class="gn-detail-body">
       <div class="gn-detail-head"><strong>${tribe.name}</strong><span class="gn-detail-son">${t.lineage}: ${sonName}</span></div>
-      <p>${note}</p>${link}
+      <p>${note}</p>${mean}${later}${link}
     </div>`;
+  }
+
+  const escHtml = v => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  function genealogyExtra(d){
+    const ex = d.genealogy && d.genealogy.extra; if(!ex) return '';
+    const lg = state.lang, fdig = n => lg === 'fa' ? String(n).replace(/\d/g, c => '۰۱۲۳۴۵۶۷۸۹'[c]) : String(n);
+    const ref = ids => (ids || []).map(id => { const i = ex.sources.findIndex(x => x.id === id); return i < 0 ? '' : `<a class="ms-ref" href="${ex.sources[i].u}" target="_blank" rel="noopener noreferrer" title="${escHtml(ex.sources[i].t)}">${fdig(i + 1)}</a>`; }).join('');
+    const q = state.query, hit = txt => !q || looseMatch(txt, q);
+    const modern = ex.modern.filter(m => hit(m.name + ' ' + m.text + ' ' + m.parts.join(' '))).map(m => `
+      <article class="gx-card reveal" data-modern="${m.id}">
+        <h4>${m.name}</h4>
+        <p class="gx-meta"><b>${ex.ui.from_}:</b> ${m.from}</p>
+        <p class="gx-meta"><b>${ex.ui.where}:</b> ${m.where}</p>
+        <p>${m.text}</p>
+        ${m.parts.length ? `<div class="gx-parts"><b>${ex.ui.parts}:</b>${m.parts.map(p => `<span>${p}</span>`).join('')}</div>` : ''}
+        ${m.note ? `<p class="gx-note">${m.note}</p>` : ''}
+        <p class="gx-refs">${ref(m.srcs)}</p>
+      </article>`).join('');
+    const dyn = ex.dynasties;
+    const dynRows = dyn.rows.map(r => `<tr><td>${r.dyn}</td><td>${r.tribe}</td><td>${r.era}</td></tr>`).join('');
+    const o = ex.ovlat, st = ex.structure, cp = ex.compare;
+    return `
+      <section class="gx reveal">
+        <h3 class="gx-title">${cp.title}</h3>
+        <p>${cp.text} ${ref(cp.srcs)}</p>
+        <p class="gx-note">${ex.ui.approx}</p>
+      </section>
+      ${modern ? `<section class="gx"><h3 class="gx-title reveal">${ex.ui.modernTitle}</h3><p class="x-note reveal">${ex.ui.modernIntro}</p><div class="gx-grid">${modern}</div></section>` : ''}
+      <section class="gx reveal">
+        <h3 class="gx-title">${dyn.title}</h3><p class="x-note">${dyn.intro}</p>
+        <div class="gx-table"><table><thead><tr>${dyn.cols.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>${dynRows}</tbody></table></div>
+        <p class="gx-refs">${ref(dyn.srcs)}</p>
+      </section>
+      <section class="gx reveal">
+        <h3 class="gx-title">${st.title}</h3><p>${st.intro}</p>
+        <div class="gx-parts">${st.terms.map(x => `<span>${x}</span>`).join('')}</div>
+        <p>${st.text}</p><p class="gx-refs">${ref(st.srcs)}</p>
+      </section>
+      <section class="gx reveal">
+        <h3 class="gx-title">${o.title}</h3><p>${o.intro}</p>
+        <p class="gx-order">${o.order}</p><p>${o.text}</p><p class="gx-note">${o.note}</p><p class="gx-refs">${ref(o.srcs)}</p>
+      </section>
+      <details class="gx-sources reveal"><summary>${ex.ui.srcTitle}</summary><ol>${ex.sources.map(x => `<li><a href="${x.u}" target="_blank" rel="noopener noreferrer">${escHtml(x.t)}</a></li>`).join('')}</ol></details>`;
   }
 
   function renderGenealogy(d){
@@ -787,6 +835,7 @@
         </div>
       </div>
       <div class="dict-note reveal" style="margin-top:22px;"><span class="icon" data-icon="info"></span><p>${g.note}</p></div>
+      ${genealogyExtra(d)}
     `;
   }
 
@@ -861,14 +910,17 @@
   }
 
   function renderLanguage(d){
-    const facts = d.language.facts.filter(f => matches(f.text));
-    const alpha = d.language.alphabet.filter(a => matches(a.letter) || matches(a.sound));
-    if(!facts.length && !alpha.length) return sectionHead(d, 'language', 'letters', 0) + emptyState(d.ui.noResults);
+    const L = d.language, fdig = n => state.lang === 'fa' ? String(n).replace(/\d/g, c => '۰۱۲۳۴۵۶۷۸۹'[c]) : String(n);
+    const ref = ids => (ids || []).map(id => { const i = (L.sources || []).findIndex(x => x.id === id); return i < 0 ? '' : `<a class="ms-ref" href="${L.sources[i].u}" target="_blank" rel="noopener noreferrer" title="${escHtml(L.sources[i].t)}">${fdig(i + 1)}</a>`; }).join('');
+    const facts = L.facts.filter(f => matches(f.text));
+    const alpha = L.alphabet.filter(a => matches(a.letter) || matches(a.sound));
+    const scripts = (L.scripts || []).filter(x => matches(x.title + ' ' + x.text + ' ' + x.years));
+    if(!facts.length && !alpha.length && !scripts.length) return sectionHead(d, 'language', 'letters', 0) + emptyState(d.ui.noResults);
 
     const factRows = facts.map(f => `
       <div class="fact-row reveal">
         <div class="icon-wrap"><span class="icon" data-icon="${f.icon}"></span></div>
-        <p>${f.text}</p>
+        <p>${f.text} ${ref(f.srcs)}</p>
       </div>`).join('');
 
     const alphaChips = alpha.map(a => `
@@ -877,9 +929,15 @@
         <div class="sound">${a.sound}</div>
       </div>`).join('');
 
+    const timeline = scripts.map(x => `
+      <li class="lt-item reveal"><span class="lt-years">${x.years}</span><div><b>${x.title}</b><p>${x.text}</p></div></li>`).join('');
+    const srcs = (L.sources || []).length ? `<details class="gx-sources reveal"><summary>${d.ui.langSrcTitle}</summary><ol>${L.sources.map(x => `<li><a href="${x.u}" target="_blank" rel="noopener noreferrer">${escHtml(x.t)}</a></li>`).join('')}</ol></details>` : '';
+
     return sectionHead(d, 'language', 'letters') +
       (facts.length ? `<h3 class="subheading"><span class="icon" data-icon="info"></span>${d.ui.factsTitle}</h3><div class="fact-list">${factRows}</div>` : '') +
-      (alpha.length ? `<h3 class="subheading"><span class="icon" data-icon="letters"></span>${d.ui.alphabetTitle}</h3><div class="alpha-grid">${alphaChips}</div>` : '');
+      (scripts.length ? `<h3 class="subheading"><span class="icon" data-icon="scroll"></span>${d.ui.scriptsTitle}</h3><ol class="lt">${timeline}</ol>` : '') +
+      (alpha.length ? `<h3 class="subheading"><span class="icon" data-icon="letters"></span>${d.ui.alphabetTitle}</h3><div class="alpha-grid">${alphaChips}</div><p class="x-note">${d.ui.alphaNote}</p>` : '') +
+      srcs;
   }
 
 
@@ -1158,48 +1216,137 @@
   }
 
   function renderSources(d){
-    const cards = d.sources.categories.map(c => `
-      <div class="item-card reveal">
-        <div class="icon-wrap"><span class="icon" data-icon="${c.icon}"></span></div>
-        <h3>${c.title}</h3>
-        <p>${c.text}</p>
-      </div>`).join('');
-    return sectionHead(d, 'sources', 'external') + `<div class="card-grid">${cards}</div>` +
-      `<div class="dict-note reveal" style="margin-top:26px;"><span class="icon" data-icon="info"></span><p>${d.sources.disclaimer}</p></div>`;
+    const U = d.sources.ui, lg = state.lang, fd = n => lg === 'fa' ? String(n).replace(/\d/g, c => '۰۱۲۳۴۵۶۷۸۹'[c]) : String(n);
+    const bib = TS_BIB.build(lg), B = state.bib = state.bib || { type:'all', area:'all' };
+    const q = state.query, areaName = a => d.nav[a] || a;
+    const weakTier = 'D';
+    let rows = bib.items.filter(r => (B.type === 'all' || r.type === B.type) && (B.area === 'all' || r.areas.includes(B.area)) &&
+      (!q || looseMatch(r.title + ' ' + r.host + ' ' + r.areas.map(areaName).join(' '), q)));
+    const order = { A:0, B:1, C:2, D:3 };
+    rows.sort((x, y) => order[x.tier] - order[y.tier] || x.title.localeCompare(y.title));
+
+    const tierCards = ['A', 'B', 'C', 'D'].map(t => `
+      <div class="bib-tier-card t-${t} reveal"><span class="bib-tier">${t}</span><div><b>${U.tiers[t][0]}</b><p>${U.tiers[t][1]}</p><small>${fd(bib.counts[t])} ${U.total}</small></div></div>`).join('');
+    const typeKeys = ['official', 'academic', 'reference', 'encyclopedia', 'media', 'state', 'community'].filter(k => bib.counts.byType[k]);
+    const typeChips = `<button type="button" class="map-chip${B.type === 'all' ? ' on' : ''}" data-bib-type="all">${U.allTypes}</button>` +
+      typeKeys.map(k => `<button type="button" class="map-chip${B.type === k ? ' on' : ''}" data-bib-type="${k}">${U.types[k]} <em>${fd(bib.counts.byType[k])}</em></button>`).join('');
+    const areaKeys = Object.keys(bib.counts.byArea).sort((x, y) => bib.counts.byArea[y] - bib.counts.byArea[x]);
+    const areaChips = `<button type="button" class="map-chip${B.area === 'all' ? ' on' : ''}" data-bib-area="all">${U.allAreas}</button>` +
+      areaKeys.map(k => `<button type="button" class="map-chip${B.area === k ? ' on' : ''}" data-bib-area="${k}">${areaName(k)} <em>${fd(bib.counts.byArea[k])}</em></button>`).join('');
+
+    const groups = {};
+    rows.forEach(r => { const g = r.areas[0]; (groups[g] = groups[g] || []).push(r); });
+    const rowHtml = r => `
+      <li class="bib-row t-${r.tier}">
+        <span class="bib-tier" title="${escHtml(U.tiers[r.tier][0])}">${r.tier}</span>
+        <div class="bib-body">
+          <a class="bib-title" href="${r.url}" target="_blank" rel="noopener noreferrer">${escHtml(r.title)}</a>
+          <div class="bib-meta"><span class="bib-host">${escHtml(r.host)}</span><span class="bib-type">${U.types[r.type]}</span>
+            <span class="bib-used">${U.usedIn}:${r.areas.map(a => ` <a href="#${a}">${areaName(a)}</a>`).join('')}</span></div>
+          ${r.tier === weakTier ? `<div class="bib-warn">${U.weak}</div>` : ''}
+        </div>
+      </li>`;
+    const body = rows.length ? Object.keys(groups).sort((x, y) => groups[y].length - groups[x].length).map(g => `
+      <section class="bib-group reveal"><h3>${areaName(g)} <small>${fd(groups[g].length)}</small></h3><ul class="bib-list">${groups[g].map(rowHtml).join('')}</ul></section>`).join('')
+      : emptyState(U.noResults);
+
+    const notes = (d.sources.categories || []).map(c => `<div class="src-card"><h4>${c.title}</h4><p>${c.text || ''}</p></div>`).join('') +
+      (d.sources.disclaimer ? `<div class="dict-note"><span class="icon" data-icon="info"></span><p>${d.sources.disclaimer}</p></div>` : '');
+
+    return sectionHead(d, 'sources', 'external') + `
+      <p class="x-intro reveal">${U.intro}</p>
+      <div class="bib-sum reveal"><b>${fd(bib.counts.total)}</b> ${U.total} · <b>${fd(areaKeys.length)}</b> ${U.sections}</div>
+      <div class="bib-tiers">${tierCards}</div>
+      <h4 class="bib-chip-title">${U.typeTitle}</h4><div class="map-chips bib-chips reveal">${typeChips}</div>
+      <h4 class="bib-chip-title">${U.areaTitle}</h4><div class="map-chips bib-chips reveal">${areaChips}</div>
+      <div class="bib-actions reveal"><button type="button" class="btn" data-bib-csv>${U.csv}</button>
+        <a class="btn btn-ghost" href="https://github.com/GeekNeuron/TurkmenPedia/issues/new?title=${encodeURIComponent('[Sources] ')}" target="_blank" rel="noopener noreferrer">${U.report}</a></div>
+      ${body}
+      <details class="gx-sources reveal"><summary>${U.notes}</summary><div class="src-notes">${notes}</div></details>`;
+  }
+
+  function wireSources(){
+    const B = state.bib = state.bib || { type:'all', area:'all' };
+    el.content.querySelectorAll('[data-bib-type]').forEach(b => b.addEventListener('click', () => { B.type = b.dataset.bibType; render(); }));
+    el.content.querySelectorAll('[data-bib-area]').forEach(b => b.addEventListener('click', () => { B.area = b.dataset.bibArea; render(); }));
+    const csvBtn = el.content.querySelector('[data-bib-csv]');
+    if(csvBtn) csvBtn.addEventListener('click', () => {
+      const d = D(), bib = TS_BIB.build(state.lang), q = v => '"' + String(v).replace(/"/g, '""') + '"';
+      const rows = [['title', 'url', 'tier', 'type', 'used_in'].map(q).join(',')].concat(bib.items.map(r => [r.title, r.url, r.tier, d.sources.ui.types[r.type], r.areas.map(a => d.nav[a] || a).join(' | ')].map(q).join(',')));
+      downloadBlob('\uFEFF' + rows.join('\n'), 'turkmenpedia-sources.csv', 'text/csv;charset=utf-8');
+    });
   }
 
   /* ---------- Quiz ---------- */
   function resetQuiz(){
-    state.quiz = { index:0, score:0, answered:false, selected:null, finished:false, perms:{} };
+    state.quiz = { mode:null, order:[], index:0, score:0, answered:false, selected:null, finished:false, perms:{}, missed:[], showReview:false, saved:false };
+  }
+  const shuffleArr = (arr) => { for(let k = arr.length - 1; k > 0; k--){ const j = Math.floor(Math.random() * (k + 1)); [arr[k], arr[j]] = [arr[j], arr[k]]; } return arr; };
+  function startQuiz(mode){
+    const qs = DATA[state.lang].quiz.questions;
+    let idx = qs.map((_, i) => i);
+    if(mode.startsWith('cat:')) idx = idx.filter(i => qs[i].cat === mode.slice(4));
+    shuffleArr(idx);
+    if(mode === 'quick') idx = idx.slice(0, 10);
+    state.quiz = { mode, order:idx, index:0, score:0, answered:false, selected:null, finished:false, perms:{}, missed:[], showReview:false, saved:false };
+  }
+  const quizBestAll = () => { try{ return JSON.parse(LS.getItem('ts-quiz-best2') || '{}'); }catch(e){ return {}; } };
+  function quizSaveBest(mode, score, total){
+    const b = quizBestAll(), old = b[mode];
+    if(!old || score / total > old.score / old.total){ b[mode] = { score, total }; try{ LS.setItem('ts-quiz-best2', JSON.stringify(b)); }catch(e){} }
   }
   function quizPerm(i, n){
     const p = state.quiz.perms;
-    if(!p[i]){
-      const a = Array.from({ length:n }, (_, k) => k);
-      for(let k = n - 1; k > 0; k--){ const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; }
-      p[i] = a;
-    }
+    if(!p[i]){ p[i] = shuffleArr(Array.from({ length:n }, (_, k) => k)); }
     return p[i];
   }
   function renderQuiz(d){
-    const qz = state.quiz;
-    const total = d.quiz.questions.length;
-    const best = parseInt(LS.getItem('ts-quiz-best') || '0', 10);
+    const qz = state.quiz, qs = d.quiz.questions, ui = d.ui, fd = n => state.lang === 'fa' ? String(n).replace(/\d/g, c => '۰۱۲۳۴۵۶۷۸۹'[c]) : String(n);
+    const bests = quizBestAll(), bestTxt = m => bests[m] ? `${ui.quizBestMode}: ${fd(bests[m].score)}/${fd(bests[m].total)}` : '';
+    const catLabel = id => ((d.quiz.cats || []).find(c => c.id === id) || {}).label || '';
 
+    /* ---- start screen ---- */
+    if(!qz.mode){
+      const counts = {}; qs.forEach(q => { counts[q.cat] = (counts[q.cat] || 0) + 1; });
+      const catBtns = (d.quiz.cats || []).filter(c => counts[c.id]).map(c => `
+        <button type="button" class="quiz-cat" data-qmode="cat:${c.id}"><b>${c.label}</b><span>${fd(counts[c.id])}</span><small>${bestTxt('cat:' + c.id)}</small></button>`).join('');
+      return sectionHead(d, 'quiz', 'trophy') + `
+        <div class="quiz-card quiz-start reveal">
+          <p class="quiz-intro">${ui.quizIntro}</p>
+          <div class="quiz-modes">
+            <button type="button" class="quiz-mode primary" data-qmode="quick"><b>${ui.quizQuick}</b><small>${bestTxt('quick')}</small></button>
+            <button type="button" class="quiz-mode" data-qmode="all"><b>${ui.quizAllQ} (${fd(qs.length)})</b><small>${bestTxt('all')}</small></button>
+          </div>
+          <h4 class="quiz-sub">${ui.quizByTopic}</h4>
+          <div class="quiz-cats">${catBtns}</div>
+        </div>`;
+    }
+    const total = qz.order.length;
+
+    /* ---- result ---- */
     if(qz.finished){
-      if(qz.score > best) LS.setItem('ts-quiz-best', String(qz.score));
-      const finalBest = Math.max(qz.score, best);
+      const pct = Math.round(qz.score / total * 100), b = quizBestAll()[qz.mode] || { score:qz.score, total };
+      const msg = pct >= 90 ? ui.quizMsgA : pct >= 70 ? ui.quizMsgB : pct >= 50 ? ui.quizMsgC : ui.quizMsgD;
+      const review = qz.showReview ? `<div class="quiz-review">${qz.missed.map(qi => { const q = qs[qi]; return `
+          <div class="quiz-review-item"><b>${q.q}</b><p class="qr-ans">✓ ${q.options[q.correct]}</p><p>${q.explain}</p></div>`; }).join('')}</div>` : '';
       return sectionHead(d, 'quiz', 'trophy') + `
         <div class="quiz-card reveal quiz-result">
           <span class="icon quiz-trophy" data-icon="trophy"></span>
-          <div class="quiz-score">${qz.score} ${d.ui.quizOutOf} ${total}</div>
-          <div class="quiz-best">${d.ui.quizBestLabel}: ${finalBest} ${d.ui.quizOutOf} ${total}</div>
-          <button class="btn btn-solid" id="quizRestartBtn">${d.ui.quizRestart}</button>
+          <div class="quiz-score">${fd(qz.score)} ${ui.quizOutOf} ${fd(total)} <small>(${fd(pct)}٪)</small></div>
+          <p class="quiz-msg">${msg}</p>
+          <div class="quiz-best">${ui.quizBestLabel}: ${fd(b.score)} ${ui.quizOutOf} ${fd(b.total)}</div>
+          <div class="quiz-actions">
+            <button class="btn btn-solid" id="quizRestartBtn">${ui.quizRestart}</button>
+            <button class="btn" id="quizChangeBtn">${ui.quizChange}</button>
+            ${qz.missed.length ? `<button class="btn" id="quizReviewBtn">${ui.quizReview} (${fd(qz.missed.length)})</button>` : ''}
+          </div>
+          ${review}
         </div>`;
     }
 
-    const question = d.quiz.questions[qz.index];
-    const perm = quizPerm(qz.index, question.options.length);   // perm[displayed] = original option index
+    /* ---- a question ---- */
+    const qi = qz.order[qz.index], question = qs[qi];
+    const perm = quizPerm(qi, question.options.length);   // perm[displayed] = original option index
     const isRight = (shown) => perm[shown] === question.correct;
     const optionsHtml = perm.map((orig, i) => {
       let cls = 'quiz-option';
@@ -1209,20 +1356,21 @@
       }
       return `<button type="button" class="${cls}" data-index="${i}" ${qz.answered ? 'disabled' : ''}>${question.options[orig]}</button>`;
     }).join('');
+    const srcLink = question.src ? `<p class="quiz-src">${ui.quizSource}: <a href="${question.src.u}" target="_blank" rel="noopener noreferrer">${escHtml(question.src.t)}</a></p>` : '';
 
     return sectionHead(d, 'quiz', 'trophy') + `
       <div class="quiz-card reveal">
-        <div class="quiz-progress-label">${d.ui.quizQuestionLabel} ${qz.index+1}/${total} · ${d.ui.quizScoreLabel}: ${qz.score}</div>
-        <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${(qz.index/total)*100}%"></div></div>
+        <div class="quiz-progress-label">${ui.quizQuestionLabel} ${fd(qz.index + 1)}/${fd(total)} · ${ui.quizScoreLabel}: ${fd(qz.score)} <span class="quiz-cat-tag">${catLabel(question.cat)}</span></div>
+        <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${(qz.index / total) * 100}%"></div></div>
         <h3 class="quiz-question">${question.q}</h3>
         <div class="quiz-options">${optionsHtml}</div>
         ${qz.answered ? `
           <div class="quiz-feedback ${isRight(qz.selected) ? 'ok':'bad'}">
             <span class="icon" data-icon="${isRight(qz.selected) ? 'check':'x'}"></span>
-            <span>${isRight(qz.selected) ? d.ui.quizCorrect : d.ui.quizWrong + ' ' + question.options[question.correct]}</span>
+            <span>${isRight(qz.selected) ? ui.quizCorrect : ui.quizWrong + ' ' + question.options[question.correct]}</span>
           </div>
-          <p class="quiz-explain">${question.explain}</p>
-          <button class="btn btn-solid" id="quizNextBtn">${qz.index+1 < total ? d.ui.quizNext : d.ui.quizFinish}</button>
+          <p class="quiz-explain">${question.explain}</p>${srcLink}
+          <button class="btn btn-solid" id="quizNextBtn">${qz.index + 1 < total ? ui.quizNext : ui.quizFinish}</button>
         ` : ''}
       </div>`;
   }
@@ -1272,6 +1420,8 @@
       default:
         html = (window.TS_EXT && TS_EXT.routes[state.route]) ? TS_EXT.routes[state.route].render(d) : renderDashboard(d);
     }
+    const footSrc = d[state.route] && d[state.route].footSrc;
+    if(footSrc && footSrc.length) html += `<details class="gx-sources reveal"><summary>${d.ui.sectionSources}</summary><ol>${footSrc.map(x => `<li><a href="${x.u}" target="_blank" rel="noopener noreferrer">${escHtml(x.t)}</a></li>`).join('')}</ol></details>`;
     el.content.innerHTML = html;
     paintIcons(el.content);
     setActiveNav();
@@ -1301,6 +1451,7 @@
     });
 
     if(state.route === 'genealogy') wireGenealogy();
+    if(state.route === 'sources') wireSources();
     if(window.TS_EXT){
       if(TS_EXT.routes[state.route] && TS_EXT.routes[state.route].wire) TS_EXT.routes[state.route].wire();
       TS_EXT.after(state.route);
@@ -1350,28 +1501,28 @@
 
     // quiz-specific wiring
     if(state.route === 'quiz'){
+      el.content.querySelectorAll('[data-qmode]').forEach(btn => btn.addEventListener('click', () => { startQuiz(btn.dataset.qmode); render(); }));
       el.content.querySelectorAll('.quiz-option').forEach(btn=>{
         btn.addEventListener('click', ()=>{
-          if(state.quiz.answered) return;
-          const idx = parseInt(btn.dataset.index, 10);
-          state.quiz.selected = idx;
-          state.quiz.answered = true;
-          if(quizPerm(state.quiz.index, d.quiz.questions[state.quiz.index].options.length)[idx] === d.quiz.questions[state.quiz.index].correct) state.quiz.score++;
+          const qz = state.quiz; if(qz.answered) return;
+          const idx = parseInt(btn.dataset.index, 10), qi = qz.order[qz.index], q = d.quiz.questions[qi];
+          qz.selected = idx; qz.answered = true;
+          if(quizPerm(qi, q.options.length)[idx] === q.correct) qz.score++; else qz.missed.push(qi);
           render();
         });
       });
       const nextBtn = document.getElementById('quizNextBtn');
       if(nextBtn) nextBtn.addEventListener('click', ()=>{
-        if(state.quiz.index + 1 < d.quiz.questions.length){
-          state.quiz.index++; state.quiz.answered = false; state.quiz.selected = null;
-          render();
-        } else {
-          state.quiz.finished = true;
-          render();
-        }
+        const qz = state.quiz;
+        if(qz.index + 1 < qz.order.length){ qz.index++; qz.answered = false; qz.selected = null; render(); }
+        else { qz.finished = true; if(!qz.saved){ qz.saved = true; quizSaveBest(qz.mode, qz.score, qz.order.length); } render(); }
       });
       const restartBtn = document.getElementById('quizRestartBtn');
-      if(restartBtn) restartBtn.addEventListener('click', ()=>{ resetQuiz(); render(); });
+      if(restartBtn) restartBtn.addEventListener('click', ()=>{ startQuiz(state.quiz.mode); render(); });
+      const changeBtn = document.getElementById('quizChangeBtn');
+      if(changeBtn) changeBtn.addEventListener('click', ()=>{ resetQuiz(); render(); });
+      const reviewBtn = document.getElementById('quizReviewBtn');
+      if(reviewBtn) reviewBtn.addEventListener('click', ()=>{ state.quiz.showReview = !state.quiz.showReview; render(); });
     }
   }
 

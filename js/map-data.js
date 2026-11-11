@@ -191,11 +191,12 @@
     {
      "id": "pk",
      "name": "پاکستان",
-     "val": "≈ ۱۷۱ هزار",
-     "v": 171000,
-     "note": "برآوردی کم‌اطمینان (گردآوری ثانویه)",
+     "val": "≈ ۶۰ تا ۱۷۱ هزار",
+     "v": 115000,
+     "note": "منابع ناهمخوان: ۶۰ هزار (برآورد UN و ملی) تا ۱۷۱ هزار؛ بیشتر نوادگان پناهندگان افغان‌تبار",
      "onMap": false,
      "srcs": [
+      "wikiPak",
       "wikiTkm"
      ]
     },
@@ -204,11 +205,12 @@
      "name": "ترکیه",
      "val": "۱۱۳٬۷۶۲ (۲۰۲۴)",
      "v": 113762,
-     "note": "آمار ثبت نشانی ترکیه؛ ملاک شمارش ممکن است تابعیت باشد نه قومیت",
+     "note": "آمار ثبت نشانی ترکیه؛ ملاک شمارش ممکن است تابعیت باشد نه قومیت٫ ۱۱۳٬۴۴۹ اجازهٔ اقامت تبعهٔ ترکمنستان تا مارس ۲۰۲۳",
      "onMap": false,
      "srcs": [
       "wikiTkm",
-      "tuik"
+      "tuik",
+      "tmhelsinkiTr"
      ]
     },
     {
@@ -327,6 +329,16 @@
      "id": "iwpr",
      "t": "IWPR: ترکمن‌های ازبکستان",
      "u": "https://iwpr.net/ezwgy857"
+    },
+    {
+     "id": "wikiPak",
+     "t": "ویکی‌پدیا: Turkmen in Pakistan",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_in_Pakistan"
+    },
+    {
+     "id": "tmhelsinkiTr",
+     "t": "بنیاد هلسینکی ترکمنستان: اقامت در ترکیه (۲۰۲۳)",
+     "u": "https://tmhelsinki.org/en/article/7c68626f-8d7d-4d2c-b7c1-8caf69aaf474"
     },
     {
      "id": "tuik",
@@ -529,11 +541,12 @@
     {
      "id": "pk",
      "name": "Pakistan",
-     "val": "≈ 171 müň",
-     "v": 171000,
-     "note": "Ynamy pes çaklama (ikinji derejeli ýygyndy)",
+     "val": "≈ 60–171 müň",
+     "v": 115000,
+     "note": "Çeşmeler biri-birine gabat gelmeýär: 60 müň (BMG we milli çaklama) bilen 171 müň aralygy; köpüsi owgan gaçgaklarynyň nesilleri",
      "onMap": false,
      "srcs": [
+      "wikiPak",
       "wikiTkm"
      ]
     },
@@ -542,11 +555,12 @@
      "name": "Türkiýe",
      "val": "113 762 (2024)",
      "v": 113762,
-     "note": "Türkiýäniň adrese esaslanýan ýazuwy; sanamagyň ölçegi etniki däl-de raýatlyk bolmagy mümkin",
+     "note": "Türkiýäniň adrese esaslanýan ýazuwy; sanamagyň ölçegi etniki däl-de raýatlyk bolmagy mümkin. 2023-nji ýylyň martyna çenli Türkmenistan raýatlaryna 113 449 ýaşamak rugsady",
      "onMap": false,
      "srcs": [
       "wikiTkm",
-      "tuik"
+      "tuik",
+      "tmhelsinkiTr"
      ]
     },
     {
@@ -665,6 +679,16 @@
      "id": "iwpr",
      "t": "IWPR: Özbegistanyň türkmenleri",
      "u": "https://iwpr.net/ezwgy857"
+    },
+    {
+     "id": "wikiPak",
+     "t": "Wikipedia: Turkmen in Pakistan",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_in_Pakistan"
+    },
+    {
+     "id": "tmhelsinkiTr",
+     "t": "Türkmenistan Helsinki Gaznasy: Türkiýede ýaşamak rugsady (2023)",
+     "u": "https://tmhelsinki.org/en/article/7c68626f-8d7d-4d2c-b7c1-8caf69aaf474"
     },
     {
      "id": "tuik",

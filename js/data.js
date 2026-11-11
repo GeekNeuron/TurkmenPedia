@@ -24,7 +24,7 @@ const NAV_ITEMS = [
   { id:'books',       icon:'book'      },
   { id:'influences',  icon:'link'      },
   { id:'quiz',        icon:'trophy'    },
-  { id:'sources',     icon:'external', hidden:true }
+  { id:'sources',     icon:'external' }
 ];
 
 const DATA = {
@@ -302,12 +302,12 @@ fa: {
       { icon:'shield', name:'طغرل بیگ', era:'سدهٔ ۱۱ میلادی', text:'بنیان‌گذار امپراتوری سلجوقی که ریشه در ایل‌های اوغوز داشت؛ حکومتی که فرهنگ و زبان ترکی را تا قلب ایران و آناتولی گسترش داد.' },
       { icon:'quote', name:'جهان‌شاه قره‌قویونلو (حقیقی)', era:'سدهٔ ۱۵ میلادی', text:'فرمانروای کنفدراسیون ترکمن قره‌قویونلو بر ایران و عراق، که هم‌زمان شاعری توانا بود و با تخلص «حقیقی» به ترکی و فارسی شعر می‌سرود؛ نمونه‌ای از پیوند قدرت سیاسی و ذوق ادبی در میان بزرگان ترکمن.' },
       { icon:'swords', name:'بایرام‌خان', era:'سدهٔ ۱۶ میلادی', text:'از ایل قره‌قویونلوی ترکمن، که به‌عنوان سردار و نایب‌السلطنهٔ اکبرشاه در امپراتوری گورکانی هند، نقشی تعیین‌کننده در تثبیت این امپراتوری ایفا کرد.' },
-      { icon:'book', name:'ابوالغازی بهادرخان', era:'سدهٔ ۱۷ میلادی', text:'خان خیوه و مورخ، نویسندهٔ «شجرهٔ ترکمن» (۱۶۶۱) و «شجرهٔ ترک» (که پس از مرگش به‌دست پسرش به پایان رسید)؛ آثاری به زبان چغتایی که مهم‌ترین منبع تبارشناسی و تاریخ کهن قبایل ترکمن و دیگر اقوام ترک به شمار می‌رود.' },
+      { icon:'book', name:'ابوالغازی بهادرخان', era:'سدهٔ ۱۷ میلادی', text:'خان خیوه و مورخ، نویسندهٔ «شجرهٔ ترکمن» (۱۶۵۹؛ در برخی منابع ۱۶۶۱) و «شجرهٔ ترک» (که پس از مرگش به‌دست پسرش به پایان رسید)؛ آثاری به زبان چغتایی که مهم‌ترین منبع تبارشناسی و تاریخ کهن قبایل ترکمن و دیگر اقوام ترک به شمار می‌رود.' },
       { icon:'book', name:'دولت‌محمد آزادی', era:'سدهٔ ۱۸ میلادی', text:'عالم و شاعر صوفی، پدر و آموزگار مختومقلی فراغی؛ او را از نخستین کسانی می‌دانند که به زبان ترکمنی آثار مکتوب پدید آورد.' },
       { icon:'feather', name:'مختومقلی فراغی', era:'حدود ۱۷۲۴ تا ۱۸۰۷', text:'شاعر و عارف ملی ترکمن که غزل‌های او هویت زبانی و فرهنگی مشترک ترکمن‌ها را صورت‌بندی کرد و امروز در ایران، ترکمنستان و افغانستان به یک اندازه گرامی داشته می‌شود.' },
       { icon:'swords', name:'گوروغلی', era:'قهرمان حماسی', text:'قهرمان چرخهٔ حماسی مشترک گوروغلی/کوراوغلو در میان ترک‌زبانان آسیای میانه و قفقاز؛ نمادی از عدالت‌خواهی و مقاومت در برابر ستم.' },
       { icon:'feather', name:'کمینه', era:'اواخر سدهٔ ۱۸ و آغاز ۱۹', text:'شاعر طنزپرداز و مردمی که با زبانی ساده و گزنده از نابرابری‌های اجتماعی روزگار خود سخن گفت.' },
-      { icon:'music', name:'ساحی جپباروف', era:'سدهٔ ۲۰ میلادی', text:'بخشی و آهنگساز چیره‌دست که نخستین گروه سازی-آوازی رسمی ترکمنستان را در سال ۱۹۳۷ در عشق‌آباد بنیان نهاد و بسیاری از اشعار مختومقلی و دیگر شاعران را به آهنگ درآورد.' }
+      { icon:'music', name:'ساحی جپباروف', era:'۱۹۰۵ تا ۱۹۷۷', text:'بخشی و آهنگساز چیره‌دست؛ نخستین گروه سازی-آوازی «خانهٔ جمهوری هنر مردمی» عشق‌آباد (گشوده‌شده در ۱۹۳۷) را سازمان داد و بسیاری از اشعار مختومقلی و دیگر شاعران را به آهنگ درآورد. نخستین دارندهٔ لقب «اوغلان باخشی» دانسته می‌شود.' }
     ]
   },
 
@@ -318,12 +318,12 @@ fa: {
       { icon:'book', name:'دولت‌محمد آزادی', years:'سدهٔ ۱۸ میلادی', text:'دانشمند و متفکر صوفی که در کنار شعر، به مسائل اخلاق و تربیت نیز پرداخت و پایه‌گذار فضای فکری‌ای شد که فرزندش مختومقلی در آن بالید.' },
       { icon:'feather', name:'مختومقلی فراغی', years:'حدود ۱۷۲۴ تا ۱۸۰۷', text:'در قالب شعری «قوشوق» -نزدیک به سنت آواز و ترانهٔ عامیانه- دربارهٔ عشق، عدالت اجتماعی و وحدت ایل‌های ترکمن سرود؛ زبان و اندیشهٔ او هنوز الگوی شعر ترکمنی است.' },
       { icon:'quote', name:'کمینه', years:'حدود ۱۷۷۰ تا ۱۸۴۰', text:'شاعر هجوسرا و قصه‌گوی مردمی که با طنزی گزنده، ریاکاری و بی‌عدالتی را به نقد کشید و در حافظهٔ شفاهی ترکمن‌ها زنده ماند.' },
-      { icon:'feather', name:'سیدنظر سیدی', years:'۱۷۷۵ تا ۱۸۳۶', text:'شاعری که در اشعارش هم از عشق و هم از دشواری‌های زندگی ایلی و اجتماعی زمانهٔ خود سخن گفت.' },
+      { icon:'feather', name:'سیدنظر سیدی', years:'۱۷۷۵ تا ۱۸۳۶ (در برخی منابع ۱۷۵۸ تا ۱۸۳۰)', text:'شاعری که در اشعارش هم از عشق و هم از دشواری‌های زندگی ایلی و اجتماعی زمانهٔ خود سخن گفت. به گزارش منابع، «شاعر-جنگجو» بود: با امارت بخارا جنگید و ایل‌های ترکمن را به اتحاد و مبارزه برای آزادی فراخواند؛ سبک غنایی او را بریتانیکا «تقریباً عامیانه» می‌نامد.' },
       { icon:'book', name:'مُلانفس', years:'۱۸۱۰ تا ۱۸۶۲ (برخی منابع: تا حدود ۱۸۷۵)', text:'سرایندهٔ دیوان غزل و منظومهٔ عاشقانهٔ «زهره و طاهر»؛ در مدرسه‌های بخارا و خیوه درس خواند و گاه کشاورز و زرگر نیز بود. دست‌نوشته‌های او باقی نمانده و آثارش از راه بخشی‌ها به ما رسیده است.' },
       { icon:'feather', name:'نورمحمد آندلیب', years:'حدود ۱۷۱۰ تا ۱۷۷۰', text:'از نخستین سرایندگان داستان‌های منظوم بلند (دسان) به زبان ترکمنی، که پلی میان ادبیات شفاهی و ادبیات مکتوب ساخت؛ از آثار او «یوسف و زلیخا» و «لیلی و مجنون» است.' },
       { icon:'quote', name:'زلیلی', years:'سدهٔ ۱۹ میلادی', text:'شاعری که در اشعار خود از رنج جنگ‌های ایلی، آوارگی و اشتیاق بازگشت به سرزمین مادری سرود.' },
-      { icon:'feather', name:'کریم قربان‌نپسوف', years:'سدهٔ ۲۰ میلادی', text:'شاعر دوران شوروی که در کنار شاعرانی چون آناسلطان ککیلووا از چهره‌های شعر ترکمن در سدهٔ بیستم شمرده می‌شود.' },
-      { icon:'gem', name:'گرقبان‌نظر عزیزوف', years:'۱۹۴۰ تا ۱۹۷۵', text:'شاعر جوان‌مرگ اما تأثیرگذار دوران شوروی که به «شاعر زرگر» شهرت داشت و در شعر مدرن ترکمنی جایگاه ویژه‌ای دارد.' }
+      { icon:'feather', name:'کریم قربان‌نپسوف', years:'زادهٔ ۱۹۲۹', text:'شاعر دوران شوروی، زادهٔ ۱۹۲۹ در روستای ییلگین (گوک‌دپه)، «نویسندهٔ ملی» ترکمنستان و برندهٔ جایزهٔ دولتی مختومقلی؛ در یک مقالهٔ پژوهشی او را «مختومقلیِ روزگار خود» نامیده‌اند. کنار شاعرانی چون آناسلطان ککیلووا از چهره‌های شعر ترکمن در سدهٔ بیستم شمرده می‌شود.' },
+      { icon:'gem', name:'گرقبان‌نظر عزیزوف', years:'۱۹۴۰ تا ۱۹۷۵', text:'شاعر جوان‌مرگ اما تأثیرگذار دوران شوروی؛ زادهٔ ۱ مارس ۱۹۴۰ در بوزمیین و برندهٔ جایزهٔ دولتی مختومقلی. چون در خانوادهٔ زرگران بزرگ شد و زرگری را از پدرش آموخت، به «شاعر زرگر» (zergär şahyr) معروف است. در ۲۰ سپتامبر ۱۹۷۵ در ۳۵ سالگی نزدیک گازانجیک کشته شد (به گزارش ویکی‌پدیا با شلیک یک سرباز شوروی). آهنگساز نوری هالمامدوف شعرهایش را آهنگ کرد، از جمله «ترکمن‌صحرا».' }
     ]
   },
 
@@ -332,7 +332,7 @@ fa: {
     items:[
       { icon:'book', title:'کتاب دده قورقود', author:'راوی: دده قورقود (سنت شفاهی)', era:'احتمالاً سده‌های ۹ تا ۱۵ میلادی', text:'مجموعه‌ای از داستان‌های حماسی و پندآمیز که میراث مشترک ترکمن‌ها، ترک‌های آناتولی و آذربایجانی‌هاست؛ روایت‌هایی از دلاوری، مهمان‌نوازی و خرد ایلی که سینه‌به‌سینه نقل می‌شد پیش از آنکه در قالب مکتوب درآید.' },
       { icon:'feather', title:'دیوان مختومقلی فراغی', author:'مختومقلی فراغی', era:'سدهٔ ۱۸ میلادی', text:'مجموعهٔ کامل غزل‌های شاعر ملی ترکمن که به شکل شفاهی و در قالب دست‌نویس‌های پراکنده حفظ و بعدها گردآوری شد؛ سنگ‌بنای زبان ادبی ترکمنی مدرن.' },
-      { icon:'scroll', title:'شجرهٔ ترکمن (شجرهٔ تراکمه)', author:'ابوالغازی بهادرخان', era:'سدهٔ ۱۷ میلادی (حدود ۱۶۶۱)', text:'تاریخ‌نامه‌ای به زبان چغتایی دربارهٔ نسب و تاریخ قبایل ترکی از جمله ترکمن‌ها؛ نویسنده، خود خان خیوه بود و اثرش قرن‌ها بعد به زبان‌های اروپایی نیز ترجمه شد و منبعی کلاسیک برای ترک‌شناسی گشت. ابوالغازی اثر دوم خود، «شجرهٔ ترک»، را ناتمام گذاشت و پسرش آن را تکمیل کرد.' },
+      { icon:'scroll', title:'شجرهٔ ترکمن (شجرهٔ تراکمه)', author:'ابوالغازی بهادرخان', era:'سدهٔ ۱۷ میلادی (۱۶۵۹؛ در برخی منابع ۱۶۶۱)', text:'تاریخ‌نامه‌ای به زبان چغتایی دربارهٔ نسب و تاریخ قبایل ترکی از جمله ترکمن‌ها؛ نویسنده، خود خان خیوه بود و اثرش قرن‌ها بعد به زبان‌های اروپایی نیز ترجمه شد و منبعی کلاسیک برای ترک‌شناسی گشت. ابوالغازی اثر دوم خود، «شجرهٔ ترک»، را ناتمام گذاشت و پسرش آن را تکمیل کرد.' },
       { icon:'swords', title:'دستان گوروغلی', author:'سنت شفاهی بخشی‌ها', era:'قدمتی چندصدساله، ثبت مکتوب در سدهٔ ۱۹-۲۰', text:'چرخه‌ای از داستان‌های حماسی دربارهٔ قهرمانی به نام گوروغلی که با یاران خود در برابر ستمگران می‌ایستد؛ در سال ۲۰۱۵ در فهرست میراث ناملموس یونسکو ثبت شد.' },
       { icon:'quote', title:'زهره و طاهر', author:'مُلانفس', era:'سدهٔ ۱۹ میلادی', text:'منظومه‌ای عاشقانه دربارهٔ عشق ممنوع دو دلداده که در قالب موسیقی و آواز بخشی‌ها هنوز زنده است؛ نمونه‌ای از داستان‌های غنایی مشترک میان ادبیات ترکی و ایرانی.' },
       { icon:'quote', title:'شاسنم و غریب', author:'سنت شفاهی', era:'نامعلوم، از دستان‌های کهن عاشقانه', text:'یکی دیگر از دستان‌های عاشقانهٔ محبوب در مجموعهٔ بخشی‌ها؛ داستانی از عشق، جدایی و سرگردانی که در شب‌نشینی‌های سنتی روایت می‌شد.' },
@@ -708,7 +708,7 @@ tk: {
       { icon:'feather', name:'Magtymguly Pyragy', era:'takmynan 1724–1807', text:'Türkmenleriň milli şahyry we akyldary; goşgulary türkmenleriň umumy dil we medeni kimligini şekillendirdi, häzir Eýranda, Türkmenistanda we Owganystanda deň derejede hormatlanýar.' },
       { icon:'swords', name:'Görogly', era:'Dessan gahrymany', text:'Merkezi Aziýa we Kawkaz türki halklarynda ýaýran umumy Görogly dessanynyň gahrymany; adalat we sütemine garşy göreşiň nyşany.' },
       { icon:'feather', name:'Kemine', era:'18-nji asyryň ahyry — 19-njy asyryň başy', text:'Ýönekeý, ýiti dilli şahyr, döwrüniň durmuş adalatsyzlyklaryny henekli setirlerde beýan edipdir.' },
-      { icon:'music', name:'Sahy Jepbarow', era:'20-nji asyr', text:'Ökde bagşy we kompozitor, 1937-nji ýylda Aşgabatda Türkmenistanyň ilkinji resmi saz-aýdym toparyny esaslandyrdy; Magtymgulynyň we beýleki şahyrlaryň goşgularynyň köpüsini aýdyma öwürdi.' }
+      { icon:'music', name:'Sahy Jepbarow', era:'1905–1977', text:'Ökde bagşy we kompozitor; 1937-nji ýylda açylan Aşgabadyň Respublika halk döredijiligi öýünde ilkinji saz-aýdym toparyny gurady, we «Oglan bagşy» lakamynyň ilkinji eýesi hasaplanýar; Magtymgulynyň we beýleki şahyrlaryň goşgularynyň köpüsini aýdyma öwürdi.' }
     ]
   },
 
@@ -719,12 +719,12 @@ tk: {
       { icon:'book', name:'Döwletmämmet Azady', years:'18-nji asyr', text:'Sopy alym hem şahyr, goşgy bilen bir hatarda ahlak we terbiýe meselelerine hem üns berdi; ogly Magtymgulynyň kemala gelen pikir gurşawyny esaslandyrdy.' },
       { icon:'feather', name:'Magtymguly Pyragy', years:'takmynan 1724–1807', text:'Halk aýdymyna ýakyn "goşuk" görnüşinde söýgi, sosial adalat we türkmen tireleriniň agzybirligi barada ýazdy; onuň dili we pikri henizem türkmen şygryýetiniň nusgasydyr.' },
       { icon:'quote', name:'Kemine', years:'takmynan 1770–1840', text:'Henekli, ýiti dilli halk şahyry, ikiýüzlülik we adalatsyzlygy tankytlap, türkmenleriň dilden-dile geçýän hakydasynda ýaşap galdy.' },
-      { icon:'feather', name:'Seýitnazar Seýdi', years:'1775–1836', text:'Goşgularynda hem söýgi, hem öz döwrüniň tire-taýpa we durmuş kynçylyklary barada ýazan şahyr.' },
+      { icon:'feather', name:'Seýitnazar Seýdi', years:'1775–1836 (käbir çeşmelerde 1758–1830)', text:'Goşgularynda hem söýgi, hem öz döwrüniň tire-taýpa we durmuş kynçylyklary barada ýazan şahyr. Çeşmelere görä «şahyr-söweşiji» bolupdyr: Buhara emirligine garşy söweşipdir we türkmen tirelerini agzybirlige we azatlyk ugrundaky göreşe çagyrypdyr; Britannica onuň lirik stilini «diýen ýaly halk»a ýakyn hasaplaýar.' },
       { icon:'book', name:'Mollanepes', years:'1810–1862 (käbir çeşmelerde takmynan 1875-e çenli)', text:'Gazal diwanynyň we "Zöhre-Tahyr" söýgi dessanynyň awtory; Buhara we Hywa medreselerinde okady, wagtal-wagtal daýhan we zergär hem bolupdyr. Golýazmalary saklanmandyr, eserleri bagşylaryň aýtmagy arkaly bize gelip ýetipdir.' },
       { icon:'feather', name:'Nurmuhammet Andalyp', years:'takmynan 1710–1770', text:'Türkmen dilinde uzyn goşgy dessanlaryny (dessan) ýazan ilkinji şahyrlaryň biri, dilden-dile geçýän edebiýat bilen ýazuw edebiýatynyň arasynda köpri gurdy; eserleriniň hatarynda "Ýusup we Zeliha" we "Leýli we Mejnun" bar.' },
       { icon:'quote', name:'Zelili', years:'19-njy asyr', text:'Tire uruşlarynyň jebrini, sürgünligi we ata Watana dolanmak duýgusyny goşgularynda beýan eden şahyr.' },
-      { icon:'feather', name:'Kerim Gurbannepesow', years:'20-nji asyr', text:'Sowet döwrüniň şahyry; Annasoltan Kekilowa ýaly şahyrlar bilen bilelikde 20-nji asyrda türkmen şygryýetiniň görnükli wekilleriniň biri hasaplanýar.' },
-      { icon:'gem', name:'Gurbannazar Ezizow', years:'1940–1975', text:'Ýaşlykda aradan çykan, emma uly täsir galdyran Sowet döwrüniň şahyry, "zergär şahyr" ady bilen tanalýar; häzirki zaman türkmen şygryýetinde aýratyn orny bar.' }
+      { icon:'feather', name:'Kerim Gurbannepesow', years:'1929-da doglan', text:'Sowet döwrüniň şahyry, 1929-njy ýylda Ýylgyn obasynda (Gökdepe) doglan, Türkmenistanyň «milli ýazyjysy» we Magtymguly adyndaky Döwlet baýragynyň eýesi; bir ylmy makalada ol «öz döwrüniň Magtymgulysy» diýlip atlandyrylýar. Annasoltan Kekilowa ýaly şahyrlar bilen bilelikde 20-nji asyrda türkmen şygryýetiniň görnükli wekilleriniň biri hasaplanýar.' },
+      { icon:'gem', name:'Gurbannazar Ezizow', years:'1940–1975', text:'Ýaşlykda aradan çykan, emma uly täsir galdyran Sowet döwrüniň şahyry; 1940-njy ýylyň 1-nji martynda Büzmeýinde doglup, Magtymguly adyndaky Döwlet baýragynyň eýesi. Zergärler maşgalasynda ulalyp, zergärligi kakasyndan öwrenenligi üçin «zergär şahyr» ady bilen tanalýar. 1975-nji ýylyň 20-nji sentýabrynda 35 ýaşynda Gazanjygyň golaýynda öldürildi (Wikipediýa boýunça sowet esgeriniň ok atmagy bilen). Kompozitor Nury Halmämmedow onuň goşgularyna saz döretdi, şol sanda «Türkmen sährasy».' }
     ]
   },
 
@@ -733,7 +733,7 @@ tk: {
     items:[
       { icon:'book', title:'Dede Korkut kitaby', author:'Rowaýatçy: Dede Korkut (dilden-dile)', era:'Çemeleşdirip 9-15-nji asyrlar', text:'Türkmenleriň, Anadoly türkleriniň we azerbaýjanlaryň umumy mirasy bolan gahrymançylyk we öwüt-ündew hekaýalarynyň topluma; mertlik, myhmansöýerlik we tire paýhasy barada dilden-dile geçen rowaýatlar, soňra ýazuwa geçirildi.' },
       { icon:'feather', title:'Magtymguly Pyragynyň diwany', author:'Magtymguly Pyragy', era:'18-nji asyr', text:'Türkmen milli şahyrynyň doly goşgular topluma; dilden-dile we dagynyk golýazmalar görnüşinde saklanyp, soň ýygnaldy — häzirki zaman türkmen edebi diliniň binýady.' },
-      { icon:'scroll', title:'Şejere-i Terakime (Türkmenleriň şejeresi)', author:'Abulgazy Bahadyr han', era:'17-nji asyr (takmynan 1661)', text:'Çagataý dilinde ýazylan, türkmenler dagyn türki taýpalaryň gelip çykyşy we taryhy barada taryhy eser; awtory Hywa hanydyr, onuň eseri asyrlar soň ýewropa dillerine-de terjime edilip, türkologiýa üçin klassiki çeşmä öwrüldi. Ikinji eseri "Şejere-i Türk" ni ol tamamlap bilmedi, ony ogly tamamlady.' },
+      { icon:'scroll', title:'Şejere-i Terakime (Türkmenleriň şejeresi)', author:'Abulgazy Bahadyr han', era:'17-nji asyr (1659; käbir çeşmelerde 1661)', text:'Çagataý dilinde ýazylan, türkmenler dagyn türki taýpalaryň gelip çykyşy we taryhy barada taryhy eser; awtory Hywa hanydyr, onuň eseri asyrlar soň ýewropa dillerine-de terjime edilip, türkologiýa üçin klassiki çeşmä öwrüldi. Ikinji eseri "Şejere-i Türk" ni ol tamamlap bilmedi, ony ogly tamamlady.' },
       { icon:'swords', title:'Görogly dessany', author:'Bagşylaryň dilden-dile geçirilen sungaty', era:'Birnäçe asyrlyk, 19-20-nji asyrlarda ýazuwa geçirildi', text:'Görogly atly gahrymanyň ýoldaşlary bilen sütemkärlere garşy durşy barada dessanlar toplumy; 2015-nji ýylda ÝUNESKO-nyň maddy däl miras sanawyna girizildi.' },
       { icon:'quote', title:'Zöhre-Tahyr', author:'Mollanepes', era:'19-njy asyr', text:'Iki söýgülä barada gadagan söýgi dessany, bagşylaryň saz-aýdymy bilen henizem ýaşaýar; türki we irani edebiýatlarda umumy bolan lirik dessan mysaly.' },
       { icon:'quote', title:'Şasenem-Garyp', author:'Dilden-dile geçen dessan', era:'Näbelli, gadymy söýgi dessanlarynyň biri', text:'Bagşylaryň repertuarynda söýülýän başga bir söýgi dessany; söýgi, aýralyk we ser-gezerçilik barada gijeki ýygnanyşyklarda aýdylýan hekaýa.' },

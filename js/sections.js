@@ -118,6 +118,8 @@ window.TS_EXT = (function(){
     orientRid:{ t:['معماهای ترکمن — orient.tm','Türkmen matallary — orient.tm'], u:'https://orient.tm/turkmenskie-zagadki-i-hitrye-voprosy-ot-nekotoryh-narodov-mira/' },
     carpet:   { t:['قالی ترکمن: گل و جهیزیه (Khinkhwab)','Türkmen halysy: göl we gelin eşigi (Khinkhwab)'], u:'https://khinkhwab.com/blogs/news/turkmen-carpet-gul-and-dowry' }
   };
+  (window.WORLD_SRC || []).forEach(x => { SRC[x.id] = { t:x.t, u:x.u }; });   // sources added by js/world-extra.js
+  X.srcRegistry = SRC;   // used by js/bibliography.js
   const wiki = topic => ({ t:null, topic, u:'https://en.wikipedia.org/wiki/Special:Search?search=' + encodeURIComponent(topic) });
   // [pattern tested on fa+tk title, direct source ids, wikipedia topics]
   const RULES = [
@@ -690,6 +692,13 @@ window.TS_EXT = (function(){
       const guls = c.guls.map((g, i) => `<article class="gul-card reveal" data-gul="${g.id}"><div class="gul-art">${gulSVG(g.id)}</div><div><h3>${g.title}</h3><p>${g.text}</p>${C().cardTools(g.title)}</div></article>`).join('');
       const weaves = c.weaves.map(w => `<article class="item-card reveal"><div class="item-head"><h3>${w.title}</h3></div><p>${w.text}</p>${C().cardTools(w.title)}</article>`).join('');
       const chips = c.guls.map(g => `<button type="button" class="map-chip${loomState.gul === g.id ? ' on' : ''}" data-loom="${g.id}">${g.title}</button>`).join('');
+      const cu = c.unesco, csrc = id => { const i = (c.sources || []).findIndex(x => x.id === id); return i < 0 ? '' : `<a class="ms-ref" href="${c.sources[i].u}" target="_blank" rel="noopener noreferrer" title="${esc(c.sources[i].t)}">${lang() === 'fa' ? String(i + 1).replace(/\d/g, k => '۰۱۲۳۴۵۶۷۸۹'[k]) : i + 1}</a>`; };
+      const unescoBlock = cu ? `<h3 class="subheading reveal">${cu.title}</h3>
+        <div class="x-box reveal"><p>${cu.text} ${cu.srcs.map(csrc).join('')}</p>
+          <h4 class="gx-sub">${u.chainTitle}</h4><div class="gx-parts">${cu.chain.map((x, i) => `<span>${i + 1}. ${x}</span>`).join('')}</div>
+          <p>${cu.flag}</p></div>
+        <details class="gx-sources reveal"><summary>${u.srcTitle}</summary><ol>${c.sources.map(x => `<li><a href="${x.u}" target="_blank" rel="noopener noreferrer">${esc(x.t)}</a></li>`).join('')}</ol></details>` : '';
+
       return C().sectionHead(d, 'carpets', 'gem') + `
         <h3 class="subheading reveal">${u.guls}</h3><div class="gul-grid">${guls}</div>
         <h3 class="subheading reveal">${u.loom}</h3>
@@ -701,6 +710,7 @@ window.TS_EXT = (function(){
             <label class="loom-rows">${u.rows} <input id="loomRows" type="range" min="3" max="9" value="${loomState.rows}"><b id="loomRowsV">${loomState.rows}</b></label></div>
         </div>
         <h3 class="subheading reveal">${u.weaves}</h3><div class="card-grid">${weaves}</div>
+        ${unescoBlock}
         <div class="x-box reveal"><h3>${u.howTitle}</h3><p>${u.how}</p></div>
         <ul class="x-facts reveal">${u.facts.map(f => `<li>${f}</li>`).join('')}</ul>
         <div class="dict-note reveal"><span class="icon" data-icon="quote"></span><p>${u.proverb}</p></div>

@@ -8,9 +8,9 @@ const fs = require('fs'), vm = require('vm'), path = require('path');
 const root = path.join(__dirname, '..', 'js') + path.sep;
 const sb = { console, window: {}, document: {}, localStorage: { getItem(){ return null; }, setItem(){} }, navigator: {} };
 sb.window = sb; vm.createContext(sb);
-const files = ['icons.js','data.js','data-extra.js','data-new.js','genealogy.js','names.js','dictionary.js','map-data.js','map-geo.js','map-tiles.js','sections.js'];
+const files = ['icons.js','data.js','data-extra.js','data-new.js','genealogy.js','names.js','dictionary.js','genealogy-extra.js','map-data.js','map-geo.js','map-tiles.js','world-extra.js','culture-extra.js','content-extra.js','quiz-extra.js','sections.js','bibliography.js'];
 vm.runInContext(files.map(f => fs.readFileSync(root + f, 'utf8')).join('\n;\n') +
-  '\n;globalThis.__E={DATA,NAV_ITEMS,ICONS,GEO:window.TS_GEO};', sb);
+  '\n;globalThis.__E={DATA,NAV_ITEMS,ICONS,GEO:window.TS_GEO,GN:GENEALOGY};', sb);
 const { DATA, NAV_ITEMS, ICONS } = sb.__E;
 const src = fs.readFileSync(root + 'sections.js', 'utf8');
 let fail = 0; const bad = (m) => { fail++; console.error('FAIL ' + m); };
@@ -31,6 +31,7 @@ for(const L of ['fa', 'tk']) for(const n of NAV_ITEMS){
 // 3. icons and source ids
 const names = new Set(Object.keys(ICONS || {}));
 const reg = new Set([...src.matchAll(/^\s{4}(\w+):\s*\{ t:\[/gm)].map(m => m[1]));
+(sb.WORLD_SRC || []).forEach(x => reg.add(x.id));   // sources registered by js/world-extra.js
 const keys = [...src.matchAll(/^\s{4}(\w+):\s*\{ t:\[/gm)].map(m => m[1]);
 keys.filter((k, i) => keys.indexOf(k) !== i).forEach(k => bad('duplicate SRC key ' + k));
 (function rx(o, p){
@@ -59,11 +60,39 @@ navIcons.filter((x, i) => navIcons.indexOf(x) !== i).forEach(x => bad(`two navig
   });
 })();
 
+// 3d. every 'srcs' id used by the world section resolves (SRC registry + WORLD_SRC)
+(function(){
+  const known = new Set([...reg, ...(sb.WORLD_SRC || []).map(x => x.id)]);
+  ['fa', 'tk'].forEach(L => DATA[L].world.items.forEach(it => String(it.srcs || '').split(',').filter(Boolean).forEach(id => { if(!known.has(id)) bad(`${L}: world item ${it.id} cites unknown source ${id}`); })));
+  (sb.WORLD_SRC || []).forEach(x => { if(!/^https:\/\//.test(x.u)) bad('world source not https: ' + x.id); });
+})();
+
+
+// 3e. regression guard: the storage helper must probe the real window.localStorage (a bad find/replace once broke persistence)
+(function(){
+  const code = fs.readFileSync(root + 'app.js', 'utf8');
+  if(/window\.LS\b/.test(code)) bad('app.js: "window.LS" does not exist; the storage probe must use window.localStorage');
+  if(!/window\.localStorage\.setItem\(t,/.test(code)) bad('app.js: storage probe not found');
+})();
+
 // 4. quiz
 DATA.fa.quiz.questions.forEach((q, i) => {
   if(q.options.length < 2 || !(q.correct >= 0 && q.correct < q.options.length)) bad('quiz #' + (i + 1) + ' bad correct index');
   if(new Set(q.options).size !== q.options.length) bad('quiz #' + (i + 1) + ' duplicate options');
   if(!q.explain) bad('quiz #' + (i + 1) + ' no explanation');
+});
+
+// 4b. quiz bank: categories, uniqueness, sources
+['fa', 'tk'].forEach(L => {
+  const Q = DATA[L].quiz, cats = new Set((Q.cats || []).map(c => c.id)), seen = new Set(), per = {};
+  if(Q.questions.length < 60) bad(`${L}: quiz bank has only ${Q.questions.length} questions (expected 60+)`);
+  Q.questions.forEach((q, i) => {
+    if(!cats.has(q.cat)) bad(`${L}: quiz #${i + 1} has unknown category "${q.cat}"`);
+    per[q.cat] = (per[q.cat] || 0) + 1;
+    if(seen.has(q.q)) bad(`${L}: duplicate quiz question #${i + 1}`); seen.add(q.q);
+    if(q.src && !/^https:\/\//.test(q.src.u)) bad(`${L}: quiz #${i + 1} source is not https`);
+  });
+  cats.forEach(c => { if((per[c] || 0) < 3) bad(`${L}: quiz category "${c}" has fewer than 3 questions`); });
 });
 
 // 5. map: pre-projected geography must exist, and every Turkmen point must sit inside the real border
@@ -103,12 +132,37 @@ else {
   });
 })();
 
+
+// 5c. genealogy extras
+(function(){
+  const GN = sb.__E.GN;
+  ['fa', 'tk'].forEach(L => GN.build(L).sons.forEach(s => s.tribes.forEach(tr => { if(!tr.meaning || tr.meaning.length < 2) bad(`${L}: tribe ${tr.id} has no meaning data`); })));
+  ['fa', 'tk'].forEach(L => {
+    const ex = DATA[L].genealogy.extra;
+    if(!ex) return bad(L + ': genealogy.extra missing (js/genealogy-extra.js)');
+    const ids = new Set(ex.sources.map(s => s.id));
+    const all = [...ex.modern.flatMap(m => m.srcs), ...ex.ovlat.srcs, ...ex.structure.srcs, ...ex.compare.srcs, ...ex.dynasties.srcs];
+    all.forEach(x => { if(!ids.has(x)) bad(`${L}: genealogy cites unknown source ${x}`); });
+    ex.sources.forEach(s => { if(!/^https:\/\//.test(s.u)) bad(`${L}: genealogy source ${s.id} is not https`); });
+    if(ex.modern.length < 7) bad(L + ': expected at least 7 modern tribes');
+  });
+})();
+
+
+// 5d. per-section source footers
+['clothing', 'cuisine', 'books', 'influences', 'people'].forEach(k => ['fa', 'tk'].forEach(L => {
+  const fs = DATA[L][k].footSrc;
+  if(!fs || fs.length < 2) return bad(`${L}.${k}: footSrc (section sources) missing`);
+  fs.forEach(x => { if(!/^https:\/\//.test(x.u)) bad(`${L}.${k}: source not https: ${x.u}`); });
+}));
+
 // 6. text hygiene
 const all = []; (function s(o, p){ if(typeof o === 'string') all.push([p, o]); else if(Array.isArray(o)) o.forEach((x, i) => s(x, p + '[' + i + ']')); else if(o && typeof o === 'object') for(const k in o) s(o[k], p + '.' + k); })(DATA, 'DATA');
 all.forEach(([p, t]) => {
   if(/[\u0400-\u04FF]/.test(t)) bad('Cyrillic in ' + p);
   if(/[\u064A\u0643]/.test(t)) bad('Arabic ي/ك in ' + p);
   if(/undefined|\[object/.test(t)) bad('literal undefined in ' + p);
+  if(/(دیدم|نیافتم|نخوانده‌ام|بررسی کردم|در اختیار من|elimdäki|Gören çeşmelerim|tapdym|tapmadym)/.test(t)) bad('first-person wording in ' + p + ' (UI text must not address the author)');
 });
 
 console.log(fail ? `\n${fail} problem(s)` : 'All data checks passed ✔');
