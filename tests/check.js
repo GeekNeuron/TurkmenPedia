@@ -8,7 +8,7 @@ const fs = require('fs'), vm = require('vm'), path = require('path');
 const root = path.join(__dirname, '..', 'js') + path.sep;
 const sb = { console, window: {}, document: {}, localStorage: { getItem(){ return null; }, setItem(){} }, navigator: {} };
 sb.window = sb; vm.createContext(sb);
-const files = ['icons.js','data.js','data-extra.js','data-new.js','genealogy.js','names.js','dictionary.js','genealogy-extra.js','map-data.js','map-geo.js','map-tiles.js','world-extra.js','culture-extra.js','content-extra.js','quiz-extra.js','sections.js','bibliography.js'];
+const files = ['icons.js','data.js','data-extra.js','data-new.js','genealogy.js','names.js','dictionary.js','genealogy-extra.js','map-data.js','map-geo.js','map-tiles.js','world-extra.js','culture-extra.js','content-extra.js','quiz-extra.js','mature-extra.js','sections.js','bibliography.js'];
 vm.runInContext(files.map(f => fs.readFileSync(root + f, 'utf8')).join('\n;\n') +
   '\n;globalThis.__E={DATA,NAV_ITEMS,ICONS,GEO:window.TS_GEO,GN:GENEALOGY};', sb);
 const { DATA, NAV_ITEMS, ICONS } = sb.__E;

@@ -478,10 +478,10 @@
      "تکه"
     ],
     "correct": 3,
-    "explain": "ترتیب سنتی: تکه، یموت، ارساری، چودور، ساریق.",
+    "explain": "ترتیب سنتی (از بالا به پایین): تکه، یموت، ساریق، چودور، ارساری؛ گل میانی را برخی منابع نمایندهٔ سالیر هم می‌دانند.",
     "src": {
-     "t": "ویکی‌پدیا: Turkmen rug",
-     "u": "https://en.wikipedia.org/wiki/Turkmen_rug"
+     "t": "ویکی‌پدیا: Flag of Turkmenistan",
+     "u": "https://en.wikipedia.org/wiki/Flag_of_Turkmenistan"
     }
    },
    {
@@ -738,6 +738,118 @@
     "src": {
      "t": "ویکی‌پدیا: Shajara-i Tarākima",
      "u": "https://en.wikipedia.org/wiki/Shajara-i_Tar%C4%81kima"
+    }
+   },
+   {
+    "cat": "tribe",
+    "q": "در پرچم ترکمنستان، گل پایینی (پنجم از بالا) به سنت به کدام ایل نسبت داده می‌شود؟",
+    "options": [
+     "تکه",
+     "ساریق",
+     "چودور",
+     "ارساری"
+    ],
+    "correct": 3,
+    "explain": "ترتیب سنتی از بالا: تکه، یموت، ساریق، چودور، ارساری؛ گل میانی را برخی منابع نمایندهٔ سالیر هم می‌دانند.",
+    "src": {
+     "t": "ویکی‌پدیا: Flag of Turkmenistan",
+     "u": "https://en.wikipedia.org/wiki/Flag_of_Turkmenistan"
+    }
+   },
+   {
+    "cat": "lit",
+    "q": "«جنگ‌نامه» (Jeňnama) دربارهٔ نبردهای تکه‌ها با ایرانیان در دههٔ ۱۸۶۰ اثر کیست؟",
+    "options": [
+     "مختومقلی",
+     "عبدالستار قاضی",
+     "سیدی",
+     "ذلیلی"
+    ],
+    "correct": 1,
+    "explain": "عبدالستار قاضی (Abdysetdar Kazy) در دههٔ ۱۸۶۰.",
+    "src": {
+     "t": "ویکی‌پدیا: Turkmen literature",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
+    }
+   },
+   {
+    "cat": "lit",
+    "q": "سرود ۱۹۴۴ جمهوری شوروی ترکمنستان را کدام آهنگساز ساخت؟",
+    "options": [
+     "داناتار اووزوف",
+     "نوری هالمامدف",
+     "ولی محادف",
+     "ساحی جپباروف"
+    ],
+    "correct": 2,
+    "explain": "ولی محادف (متن: امان ککیلف).",
+    "src": {
+     "t": "ویکی‌پدیا: Weli Muhadow",
+     "u": "https://en.wikipedia.org/wiki/Weli_Muhadow"
+    }
+   },
+   {
+    "cat": "cult",
+    "q": "نام «آخال‌تکه» برای اسب را در ۱۸۸۱ کدام ژنرال روسی رایج کرد؟",
+    "options": [
+     "کوروپاتکین",
+     "اسکوبلف",
+     "کاوفمان",
+     "لازارف"
+    ],
+    "correct": 0,
+    "explain": "ژنرال کوروپاتکین پس از جنگ پرورشگاه ساخت و اسب‌ها را به نام ایل تکه نامید.",
+    "src": {
+     "t": "ویکی‌پدیا: Akhal-Teke",
+     "u": "https://en.wikipedia.org/wiki/Akhal-Teke"
+    }
+   },
+   {
+    "cat": "hist",
+    "q": "در ۱۹۳۵ بیست‌وهشت سوار با اسب آخال‌تکه از عشق‌آباد به کدام شهر رفتند؟",
+    "options": [
+     "تاشکند",
+     "تهران",
+     "باکو",
+     "مسکو"
+    ],
+    "correct": 3,
+    "explain": "برای تأثیرگذاری بر مقام‌ها به مسکو رفتند؛ بنا به ویکی‌پدیا حدود ۸۴ روز با عبور سه‌روزه از بیابان بی‌آب.",
+    "src": {
+     "t": "History Today: Golden Horses, Red Square",
+     "u": "https://www.historytoday.com/archive/history-matters/golden-horses-red-square"
+    }
+   },
+   {
+    "cat": "lit",
+    "q": "«رونق‌الاسلام» وفایی، از کهن‌ترین آثار ترکمنی، به چه سالی برمی‌گردد؟",
+    "options": [
+     "۱۴۶۴",
+     "۱۵۶۴",
+     "۱۶۶۴",
+     "۱۳۶۴"
+    ],
+    "correct": 0,
+    "explain": "۱۴۶۴؛ ویکی‌پدیا آن را همراه اشعار بایرام‌خان و «شجرهٔ ترکمن» آغاز نوشتار ترکمنی می‌داند.",
+    "src": {
+     "t": "ویکی‌پدیا: Turkmen literature",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
+    }
+   },
+   {
+    "cat": "lit",
+    "q": "کدام دو شاعر دربارهٔ دفاع از گوک‌تپه سروده‌اند؟",
+    "options": [
+     "آزادی و آندلیب",
+     "کمینه و سیدی",
+     "ماتاجی و میسگین‌قیلیچ",
+     "ذلیلی و مولانپس"
+    ],
+    "correct": 2,
+    "explain": "ماتاجی (حدود ۱۸۲۴–۱۸۸۴) و میسگین‌قیلیچ (۱۸۴۵–۱۹۰۵) در ویکی‌پدیا.",
+    "src": {
+     "t": "ویکی‌پدیا: Turkmen literature",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
     }
    }
   ],
@@ -1262,10 +1374,10 @@
      "Teke"
     ],
     "correct": 3,
-    "explain": "Däp tertibi: Teke, Ýomut, Ärsary, Çowdur, Saryk.",
+    "explain": "Däp tertibi (ýokardan aşaklygyna): Teke, Ýomut, Saryk, Çowdur, Ärsary; ortaky göli käbir çeşmeler Salyr hem hasaplaýar.",
     "src": {
-     "t": "Wikipedia: Turkmen rug",
-     "u": "https://en.wikipedia.org/wiki/Turkmen_rug"
+     "t": "Wikipedia: Flag of Turkmenistan",
+     "u": "https://en.wikipedia.org/wiki/Flag_of_Turkmenistan"
     }
    },
    {
@@ -1522,6 +1634,118 @@
     "src": {
      "t": "Wikipedia: Shajara-i Tarākima",
      "u": "https://en.wikipedia.org/wiki/Shajara-i_Tar%C4%81kima"
+    }
+   },
+   {
+    "cat": "tribe",
+    "q": "Türkmenistanyň baýdagynda aşaky (ýokardan bäşinji) göl däp boýunça haýsy tirä degişli edilýär?",
+    "options": [
+     "Teke",
+     "Saryk",
+     "Çowdur",
+     "Ärsary"
+    ],
+    "correct": 3,
+    "explain": "Ýokardan däp tertibi: Teke, Ýomut, Saryk, Çowdur, Ärsary; ortaky göli käbir çeşmeler Salyr hem hasaplaýar.",
+    "src": {
+     "t": "Wikipedia: Flag of Turkmenistan",
+     "u": "https://en.wikipedia.org/wiki/Flag_of_Turkmenistan"
+    }
+   },
+   {
+    "cat": "lit",
+    "q": "1860-njy ýyllaryň Teke–Eýran söweşleri barada «Jeňnama» kimiň eseri?",
+    "options": [
+     "Magtymguly",
+     "Abdysetdar Kazy",
+     "Seýdi",
+     "Zelili"
+    ],
+    "correct": 1,
+    "explain": "Abdysetdar Kazy, 1860-njy ýyllarda.",
+    "src": {
+     "t": "Wikipedia: Turkmen literature",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
+    }
+   },
+   {
+    "cat": "lit",
+    "q": "1944-nji ýylda Türkmenistan SSR gimnini haýsy kompozitor döretdi?",
+    "options": [
+     "Danatar Öwezow",
+     "Nury Halmämmedow",
+     "Weli Muhadow",
+     "Sähy Jepbarow"
+    ],
+    "correct": 2,
+    "explain": "Weli Muhadow (sözleri: Aman Kekilow).",
+    "src": {
+     "t": "Wikipedia: Weli Muhadow",
+     "u": "https://en.wikipedia.org/wiki/Weli_Muhadow"
+    }
+   },
+   {
+    "cat": "cult",
+    "q": "Atyň «Ahalteke» ady 1881-nji ýylda haýsy rus generaly tarapyndan ýaýradyldy?",
+    "options": [
+     "Kuropatkin",
+     "Skobelew",
+     "Kaufman",
+     "Lazarew"
+    ],
+    "correct": 0,
+    "explain": "General Kuropatkin söweşden soň at ösdürilýän ýer gurup, atlary Teke tiresiniň ady bilen atlandyrypdyr.",
+    "src": {
+     "t": "Wikipedia: Akhal-Teke",
+     "u": "https://en.wikipedia.org/wiki/Akhal-Teke"
+    }
+   },
+   {
+    "cat": "hist",
+    "q": "1935-nji ýylda 28 atly Ahalteke atlary bilen Aşgabatdan haýsy şähere ýöredi?",
+    "options": [
+     "Daşkent",
+     "Tähran",
+     "Bakuw",
+     "Moskwa"
+    ],
+    "correct": 3,
+    "explain": "Häkimiýetleri täsirlendirmek üçin Moskwa ýöredi; Wikipediýa görä takmynan 84 gün, suwsuz çölden üç günlük geçiş bilen.",
+    "src": {
+     "t": "History Today: Golden Horses, Red Square",
+     "u": "https://www.historytoday.com/archive/history-matters/golden-horses-red-square"
+    }
+   },
+   {
+    "cat": "lit",
+    "q": "Wepaýynyň «Rownak-ul-Yslam» eseri, iň gadymy türkmen eserleriniň biri, haýsy ýyla degişli?",
+    "options": [
+     "1464",
+     "1564",
+     "1664",
+     "1364"
+    ],
+    "correct": 0,
+    "explain": "1464; Wikipediýa ony Baýram hanyň goşgulary we «Şejere» bilen bilelikde türkmen ýazuwynyň başlangyjy hasaplaýar.",
+    "src": {
+     "t": "Wikipedia: Turkmen literature",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
+    }
+   },
+   {
+    "cat": "lit",
+    "q": "Haýsy iki şahyr Gökdepäniň goragy barada ýazypdyr?",
+    "options": [
+     "Azady we Andalyp",
+     "Kemine we Seýdi",
+     "Mätäji we Misgin Gylyç",
+     "Zelili we Mollanepes"
+    ],
+    "correct": 2,
+    "explain": "Wikipediýa görä Mätäji (takmynan 1824–1884) we Misgin Gylyç (1845–1905).",
+    "src": {
+     "t": "Wikipedia: Turkmen literature",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
     }
    }
   ],

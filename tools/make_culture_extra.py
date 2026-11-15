@@ -94,9 +94,9 @@ CARPET_UNESCO = dict(
          '«Türkmenistanda türkmen halyçylyk sungatynyň däp-dessury» 2019-njy ýylda (Hökümetara komitetiniň 14-nji mejlisi, Bogota; 12-nji dekabr karary) adamzadyň maddy däl medeni mirasynyň wekilçilikli sanawyna girizildi (giriş belgisi 01486). ÝUNESKO resminamasy diňe dokamagy däl, tutuş zynjyry öz içine alýar: «saryja» goýun ösdürmekden, ýüň gyrkmakdan we egirmekden başlap boýamak, dokma enjamlaryny ýasamak, göllerini çyzmak, dokamak we gadymy halylary dikeltmek. Türkmenler üçin haly medeni kimligiň we agzybirligiň nyşany. «Amaly sungat» kanuny (2000) we «Türkmenhaly» döwlet birleşigi hem degişli edaralar.'),
  chain=L(['پرورش گوسفند «ساریجا»', 'پشم‌چینی و ریسندگی', 'رنگرزی (روناس و رنگ‌های طبیعی)', 'ساخت دار و ابزار', 'طراحی گل‌ها', 'بافت', 'مرمت قالی‌های کهن'],
          ['«Saryja» goýun ösdürmek', 'Ýüň gyrkmak we egirmek', 'Boýamak (gyzylyldym we tebigy reňkler)', 'Dokma gurallaryny ýasamak', 'Göllerini çyzmak', 'Dokamak', 'Gadymy halylary dikeltmek']),
- flag=L('در پرچم و نشان ملی، پنج گل قالی به ترتیب سنتی نمایندهٔ پنج ایل بزرگ‌اند: تکه، یموت، ارساری، چودور و ساریق.',
-        'Milli baýdakda we gerbde bäş haly göli bäş uly tiräni wekilleýär, däp boýunça: Teke, Ýomut, Ärsary, Çowdur we Saryk.'),
- srcs=['unescoRL', 'wikiRug', 'unescoForm'],
+ flag=L('در پرچم و نشان ملی، پنج گل قالی به ترتیب سنتی (از بالا به پایین) نمایندهٔ پنج ایل بزرگ‌اند: تکه، یموت، ساریق، چودور و ارساری. به نوشتهٔ ویکی‌پدیا گل میانی ممکن است نمایندهٔ سالیر (ایلی که پیش از دورهٔ نو بر اثر شکست نظامی ضعیف شد) هم باشد؛ منابع دیگر (LoC) سالور را به‌جای چودور می‌آورند.',
+        'Milli baýdakda we gerbde bäş haly göli däp tertibinde (ýokardan aşaklygyna) bäş uly tiräni wekilleýär: Teke, Ýomut, Saryk, Çowdur we Ärsary. Wikipediýanyň ýazmagyna görä ortaky göl, häzirki zamandan öň harby ýeňlişden soň gowşan Salyry hem aňladyp biler; başga çeşmeler (LoC) Çowduryň ýerine Salyry getirýär.'),
+ srcs=['unescoRL', 'wikiRug', 'wikiFlag', 'unescoForm'],
 )
 
 NEW_WEAVES = [
@@ -107,6 +107,7 @@ NEW_WEAVES = [
 CARPET_SRC = [
  ('unescoRL', 'یونسکو: Traditional Turkmen carpet making art in Turkmenistan', 'UNESCO: Traditional Turkmen carpet making art in Turkmenistan', 'https://ich.unesco.org/en/RL/traditional-turkmen-carpet-making-art-in-turkmenistan-01486'),
  ('wikiRug', 'ویکی‌پدیا: Turkmen rug', 'Wikipedia: Turkmen rug', 'https://en.wikipedia.org/wiki/Turkmen_rug'),
+ ('wikiFlag', 'ویکی‌پدیا: Flag of Turkmenistan', 'Wikipedia: Flag of Turkmenistan', 'https://en.wikipedia.org/wiki/Flag_of_Turkmenistan'),
  ('unescoForm', 'یونسکو: فرم فهرست‌نگاری (نسخهٔ بایگانی)', 'UNESCO: inventory form (archived copy)', 'https://webarchive.unesco.org/web/20201018031652/https://ich.unesco.org/doc/src/40581.pdf'),
 ]
 ERSARI = L('گل ارساری معمولاً بزرگ و هشت‌ضلعی است و در ردیف‌هایی تکرار می‌شود؛ در منابع غربی به «پای فیل» معروف است.',

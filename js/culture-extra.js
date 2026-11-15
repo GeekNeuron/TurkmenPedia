@@ -264,10 +264,11 @@
      "بافت",
      "مرمت قالی‌های کهن"
     ],
-    "flag": "در پرچم و نشان ملی، پنج گل قالی به ترتیب سنتی نمایندهٔ پنج ایل بزرگ‌اند: تکه، یموت، ارساری، چودور و ساریق.",
+    "flag": "در پرچم و نشان ملی، پنج گل قالی به ترتیب سنتی (از بالا به پایین) نمایندهٔ پنج ایل بزرگ‌اند: تکه، یموت، ساریق، چودور و ارساری. به نوشتهٔ ویکی‌پدیا گل میانی ممکن است نمایندهٔ سالیر (ایلی که پیش از دورهٔ نو بر اثر شکست نظامی ضعیف شد) هم باشد؛ منابع دیگر (LoC) سالور را به‌جای چودور می‌آورند.",
     "srcs": [
      "unescoRL",
      "wikiRug",
+     "wikiFlag",
      "unescoForm"
     ]
    },
@@ -299,6 +300,11 @@
      "id": "wikiRug",
      "t": "ویکی‌پدیا: Turkmen rug",
      "u": "https://en.wikipedia.org/wiki/Turkmen_rug"
+    },
+    {
+     "id": "wikiFlag",
+     "t": "ویکی‌پدیا: Flag of Turkmenistan",
+     "u": "https://en.wikipedia.org/wiki/Flag_of_Turkmenistan"
     },
     {
      "id": "unescoForm",
@@ -575,10 +581,11 @@
      "Dokamak",
      "Gadymy halylary dikeltmek"
     ],
-    "flag": "Milli baýdakda we gerbde bäş haly göli bäş uly tiräni wekilleýär, däp boýunça: Teke, Ýomut, Ärsary, Çowdur we Saryk.",
+    "flag": "Milli baýdakda we gerbde bäş haly göli däp tertibinde (ýokardan aşaklygyna) bäş uly tiräni wekilleýär: Teke, Ýomut, Saryk, Çowdur we Ärsary. Wikipediýanyň ýazmagyna görä ortaky göl, häzirki zamandan öň harby ýeňlişden soň gowşan Salyry hem aňladyp biler; başga çeşmeler (LoC) Çowduryň ýerine Salyry getirýär.",
     "srcs": [
      "unescoRL",
      "wikiRug",
+     "wikiFlag",
      "unescoForm"
     ]
    },
@@ -610,6 +617,11 @@
      "id": "wikiRug",
      "t": "Wikipedia: Turkmen rug",
      "u": "https://en.wikipedia.org/wiki/Turkmen_rug"
+    },
+    {
+     "id": "wikiFlag",
+     "t": "Wikipedia: Flag of Turkmenistan",
+     "u": "https://en.wikipedia.org/wiki/Flag_of_Turkmenistan"
     },
     {
      "id": "unescoForm",
