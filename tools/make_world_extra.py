@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 """Builds js/world-extra.js: rewrites 'Turkmens of the world' (research notes: work/research_notes.md)."""
 import json
 FD = str.maketrans('0123456789', '۰۱۲۳۴۵۶۷۸۹')
@@ -81,5 +82,5 @@ js = '''/* "Turkmens of the world": overview, Iran, Afghanistan, Uzbekistan, Rus
   window.WORLD_SRC = %s;
 })();
 ''' % (json.dumps(data, ensure_ascii=False, indent=1), json.dumps([{'id': i, 't': [fa_, tk_], 'u': u} for i, fa_, tk_, u in SRC], ensure_ascii=False, indent=1))
-open('/home/claude/TurkmenPedia/js/world-extra.js', 'w', encoding='utf8').write(js)
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'js', 'world-extra.js'), 'w', encoding='utf8').write(js)
 print('written', len(js)//1024, 'KB')

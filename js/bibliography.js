@@ -6,9 +6,9 @@
   const HOSTS = [
     ['official',   /(^|\.)(unesco\.org|europa\.eu|un\.org|ohchr\.org|stat\.gov\.tm|tuik\.gov\.tr|doi\.org)$/],
     ['academic',   /(^|\.)(dergipark\.org\.tr|cyberleninka\.ru|jstor\.org|nii\.ac\.jp|trc-leiden\.nl|laender-analysen\.de|inalco\.fr|bilkent\.edu\.tr|yale\.edu|sagepub\.com|webonary\.org|musicofcentralasia\.org|trakya\.edu\.tr|springer\.com|nature\.com|tandfonline\.com|sciencedirect\.com|researchgate\.net|mfah\.org|metmuseum\.org|muzeumazji\.pl|artsandculture\.google\.com)$/],
-    ['reference',  /(^|\.)(iranicaonline\.org|islamansiklopedisi\.org\.tr|britannica\.com|countrystudies\.us|eki\.ee|everyculture\.com)$/],
+    ['reference',  /(^|\.)(archive\.aramcoworld\.com|aramcoworld\.com|iranicaonline\.org|islamansiklopedisi\.org\.tr|britannica\.com|countrystudies\.us|eki\.ee|everyculture\.com)$/],
     ['encyclopedia', /(^|\.)(wikipedia\.org|wikipedia\.com|wikiwand\.com)$/],
-    ['media',      /(^|\.)(rferl\.org|azathabar\.com|iwpr\.net|jamestown\.org|tmhelsinki\.org|unpo\.org|caucasianknot\.org|joshuaproject\.net|worldmusiccentral\.org|minorityrights\.org|bbc\.com|eurasianet\.org|thediplomat\.com|aljazeera\.com|reuters\.com)$/],
+    ['media',      /(^|\.)(historytoday\.com|rferl\.org|azathabar\.com|iwpr\.net|jamestown\.org|tmhelsinki\.org|unpo\.org|caucasianknot\.org|joshuaproject\.net|worldmusiccentral\.org|minorityrights\.org|bbc\.com|eurasianet\.org|thediplomat\.com|aljazeera\.com|reuters\.com)$/],
     ['state',      /(^|\.)gov\.tm$/],
   ];
   const TIER = { official:'A', academic:'A', reference:'A', encyclopedia:'B', media:'C', state:'C', community:'D' };

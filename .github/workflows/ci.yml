@@ -1,13 +1,16 @@
 name: CI
-on: [push, pull_request]
+on: [push, pull_request, workflow_call]
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 22 }
+        with: { node-version: 22, cache: npm }
+      - run: npm install --no-audit --no-fund
       - name: Syntax
         run: for f in js/*.js sw.js tests/*.js; do node --check "$f"; done
       - name: Data integrity
-        run: node tests/check.js
+        run: npm run check
+      - name: Browser-like smoke test
+        run: npm run smoke

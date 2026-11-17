@@ -1,3 +1,4 @@
+import os
 import json
 FD=str.maketrans('0123456789','۰۱۲۳۴۵۶۷۸۹')
 def fd(s): return s.translate(FD).replace('.','٫') if False else s.translate(FD)
@@ -98,7 +99,7 @@ def build(lang):
        intro='نقشهٔ تعاملی ترکمنستان و همسایگان بر پایهٔ داده‌های جغرافیایی واقعی (Natural Earth). روی نشان‌ها، محدودهٔ ایل‌ها و استان‌هایی که در آن‌ها ترکمن‌ها زندگی می‌کنند بزنید؛ با دکمه‌های + و − یا دو بار زدن بزرگ‌نمایی کنید.',
        tapHint='روی یک نشان، ایل یا استان بزنید',
        base={'title':'زمینه','vector':'برداری','osm':'خیابان','topo':'ناهمواری','light':'ساده'},
-       zoomIn='بزرگ‌نمایی', zoomOut='کوچک‌نمایی', zoomReset='بازنشانی نما', zoomHint='Ctrl + چرخ ماوس هم کار می‌کند',
+       zoomIn='بزرگ‌نمایی', zoomOut='کوچک‌نمایی', zoomReset='بازنشانی نما', zoomHint='Ctrl + چرخ ماوس هم کار می‌کند؛ با کیبورد: + و − و ۰ و کلیدهای جهت‌نما',
        tileLoading='در حال بارگذاری نقشهٔ زمینه…', tileFail='اتصال به سرور نقشهٔ زمینه برقرار نشد؛ نقشهٔ برداری نمایش داده می‌شود.',
        tileNote='نقشهٔ زمینه از سرورهای خارجی بارگذاری می‌شود و فقط با اتصال اینترنت کار می‌کند.',
        diaNote='نواحی هاشورخورده استان‌هایی‌اند که منابع در بخشی از آن‌ها از جمعیت ترکمن یاد کرده‌اند؛ کل استان ترکمن‌نشین نیست و هاشور مرز دقیق سکونت را نشان نمی‌دهد.',
@@ -108,7 +109,7 @@ def build(lang):
        intro='Türkmenistanyň we goňşy ýurtlaryň hakyky geografiýa maglumatlaryna (Natural Earth) esaslanýan interaktiw karta. Nyşanlara, tire sebitlerine we türkmenleriň ýaşaýan welaýatlaryna basyň; ulaltmak üçin + we − düwmelerini ulanyň ýa-da iki gezek basyň.',
        tapHint='Nyşana, tire sebitine ýa-da welaýata basyň',
        base={'title':'Fon','vector':'Wektor','osm':'Köçeler','topo':'Relýef','light':'Ýönekeý'},
-       zoomIn='Ulalt', zoomOut='Kiçelt', zoomReset='Görnüşi dikelt', zoomHint='Ctrl + syçan tigiri hem işleýär',
+       zoomIn='Ulalt', zoomOut='Kiçelt', zoomReset='Görnüşi dikelt', zoomHint='Ctrl + syçan tigiri hem işleýär; klawiaturada: + we − we 0 we ok düwmeleri',
        tileLoading='Fon kartasy ýüklenýär…', tileFail='Fon kartasynyň serwerine birigip bolmady; wektor karta görkezilýär.',
        tileNote='Fon kartasy daşarky serwerlerden ýüklenýär we diňe internet bilen işleýär.',
        diaNote='Çyzgyly sebitler çeşmelerde bir böleginde türkmen ilaty bar diýlip görkezilen welaýatlardyr; bütin welaýat türkmen däl, çyzgy hem takyk ýaşaýyş serhedini görkezmeýär.',
@@ -154,6 +155,6 @@ js="""/* Map extras: Turkmen-populated regions beyond Turkmenistan, statistics, 
   });
 })();
 """ % json.dumps(data,ensure_ascii=False,indent=1)
-open('/home/claude/TurkmenPedia/js/map-data.js','w',encoding='utf8').write(js)
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'js', 'map-data.js'), 'w',encoding='utf8').write(js)
 print('written',len(js)//1024,'KB')
 print(json.dumps(data['fa']['stats']['vel'],ensure_ascii=False)); print(json.dumps(data['tk']['stats']['vel'],ensure_ascii=False)); print(data['fa']['stats']['world'][0])

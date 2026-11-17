@@ -1,0 +1,16 @@
+{
+  "name": "turkmenpedia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TurkmenPedia: bilingual (Persian/Turkmen) static encyclopedia of Turkmen culture",
+  "license": "MIT",
+  "scripts": {
+    "check": "node tests/check.js",
+    "smoke": "node tests/smoke.js",
+    "test": "npm run check && npm run smoke && npm run mapkeys",
+    "mapkeys": "node tests/map-keys.js"
+  },
+  "devDependencies": {
+    "jsdom": "^26.0.0"
+  }
+}

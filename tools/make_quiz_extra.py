@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
+import os
 """Builds js/quiz-extra.js: 37 new questions (all answers checked against sources in docs/research-notes-2026-11.md),
 categories for all questions, and UI strings for the new quiz modes."""
 import json
 FD = str.maketrans('0123456789', '۰۱۲۳۴۵۶۷۸۹')
 
 SRC = {
+ 'mak':   ('ویکی‌پدیا: Magtymguly Pyragy', 'Wikipediýa: Magtymguly Pyragy', 'https://en.wikipedia.org/wiki/Magtymguly_Pyragy'),
+ 'iran':  ('دانشنامهٔ ایرانیکا: پوشاک و زیور ترکمن', 'Iranica: Türkmen egin-eşigi we şaý-sepi', 'https://www.iranicaonline.org/articles/clothing-xxvi/'),
+ 'kara':  ('ویکی‌پدیا: Karakum Desert', 'Wikipediýa: Garagum çöli', 'https://en.wikipedia.org/wiki/Karakum_Desert'),
+ 'forrel':('ویکی‌پدیا: Foreign relations of Turkmenistan', 'Wikipediýa: Türkmenistanyň daşary gatnaşyklary', 'https://en.wikipedia.org/wiki/Foreign_relations_of_Turkmenistan'),
+ 'oghuz': ('ویکی‌پدیا: Oghuz Khagan', 'Wikipediýa: Oguz han', 'https://en.wikipedia.org/wiki/Oghuz_Khagan'),
+ 'ovez':  ('ویکی‌پدیا: Danatar Ovezov', 'Wikipediýa: Danatar Öwezow', 'https://en.wikipedia.org/wiki/Danatar_Ovezov'),
+ 'akhalt':('ویکی‌پدیا: Treaty of Akhal', 'Wikipediýa: Ahal şertnamasy', 'https://en.wikipedia.org/wiki/Treaty_of_Akhal'),
  'dur':   ('Durmuş (2025): معنای نام ایل‌های اوغوز', 'Durmuş (2025): Oguz tire atlarynyň manylary', 'https://dergipark.org.tr/tr/download/journal-file/34254'),
  'shaj':  ('ویکی‌پدیا: Shajara-i Tarākima', 'Wikipedia: Shajara-i Tarākima', 'https://en.wikipedia.org/wiki/Shajara-i_Tar%C4%81kima'),
  'tribes':('ویکی‌پدیا: Turkmen tribes', 'Wikipedia: Turkmen tribes', 'https://en.wikipedia.org/wiki/Turkmen_tribes'),
@@ -219,6 +227,11 @@ UI = {
             quizSource='Çeşme', quizMsgA='Ajaýyp! Gowy bilýärsiň.', quizMsgB='Gaty gowy!', quizMsgC='Gowy; Tireler we şejere bölümine hem seret.', quizMsgD='Dowam et; bölümleri oka we täzeden synap gör.', quizBestMode='Iň gowusy'),
 }
 
+OLD_SRC = ['mak','lang','akh','whs','iran','cuis','iran','lang','wmc','forrel','tribes','shaj','cuis','ez','kara','oghuz','ovez','akhalt']
+
+def old_src(lang):
+    return [{'t': SRC[k][0 if lang=='fa' else 1], 'u': SRC[k][2]} for k in OLD_SRC]
+
 def build(lang):
     L = 0 if lang == 'fa' else 1
     sc = (lambda s: s.translate(FD)) if lang == 'fa' else (lambda s: s)
@@ -237,18 +250,18 @@ for l in ('fa', 'tk'):
 js = '''/* Quiz bank extension: 37 new questions with sources, categories for every question, and UI strings for the new modes.
    Answers were checked against docs/research-notes-2026-11.md. Hand-editable. */
 (function(){
-  const X = %s, OLD = %s;
+  const X = %s, OLD = %s, OLDSRC = %s;
   ['fa', 'tk'].forEach(l => {
     const Q = DATA[l].quiz;
-    Q.questions.forEach((q, i) => { q.cat = OLD[i]; });
+    Q.questions.forEach((q, i) => { if(i < OLD.length){ q.cat = OLD[i]; if(!q.src) q.src = OLDSRC[l][i]; } });
     Q.questions = Q.questions.concat(X[l].questions);
     Q.cats = X[l].cats;
     Object.assign(DATA[l].ui, X[l].ui);
     DATA[l].ui.quizIntro = DATA[l].ui.quizIntro.replace('{N}', String(Q.questions.length).replace(/\\d/g, c => l === 'fa' ? '۰۱۲۳۴۵۶۷۸۹'[c] : c));
   });
 })();
-''' % (json.dumps(data, ensure_ascii=False, indent=1), json.dumps(OLD_CATS))
-open('/home/claude/TurkmenPedia/js/quiz-extra.js', 'w', encoding='utf8').write(js)
+''' % (json.dumps(data, ensure_ascii=False, indent=1), json.dumps(OLD_CATS), json.dumps({l: old_src(l) for l in ('fa','tk')}, ensure_ascii=False))
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'js', 'quiz-extra.js'), 'w', encoding='utf8').write(js)
 print('questions: old 18 + new', len(Q), '=', 18 + len(Q))
 import collections
 print(collections.Counter([c for c in OLD_CATS] + [q[0] for q in Q]))

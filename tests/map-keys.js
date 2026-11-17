@@ -1,0 +1,14 @@
+const http=require('http'),fs=require('fs'),path=require('path');const {JSDOM,VirtualConsole}=require('jsdom');const assert=require('assert');
+const root=path.join(__dirname,'..');const MIME={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json'};
+const srv=http.createServer((q,r)=>{const p=path.join(root,decodeURIComponent(q.url.split('?')[0]).replace(/^\/+$/,'/index.html'));fs.readFile(p,(e,b)=>{if(e){r.writeHead(404);return r.end()}r.writeHead(200,{'Content-Type':MIME[path.extname(p)]||'application/octet-stream'});r.end(b)})});
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+(async()=>{await new Promise(r=>srv.listen(0,r));
+const dom=await require('jsdom').JSDOM.fromURL(`http://localhost:${srv.address().port}/index.html#map`,{runScripts:'dangerously',resources:'usable',pretendToBeVisual:true,virtualConsole:new VirtualConsole(),beforeParse(w){w.IntersectionObserver=class{observe(){}unobserve(){}disconnect(){}};w.HTMLElement.prototype.scrollIntoView=function(){};w.scrollTo=()=>{};w.matchMedia=()=>({matches:false,addEventListener(){},removeListener(){}})}});
+await wait(1500);const d=dom.window.document,K=dom.window.KeyboardEvent;const svg=[...d.querySelectorAll('#content svg')].find(s=>s.getAttribute('tabindex')==='0'||(s.getAttribute('viewBox')||'').startsWith('0 0 800')),z=()=>d.querySelector('.map-zlabel').textContent;
+const key=k=>svg.dispatchEvent(new K('keydown',{key:k,bubbles:true,cancelable:true}));
+assert.strictEqual(svg.getAttribute('tabindex'),'0','map svg must be keyboard-focusable');
+key('+');assert.strictEqual(z(),'1.6×');key('+');assert.strictEqual(z(),'2.6×');
+const vb1=svg.getAttribute('viewBox');key('ArrowRight');assert.notStrictEqual(vb1,svg.getAttribute('viewBox'),'arrow key must pan');
+key('-');assert.strictEqual(z(),'1.6×');key('0');assert.strictEqual(z(),'1×');
+console.log('Map keyboard test passed ✔');
+srv.close();process.exit(0)})();

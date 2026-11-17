@@ -338,6 +338,9 @@
     window.scrollTo({top:0});
   }
 
+  const skipEl = document.getElementById('skipLink');
+  if(skipEl) skipEl.addEventListener('click', e => { e.preventDefault(); el.content.focus(); el.content.scrollIntoView && el.content.scrollIntoView({block:'start'}); });
+
   window.addEventListener('hashchange', ()=>{
     LS.setItem('ts-last-route', parseHash().route);
     applyHash();
@@ -423,7 +426,7 @@
     if(searchIndexCache[state.lang]) return searchIndexCache[state.lang];
     const idx = [];
     const pushAll = (sectionId, arr, textFn) => {
-      arr.forEach(it => idx.push({ section: sectionId, label: d.nav[sectionId], title: textFn(it), icon: it.icon || NAV_ITEMS.find(n=>n.id===sectionId).icon }));
+      arr.forEach(it => idx.push({ section: sectionId, label: d.nav[sectionId], title: textFn(it), body: norm([it.text, it.desc, it.region, it.meaning].filter(Boolean).join(' ')), icon: it.icon || NAV_ITEMS.find(n=>n.id===sectionId).icon }));
     };
     pushAll('history', d.history.eras, it => it.title);
     pushAll('warpeace', d.warpeace.events, it => it.title);
@@ -437,6 +440,7 @@
     pushAll('poets', d.poets.items, it => it.name);
     pushAll('books', d.books.items, it => it.title);
     pushAll('influences', d.influences.items, it => it.title);
+    pushAll('folklore', d.folklore.items, it => it.title);
     GENEALOGY.build(state.lang).sons.forEach(son => son.tribes.forEach(tr => idx.push({ section:'genealogy', label:d.nav.genealogy, title: tr.name + ' — ' + son.name, icon:'tree' })));
     ((d.genealogy.extra || {}).modern || []).forEach(m => idx.push({ section:'genealogy', label:d.nav.genealogy, title: m.name, icon:'tree' }));
     if(window.TS_EXT) TS_EXT.search(state.lang).forEach(x => idx.push(x));
@@ -459,7 +463,18 @@
     const d = DATA[state.lang];
     const idx = buildSearchIndex(d);
     const nq = norm(q);
-    const results = idx.filter(it => it.section !== state.route && norm(it.title).includes(nq)).slice(0, 8);
+    /* ranking: title starts with query > title contains > body text contains (3+ chars); duplicates (same section+title) collapsed */
+    const seenKey = new Set(), ranked = [];
+    idx.forEach(it => {
+      if(it.section === state.route) return;
+      const nt = norm(it.title);
+      let rank = nt.startsWith(nq) ? 0 : nt.includes(nq) ? 1 : (nq.length >= 3 && it.body && it.body.includes(nq)) ? 2 : -1;
+      if(rank < 0) return;
+      const key = it.section + '|' + it.title; if(seenKey.has(key)) return; seenKey.add(key);
+      ranked.push({ it, rank });
+    });
+    ranked.sort((a, b) => a.rank - b.rank);
+    const results = ranked.slice(0, 10).map(x => x.it);
     if(!results.length){ hideGlobalResults(); return; }
     el.globalResults.innerHTML = `<div class="global-results-title">${d.ui.globalResultsTitle}</div>` +
       results.map((r, n) => `
@@ -606,7 +621,8 @@
     return pool;
   }
   function dayOfYear(){
-    const now = new Date();
+    let now = new Date();
+    try{ now = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Ashgabat' })); }catch(e){}
     const start = new Date(now.getFullYear(), 0, 0);
     return Math.floor((now - start) / 86400000);
   }
@@ -1395,6 +1411,8 @@
     el.sidebarNote.textContent = d.tagline;
     el.searchInput.placeholder = d.ui.searchPlaceholder;
     document.title = 'TurkmenPedia — ' + d.nav[state.route];
+    const live = document.getElementById('routeLive'); if(live) live.textContent = d.nav[state.route];
+    const skip = document.getElementById('skipLink'); if(skip) skip.textContent = state.lang === 'fa' ? 'پرش به محتوا' : 'Mazmuna geç';
     renderBreadcrumb(d);
 
     let html = '';

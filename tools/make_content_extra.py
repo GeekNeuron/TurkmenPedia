@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 """Builds js/content-extra.js: deepens clothing, cuisine, books, influences, people (notes: work/research_notes.md)."""
 import json
 FD = str.maketrans('0123456789', '۰۱۲۳۴۵۶۷۸۹')
@@ -203,5 +204,5 @@ js = '''/* Deeper content for clothing, cuisine, books, influences and people (r
   });
 })();
 ''' % json.dumps(data, ensure_ascii=False, indent=1)
-open('/home/claude/TurkmenPedia/js/content-extra.js', 'w', encoding='utf8').write(js)
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'js', 'content-extra.js'), 'w', encoding='utf8').write(js)
 print('written', len(js) // 1024, 'KB')

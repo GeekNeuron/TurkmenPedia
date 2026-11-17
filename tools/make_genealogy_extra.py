@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Builds js/genealogy-extra.js (research notes: /home/claude/work/research_notes.md)."""
+import os
+"""Builds js/genealogy-extra.js (research notes: docs/research-notes-2026-11.md)."""
 import json
 
 def L(fa, tk): return {'fa': fa, 'tk': tk}
@@ -231,5 +232,5 @@ js = '''/* Genealogy extras: meanings of the 24 Oghuz tribe names, modern Turkme
   };
 })();
 ''' % json.dumps(data, ensure_ascii=False, indent=1)
-open('/home/claude/TurkmenPedia/js/genealogy-extra.js', 'w', encoding='utf8').write(js)
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'js', 'genealogy-extra.js'), 'w', encoding='utf8').write(js)
 print('written', len(js) // 1024, 'KB; tribes with meaning:', len(M), '; modern tribes:', len(MODERN))

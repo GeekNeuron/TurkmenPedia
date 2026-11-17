@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 """Builds js/culture-extra.js: expands 'language' and 'carpets' (research notes: work/research_notes.md)."""
 import json
 FD = str.maketrans('0123456789', '۰۱۲۳۴۵۶۷۸۹')
@@ -150,5 +151,5 @@ js = '''/* Language + carpets extras (research notes: README, Update 13). Hand-e
   });
 })();
 ''' % json.dumps(data, ensure_ascii=False, indent=1)
-open('/home/claude/TurkmenPedia/js/culture-extra.js', 'w', encoding='utf8').write(js)
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'js', 'culture-extra.js'), 'w', encoding='utf8').write(js)
 print('written', len(js)//1024, 'KB')

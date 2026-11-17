@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 """Builds js/mature-extra.js (notes: docs/research-notes-2026-11.md — LITERATURE, MUSIC, AKHAL-TEKE, SMALL TRIBES, flag correction)."""
 import json
 FD = str.maketrans('0123456789', '۰۱۲۳۴۵۶۷۸۹')
@@ -99,6 +100,16 @@ INFL = [
   text=L('پس از کنگرهٔ ترک‌شناسی باکو در ۱۹۲۶ خط لاتین تا ۱۹۴۰ رایج شد، سپس سیریلیک تا ۱۹۹۳ و دوباره لاتین. زبان معیار نوین در آغاز سدهٔ ۲۰ بر پایهٔ گویش تکه شکل گرفت.',
          '1926-njy ýyldaky Baku türkologiýa gurultaýyndan soň latyn ýazuwy 1940-njy ýyla çenli ýaýrady, soňra kiril 1993-nji ýyla çenli we ýene-de latyn. Häzirki standart dil XX asyryň başynda Teke şiwesine daýanyp emele geldi.')),
 ]
+FOLK_SRC = [
+ ('یونسکو: Epic art of Gorogly (پروندهٔ ۰۱۰۲۸، ۲۰۱۵)', 'https://ich.unesco.org/en/RL/epic-art-of-gorogly-01028'),
+ ('یونسکو: تصمیم کمیتهٔ بین‌دولتی 10.COM 10.B.30', 'https://ich.unesco.org/en/decisions/10.COM/10.B.30'),
+ ('ویکی‌پدیا: Epic of Koroghlu', 'https://en.wikipedia.org/wiki/Epic_of_Koroghlu'),
+]
+TRIBE_SRC = [
+ ('ویکی‌پدیا: Turkmen tribes', 'https://en.wikipedia.org/wiki/Turkmen_tribes'),
+ ('ویکی‌پدیا: Ersari', 'https://en.wikipedia.org/wiki/Ersari'),
+ ('ویکی‌پدیا: Shajara-i Tarākima (ابوالغازی، ۱۶۵۹)', 'https://en.wikipedia.org/wiki/Shajara-i_Tar%C4%81kima'),
+]
 INFL_SRC = [
  ('ویکی‌پدیا: Akhal-Teke', 'https://en.wikipedia.org/wiki/Akhal-Teke'),
  ('History Today: Golden Horses, Red Square', 'https://www.historytoday.com/archive/history-matters/golden-horses-red-square'),
@@ -152,8 +163,13 @@ def build(lang):
     out['small'] = [{'id': s['id'], 'name': g(s['name']), 'from': g(s['from_']), 'where': g(s['where']), 'text': g(s['text']),
                      'parts': s['parts'][lang], 'note': g(s['note']), 'srcs': s['srcs']} for s in SMALL]
     out['smallSources'] = [{'id': i, 't': (f if lang == 'fa' else t), 'u': u} for i, f, t, u in SMALL_SRC]
-    mk = lambda lst: [{'t': t, 'u': u} for t, u in lst]
-    out['foot'] = {'poets': mk(POETS_SRC), 'people': mk(PEOPLE_SRC), 'books': mk(BOOKS_SRC), 'influences': mk(INFL_SRC)}
+    TKMAP = [('ویکی‌پدیا:', 'Wikipediýa:'), ('(مختومقلی و ذلیلی)', '(Magtymguly we Zelili)'), ('(کربابایف، اسنووا، دوردییف)', '(Kerbabaýew, Esenowa, Durdyýew)')]
+    def tr(t):
+        if lang == 'fa': return t
+        for a, b in TKMAP: t = t.replace(a, b)
+        return t
+    mk = lambda lst: [{'t': tr(t), 'u': u} for t, u in lst]
+    out['foot'] = {'poets': mk(POETS_SRC), 'people': mk(PEOPLE_SRC), 'books': mk(BOOKS_SRC), 'influences': mk(INFL_SRC), 'folklore': mk(FOLK_SRC), 'tribes': mk(TRIBE_SRC)}
     return out
 
 data = {l: build(l) for l in ('fa', 'tk')}
@@ -170,7 +186,7 @@ js = '''/* Matured content: more poets, cultural figures, works, influences and 
     D.influences.items = D.influences.items.concat(e.influences);
     const add = (blk, list) => { const seen = new Set((blk.footSrc || []).map(s => s.u)); blk.footSrc = (blk.footSrc || []).concat(list.filter(s => !seen.has(s.u))); };
     D.poets.footSrc = D.poets.footSrc || [];
-    add(D.poets, e.foot.poets); add(D.people, e.foot.people); add(D.books, e.foot.books); add(D.influences, e.foot.influences);
+    add(D.poets, e.foot.poets); add(D.people, e.foot.people); add(D.books, e.foot.books); add(D.influences, e.foot.influences); add(D.folklore, e.foot.folklore); add(D.tribes, e.foot.tribes);
     const gx = D.genealogy.extra;
     gx.modern = gx.modern.concat(e.small);
     gx.sources = gx.sources.concat(e.smallSources);
@@ -182,5 +198,5 @@ js = '''/* Matured content: more poets, cultural figures, works, influences and 
   });
 })();
 ''' % json.dumps(data, ensure_ascii=False, indent=1)
-open('/home/claude/TurkmenPedia/js/mature-extra.js', 'w', encoding='utf8').write(js)
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'js', 'mature-extra.js'), 'w', encoding='utf8').write(js)
 print('written', len(js) // 1024, 'KB')

@@ -545,6 +545,21 @@ window.TS_EXT = (function(){
         else zoomAt(...centre(), a === 'in' ? 1.6 : 1 / 1.6);
       }));
       svg.addEventListener('dblclick', e => { e.preventDefault(); zoomAt(e.clientX, e.clientY, 2); });
+      /* keyboard: + / − zoom, 0 reset, arrow keys pan (when focus is anywhere inside the map) */
+      wrap.addEventListener('keydown', e => {
+        if(e.ctrlKey || e.metaKey || e.altKey) return;
+        const k = e.key, v = view(), step = 0.18;
+        if(k === '+' || k === '='){ e.preventDefault(); zoomAt(...centre(), 1.6); }
+        else if(k === '-' || k === '_'){ e.preventDefault(); zoomAt(...centre(), 1 / 1.6); }
+        else if(k === '0'){ e.preventDefault(); mapState.zoom = 1; mapState.x = 0; mapState.y = 0; applyView(); }
+        else if(mapState.zoom > 1 && (k === 'ArrowLeft' || k === 'ArrowRight' || k === 'ArrowUp' || k === 'ArrowDown')){
+          e.preventDefault();
+          mapState.x += (k === 'ArrowLeft' ? -1 : k === 'ArrowRight' ? 1 : 0) * v.w * step;
+          mapState.y += (k === 'ArrowUp' ? -1 : k === 'ArrowDown' ? 1 : 0) * v.h * step;
+          applyView();
+        }
+      });
+      if(!svg.hasAttribute('tabindex')) svg.setAttribute('tabindex', '0');
       svg.addEventListener('wheel', e => { if(!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.25 : 0.8); }, { passive:false });
 
       const ptrs = new Map(); let drag = null, pinchD = 0, suppress = false, raf = 0;
@@ -733,6 +748,10 @@ window.TS_EXT = (function(){
   /* =======================================================
      CALENDAR (live countdown)
      ======================================================= */
+  /* «اکنون» به وقت عشق‌آباد (UTC+5)، نه ساعت دستگاه: Date با فیلدهای محلیِ ساعت دیوار عشق‌آباد */
+  function nowAsh(){
+    try{ return new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Ashgabat' })); }catch(e){ return new Date(); }
+  }
   const dayStart = (y, m, d) => new Date(y, m, d, 0, 0, 0, 0);
   function nthWeekday(y, m, wd, n){
     if(n > 0){ const f = new Date(y, m, 1); return dayStart(y, m, 1 + ((wd - f.getDay() + 7) % 7) + 7 * (n - 1)); }
@@ -767,7 +786,7 @@ window.TS_EXT = (function(){
   function fmtDate(dt, u){ return dt.getDate() + ' ' + u.months[dt.getMonth()] + ' ' + dt.getFullYear(); }
   const pad2 = n => String(n).padStart(2, '0');
   function countdownHTML(dt, u){
-    const now = new Date(), ms = dt - now;
+    const now = nowAsh(), ms = dt - now;
     if(ms <= 0 && now < new Date(dt.getTime() + 864e5)) return `<span class="cd-today">${u.today}</span>`;
     const s = Math.max(0, Math.floor(ms / 1000)), dd = Math.floor(s / 86400), hh = Math.floor(s % 86400 / 3600), mm = Math.floor(s % 3600 / 60), ss = s % 60;
     return `<span class="cd-unit"><b>${dd}</b>${u.days}</span><span class="cd-unit"><b>${pad2(hh)}</b>${u.hours}</span><span class="cd-unit"><b>${pad2(mm)}</b>${u.mins}</span><span class="cd-unit"><b>${pad2(ss)}</b>${u.secs}</span>`;
@@ -847,7 +866,7 @@ window.TS_EXT = (function(){
   function calGrid(u){
     const y = calState.y, m = calState.m, first = new Date(y, m, 1), lead = mondayIndex(first);
     const dim = new Date(y, m + 1, 0).getDate(), total = Math.ceil((lead + dim) / 7) * 7;
-    const today = dkey(new Date()), head = u.wdShort.map((w, i) => `<span class="cal-wd${i > 4 ? ' we' : ''}" title="${u.wd[i]}">${w}</span>`).join('');
+    const today = dkey(nowAsh()), head = u.wdShort.map((w, i) => `<span class="cal-wd${i > 4 ? ' we' : ''}" title="${u.wd[i]}">${w}</span>`).join('');
     let cells = '';
     for(let i = 0; i < total; i++){
       const dt = dayStart(y, m, 1 - lead + i), k = dkey(dt), evs = eventsOn(dt).sort((a, b) => TYPE_ORDER[a.e.type] - TYPE_ORDER[b.e.type]);
@@ -859,7 +878,7 @@ window.TS_EXT = (function(){
     return `<div class="cal-weekdays">${head}</div><div class="cal-grid">${cells}</div>`;
   }
   function calYear(u){
-    const y = calState.y, today = dkey(new Date());
+    const y = calState.y, today = dkey(nowAsh());
     return `<div class="cal-year">` + Array.from({ length:12 }, (_, m) => {
       const first = new Date(y, m, 1), lead = mondayIndex(first), dim = new Date(y, m + 1, 0).getDate();
       let days = '';
@@ -889,7 +908,7 @@ window.TS_EXT = (function(){
   }
   function calDetail(u){
     const dt = fromKey(calState.sel), evs = eventsOn(dt).sort((a, b) => TYPE_ORDER[a.e.type] - TYPE_ORDER[b.e.type]);
-    const diff = Math.round((dt - dayStart(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())) / 864e5);
+    const diff = Math.round((dt - dayStart(nowAsh().getFullYear(), nowAsh().getMonth(), nowAsh().getDate())) / 864e5);
     const rel = diff >= 0 ? u.daysAway(diff) : u.daysAgo(-diff), sec = secFull(dt);
     const list = evs.length ? evs.map(x => `<article class="cal-ev t-${x.e.type}"><span class="icon" data-icon="${x.e.icon}"></span><div><h4>${x.e.title}</h4>
       <span class="cal-tag t-${x.e.type}">${u.types[x.e.type]}</span>${x.e.rule.startsWith('l:') ? `<span class="cal-tag lunar">${u.lunar}</span>` : ''}${x.e.span > 1 ? `<span class="cal-tag">${u.dayOf(x.day, x.e.span)}</span>` : ''}
@@ -897,7 +916,7 @@ window.TS_EXT = (function(){
     return `<div class="cal-detail-head"><div><strong>${u.wd[mondayIndex(dt)]}${lang() === 'fa' ? '،' : ','} ${dt.getDate()} ${u.months[dt.getMonth()]} ${dt.getFullYear()}</strong>${sec ? `<span>${sec}</span>` : ''}</div><b>${rel}</b></div>${list}`;
   }
   function calMonthList(u){
-    const y = calState.y, m = calState.m, dim = new Date(y, m + 1, 0).getDate(), rows = [], today = dayStart(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    const y = calState.y, m = calState.m, dim = new Date(y, m + 1, 0).getDate(), rows = [], today = dayStart(nowAsh().getFullYear(), nowAsh().getMonth(), nowAsh().getDate());
     for(let d = 1; d <= dim; d++){
       const dt = dayStart(y, m, d); eventsOn(dt).forEach(x => { if(x.day === 1 || d === 1) rows.push({ dt, x }); });
     }
@@ -993,7 +1012,7 @@ window.TS_EXT = (function(){
       const X = c => fa ? W - pad - (c + 1) * cw : pad + c * cw;
       g.font = '800 27px ' + fam;
       for(let c = 0; c < 7; c++){ g.fillStyle = c > 4 ? '#9a2b2b' : '#5a4a38'; g.textAlign = 'center'; g.fillText(u.wd[c], X(c) + cw / 2, headH + 38); }
-      const gy = headH + wdH, total = rows * 7, todayKey = dkey(new Date());
+      const gy = headH + wdH, total = rows * 7, todayKey = dkey(nowAsh());
       for(let i = 0; i < total; i++){
         const c = i % 7, r = Math.floor(i / 7), dt = dayStart(y, m, 1 - lead + i), out = dt.getMonth() !== m, evs = eventsOn(dt);
         const x = X(c) + 3, yy = gy + r * ch + 3, w = cw - 6, h = ch - 6, isPub = evs.some(e => e.e.type === 'public');
@@ -1033,7 +1052,7 @@ window.TS_EXT = (function(){
     const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
     g.fillStyle = '#f3ede1'; g.fillRect(0, 0, W, H); g.fillStyle = '#9a2b2b'; g.fillRect(0, 0, W, headH);
     g.direction = fa ? 'rtl' : 'ltr'; g.textAlign = 'center'; g.fillStyle = '#fff'; g.font = '800 82px ' + fam; g.fillText(pnum(y), W / 2, 104);
-    const today = dkey(new Date());
+    const today = dkey(nowAsh());
     for(let mm = 0; mm < 12; mm++){
       const col = mm % colsN, row = Math.floor(mm / colsN), x0 = fa ? W - pad - (col + 1) * bw - col * gap : pad + col * (bw + gap), y0 = headH + 26 + row * (mh + 18);
       rrect(g, x0, y0, bw, mh, 16); g.fillStyle = '#fffaf0'; g.fill();
@@ -1067,7 +1086,7 @@ window.TS_EXT = (function(){
 
   X.routes.calendar = {
     render(d){
-      const cal = d.calendar, u = cal.ui, now = new Date();
+      const cal = d.calendar, u = cal.ui, now = nowAsh();
       if(calState.y === null){ calState.y = now.getFullYear(); calState.m = now.getMonth(); calState.sel = dkey(now); }
       if(calState.sec === null) calState.sec = lang() === 'fa' ? 'jalali' : 'none';
       const list = cal.events.map(e => ({ e, dt: nextOccurrence(e.rule, now) })).filter(x => x.dt).sort((a, b) => a.dt - b.dt);
@@ -1101,7 +1120,7 @@ window.TS_EXT = (function(){
         app.querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => step(+b.dataset.step)));
         app.querySelector('#calMonth').addEventListener('change', e => { calState.m = +e.target.value; calState.sel = dkey(new Date(calState.y, calState.m, 1)); redraw(); });
         app.querySelector('#calYear').addEventListener('change', e => { calState.y = +e.target.value; calState.sel = dkey(new Date(calState.y, calState.m, 1)); redraw(); });
-        app.querySelector('#calToday').addEventListener('click', () => { const n = new Date(); calState.y = n.getFullYear(); calState.m = n.getMonth(); calState.sel = dkey(n); calState.view = 'month'; redraw(); });
+        app.querySelector('#calToday').addEventListener('click', () => { const n = nowAsh(); calState.y = n.getFullYear(); calState.m = n.getMonth(); calState.sel = dkey(n); calState.view = 'month'; redraw(); });
         app.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => { calState.view = b.dataset.view; redraw(); }));
         app.querySelectorAll('[data-dl]').forEach(b => b.addEventListener('click', async () => {
           b.classList.add('busy');
@@ -1123,7 +1142,7 @@ window.TS_EXT = (function(){
       const tick = () => root.querySelectorAll('[data-cd]').forEach(n => { n.innerHTML = countdownHTML(new Date(+n.dataset.cd), u); });
       X.timers.push(setInterval(tick, 1000));
       root.querySelectorAll('[data-ics]').forEach(b => b.addEventListener('click', () => {
-        const ev = d.calendar.events.find(x => x.id === b.dataset.ics), dt = nextOccurrence(ev.rule, new Date()); if(!dt) return;
+        const ev = d.calendar.events.find(x => x.id === b.dataset.ics), dt = nextOccurrence(ev.rule, nowAsh()); if(!dt) return;
         const blob = new Blob([icsFor(ev, dt)], { type:'text/calendar' }), a = document.createElement('a');
         a.href = URL.createObjectURL(blob); a.download = ev.id + '.ics'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 3000);
       }));

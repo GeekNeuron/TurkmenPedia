@@ -309,6 +309,34 @@
      "t": "ویکی‌پدیا: Panjdeh incident",
      "u": "https://en.wikipedia.org/wiki/Panjdeh_incident"
     }
+   ],
+   "folklore": [
+    {
+     "t": "یونسکو: Epic art of Gorogly (پروندهٔ ۰۱۰۲۸، ۲۰۱۵)",
+     "u": "https://ich.unesco.org/en/RL/epic-art-of-gorogly-01028"
+    },
+    {
+     "t": "یونسکو: تصمیم کمیتهٔ بین‌دولتی 10.COM 10.B.30",
+     "u": "https://ich.unesco.org/en/decisions/10.COM/10.B.30"
+    },
+    {
+     "t": "ویکی‌پدیا: Epic of Koroghlu",
+     "u": "https://en.wikipedia.org/wiki/Epic_of_Koroghlu"
+    }
+   ],
+   "tribes": [
+    {
+     "t": "ویکی‌پدیا: Turkmen tribes",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_tribes"
+    },
+    {
+     "t": "ویکی‌پدیا: Ersari",
+     "u": "https://en.wikipedia.org/wiki/Ersari"
+    },
+    {
+     "t": "ویکی‌پدیا: Shajara-i Tarākima (ابوالغازی، ۱۶۵۹)",
+     "u": "https://en.wikipedia.org/wiki/Shajara-i_Tar%C4%81kima"
+    }
    ]
   }
  },
@@ -554,15 +582,15 @@
   "foot": {
    "poets": [
     {
-     "t": "ویکی‌پدیا: Turkmen literature",
+     "t": "Wikipediýa: Turkmen literature",
      "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
     },
     {
-     "t": "ویکی‌پدیا: Gurbannazar Ezizow",
+     "t": "Wikipediýa: Gurbannazar Ezizow",
      "u": "https://en.wikipedia.org/wiki/Gurbannazar_Ezizow"
     },
     {
-     "t": "TDV İslâm Ansiklopedisi: Göklen (مختومقلی و ذلیلی)",
+     "t": "TDV İslâm Ansiklopedisi: Göklen (Magtymguly we Zelili)",
      "u": "https://islamansiklopedisi.org.tr/goklen"
     },
     {
@@ -572,31 +600,31 @@
    ],
    "people": [
     {
-     "t": "ویکی‌پدیا: Danatar Ovezov",
+     "t": "Wikipediýa: Danatar Ovezov",
      "u": "https://en.wikipedia.org/wiki/Danatar_Ovezov"
     },
     {
-     "t": "ویکی‌پدیا: Weli Muhadow",
+     "t": "Wikipediýa: Weli Muhadow",
      "u": "https://en.wikipedia.org/wiki/Weli_Muhadow"
     },
     {
-     "t": "ویکی‌پدیا: Nury Halmammedov",
+     "t": "Wikipediýa: Nury Halmammedov",
      "u": "https://en.wikipedia.org/wiki/Nury_Halmammedov"
     },
     {
-     "t": "ویکی‌پدیا: Turkmen literature (کربابایف، اسنووا، دوردییف)",
+     "t": "Wikipediýa: Turkmen literature (Kerbabaýew, Esenowa, Durdyýew)",
      "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
     }
    ],
    "books": [
     {
-     "t": "ویکی‌پدیا: Turkmen literature",
+     "t": "Wikipediýa: Turkmen literature",
      "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
     }
    ],
    "influences": [
     {
-     "t": "ویکی‌پدیا: Akhal-Teke",
+     "t": "Wikipediýa: Akhal-Teke",
      "u": "https://en.wikipedia.org/wiki/Akhal-Teke"
     },
     {
@@ -608,16 +636,44 @@
      "u": "https://archive.aramcoworld.com/issue/199703/the.golden.horses.of.turkmenistan.htm"
     },
     {
-     "t": "ویکی‌پدیا: Turkmen literature",
+     "t": "Wikipediýa: Turkmen literature",
      "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
     },
     {
-     "t": "ویکی‌پدیا: Teke (tribe)",
+     "t": "Wikipediýa: Teke (tribe)",
      "u": "https://en.wikipedia.org/wiki/Teke_(tribe)"
     },
     {
-     "t": "ویکی‌پدیا: Panjdeh incident",
+     "t": "Wikipediýa: Panjdeh incident",
      "u": "https://en.wikipedia.org/wiki/Panjdeh_incident"
+    }
+   ],
+   "folklore": [
+    {
+     "t": "یونسکو: Epic art of Gorogly (پروندهٔ ۰۱۰۲۸، ۲۰۱۵)",
+     "u": "https://ich.unesco.org/en/RL/epic-art-of-gorogly-01028"
+    },
+    {
+     "t": "یونسکو: تصمیم کمیتهٔ بین‌دولتی 10.COM 10.B.30",
+     "u": "https://ich.unesco.org/en/decisions/10.COM/10.B.30"
+    },
+    {
+     "t": "Wikipediýa: Epic of Koroghlu",
+     "u": "https://en.wikipedia.org/wiki/Epic_of_Koroghlu"
+    }
+   ],
+   "tribes": [
+    {
+     "t": "Wikipediýa: Turkmen tribes",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_tribes"
+    },
+    {
+     "t": "Wikipediýa: Ersari",
+     "u": "https://en.wikipedia.org/wiki/Ersari"
+    },
+    {
+     "t": "Wikipediýa: Shajara-i Tarākima (ابوالغازی، ۱۶۵۹)",
+     "u": "https://en.wikipedia.org/wiki/Shajara-i_Tar%C4%81kima"
     }
    ]
   }
@@ -632,7 +688,7 @@
     D.influences.items = D.influences.items.concat(e.influences);
     const add = (blk, list) => { const seen = new Set((blk.footSrc || []).map(s => s.u)); blk.footSrc = (blk.footSrc || []).concat(list.filter(s => !seen.has(s.u))); };
     D.poets.footSrc = D.poets.footSrc || [];
-    add(D.poets, e.foot.poets); add(D.people, e.foot.people); add(D.books, e.foot.books); add(D.influences, e.foot.influences);
+    add(D.poets, e.foot.poets); add(D.people, e.foot.people); add(D.books, e.foot.books); add(D.influences, e.foot.influences); add(D.folklore, e.foot.folklore); add(D.tribes, e.foot.tribes);
     const gx = D.genealogy.extra;
     gx.modern = gx.modern.concat(e.small);
     gx.sources = gx.sources.concat(e.smallSources);
