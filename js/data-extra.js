@@ -169,14 +169,14 @@
 
   /* quiz + intro text */
   fa.quiz.questions.push(
-    { q:'در روایت اوغوزخان، پسران بزرگ‌تر چه چیزی دریافت کردند؟', options:['سه تیر سیمین','پاره‌های یک کمان زرین','سه شمشیر','سه اسب'], correct:1, explain:'سه پسر بزرگ‌تر (گون، آی، ییلدیز) پاره‌های کمان زرین را گرفتند و شاخهٔ «بوزوق» شدند؛ پسران کوچک‌تر سه تیر سیمین گرفتند و «اوچوق» نام گرفتند.' },
+    { q:'در روایت اوغوزخان، پسران بزرگ‌تر چه چیزی دریافت کردند؟', options:['سه تیر سیمین','پاره‌های یک کمان زرین','سه شمشیر با نیامِ زرین','سه اسب با زینِ سیمین'], correct:1, explain:'سه پسر بزرگ‌تر (گون، آی، ییلدیز) پاره‌های کمان زرین را گرفتند و شاخهٔ «بوزوق» شدند؛ پسران کوچک‌تر سه تیر سیمین گرفتند و «اوچوق» نام گرفتند.' },
     { q:'کدام اپرا در ۱۹۴۴ با موسیقی دانتر اووزوف و آدریان شاپوشنیکوف روی صحنه رفت؟', options:['شاسنم و غریب','زهره و طاهر','گوروغلی','لیلی و مجنون'], correct:0, explain:'«شاسنم و غریب» (۱۹۴۴) اثر دانتر اووزوف و آدریان شاپوشنیکوف معمولاً نخستین اپرای ملی ترکمن شمرده می‌شود.' },
-    { q:'پیمان آخال (۱۸۸۱) چه چیزی را مشخص کرد؟', options:['مرز ایران و روسیهٔ تزاری در امتداد کپه‌داغ','پایتخت ترکمنستان','الفبای ترکمنی','نام ایل‌ها'], correct:0, explain:'پس از سقوط گؤک‌تپه، این پیمان مرز ایران و روسیه را مشخص کرد و ترکمن‌ها میان دو کشور تقسیم شدند.' }
+    { q:'پیمان آخال (۱۸۸۱) چه چیزی را مشخص کرد؟', options:['مرز ایران و روسیه در امتداد کپه‌داغ','پایتخت و مرکز اداری ترکمنستان','الفبای رسمی زبان ترکمنی','نام و شمار ایل‌های ترکمن'], correct:0, explain:'پس از سقوط گؤک‌تپه، این پیمان مرز ایران و روسیه را مشخص کرد و ترکمن‌ها میان دو کشور تقسیم شدند.' }
   );
   tk.quiz.questions.push(
-    { q:'Oguz hanyň rowaýatynda uly ogullar näme aldylar?', options:['Üç kümüş ok','Altyn ýaýyň bölekleri','Üç gylyç','Üç at'], correct:1, explain:'Üç uly ogul (Gün, Aý, Ýyldyz) altyn ýaýyň bölekleriniň alyp «bozok» boldular; üç kiçi ogul üç kümüş ok alyp «üçok» atlandylar.' },
+    { q:'Oguz hanyň rowaýatynda uly ogullar näme aldylar?', options:['Üç kümüş ok','Altyn ýaýyň bölekleri','Üç gylyç altyn gynly','Üç at kümüş eýerli'], correct:1, explain:'Üç uly ogul (Gün, Aý, Ýyldyz) altyn ýaýyň bölekleriniň alyp «bozok» boldular; üç kiçi ogul üç kümüş ok alyp «üçok» atlandylar.' },
     { q:'1944-nji ýylda Danatar Öwezow bilen Adrian Şaposhnikowyň sazy bilen sahnalaşdyrylan opera haýsy?', options:['Şasenem we Garyp','Zöhre-Tahyr','Görogly','Leýli we Mejnun'], correct:0, explain:'«Şasenem we Garyp» (1944), Danatar Öwezow bilen Adrian Şaposhnikowyň eseri, adatça ilkinji milli türkmen operasy hasaplanýar.' },
-    { q:'Ahal şertnamasy (1881) nämäni kesgitledi?', options:['Eýran bilen patyşa Russiýasynyň serhedini Köpetdagyň ugrunda','Türkmenistanyň paýtagtyny','Türkmen elipbiýini','Tireleriň atlaryny'], correct:0, explain:'Gökdepe ýykylandan soň bu şertnama Eýran bilen Russiýanyň serhedini kesgitledi we türkmenler iki ýurduň arasynda bölündiler.' }
+    { q:'Ahal şertnamasy (1881) nämäni kesgitledi?', options:['Eýran bilen Russiýanyň serhedini Köpetdagyň ugrunda','Türkmenistanyň paýtagtynyň ýerini','Türkmen diliniň resmi elipbiýini','Tireleriň atlaryny we sanyny'], correct:0, explain:'Gökdepe ýykylandan soň bu şertnama Eýran bilen Russiýanyň serhedini kesgitledi we türkmenler iki ýurduň arasynda bölündiler.' }
   );
   fa.ui.quizIntro = 'هجده سؤال چهارگزینه‌ای دربارهٔ تاریخ، زبان، پوشاک، غذا و مشاهیر ترکمن. امتیاز شما در همین مرورگر ذخیره می‌شود.';
   tk.ui.quizIntro = 'Taryh, dil, eşik, tagam we türkmen görnükli adamlary barada on sekiz soraglyk test. Netijäňiz şu brauzerde saklanýar.';

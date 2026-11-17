@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://geekneuron.github.io/TurkmenPedia/sitemap.xml

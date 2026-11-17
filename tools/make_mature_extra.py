@@ -104,10 +104,13 @@ FOLK_SRC = [
  ('یونسکو: Epic art of Gorogly (پروندهٔ ۰۱۰۲۸، ۲۰۱۵)', 'https://ich.unesco.org/en/RL/epic-art-of-gorogly-01028'),
  ('یونسکو: تصمیم کمیتهٔ بین‌دولتی 10.COM 10.B.30', 'https://ich.unesco.org/en/decisions/10.COM/10.B.30'),
  ('ویکی‌پدیا: Epic of Koroghlu', 'https://en.wikipedia.org/wiki/Epic_of_Koroghlu'),
+ ('یونسکو: Telling tradition of Nasreddin Hodja… (تصمیم 17.COM 7.B.43، ۲۰۲۲)', 'https://ich.unesco.org/en/decisions/17.COM/7.b.43'),
 ]
 TRIBE_SRC = [
  ('ویکی‌پدیا: Turkmen tribes', 'https://en.wikipedia.org/wiki/Turkmen_tribes'),
  ('ویکی‌پدیا: Ersari', 'https://en.wikipedia.org/wiki/Ersari'),
+ ('ویکی‌پدیا: Yomut', 'https://en.wikipedia.org/wiki/Yomut'),
+ ('ویکی‌پدیا: Saryk', 'https://en.wikipedia.org/wiki/Saryk'),
  ('ویکی‌پدیا: Shajara-i Tarākima (ابوالغازی، ۱۶۵۹)', 'https://en.wikipedia.org/wiki/Shajara-i_Tar%C4%81kima'),
 ]
 INFL_SRC = [

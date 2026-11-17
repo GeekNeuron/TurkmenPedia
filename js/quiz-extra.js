@@ -520,10 +520,10 @@
     "cat": "cult",
     "q": "«دوغراما» (dograma) بیشتر از چه ساخته می‌شود؟",
     "options": [
-     "برنج و زعفران",
+     "برنج، زعفران و کشمش",
      "دل‌وجگر و نان خرد‌شده",
-     "ماست و خیار",
-     "ماهی و لیمو"
+     "ماست، خیار و سبزی خوردن",
+     "ماهی تازه، لیمو و سبزی"
     ],
     "correct": 1,
     "explain": "بنا به ویکی‌پدیا از دل‌وجگر و گوشت خرد‌شده، نان، پیاز و گوجه ساخته می‌شود.",
@@ -600,9 +600,9 @@
     "cat": "lit",
     "q": "یونسکو در ۲۰۱۸ «میراث دده قورقود» را به درخواست کدام کشورها ثبت کرد؟",
     "options": [
-     "ترکمنستان و ازبکستان",
-     "ایران و عراق",
-     "ترکمنستان و ترکیه",
+     "ترکمنستان، ازبکستان و ایران",
+     "ایران، عراق و سوریه",
+     "ترکمنستان، ترکیه و ایران",
      "آذربایجان، قزاقستان و ترکیه"
     ],
     "correct": 3,
@@ -617,8 +617,8 @@
     "q": "نسخهٔ «گنبد» از «کتاب ترکمان» (دده قورقود) در ۲۰۱۸ در کجا پیدا شد؟",
     "options": [
      "گنبد کاووس (ایران)",
-     "درسدن (آلمان)",
-     "واتیکان",
+     "درسدن (کتابخانهٔ ایالتی آلمان)",
+     "واتیکان (کتابخانهٔ رسولی)",
      "کهنه‌گرگانج"
     ],
     "correct": 0,
@@ -1416,10 +1416,10 @@
     "cat": "cult",
     "q": "«Dograma» köplenç nämeden taýýarlanýar?",
     "options": [
-     "Tüwi we zagpyran",
+     "Tüwi, zagpyran we kişmiş",
      "Gök-bagyr we owradylan çörek",
-     "Gatyk we hyýar",
-     "Balyk we limon"
+     "Gatyk, hyýar we ýaşyl önümler",
+     "Täze balyk, limon we ýaşyl önümler"
     ],
     "correct": 1,
     "explain": "Wikipediýa görä gök-bagyr we owradylan etden, çörekden, sogandan we pomidordan taýýarlanýar.",
@@ -1496,9 +1496,9 @@
     "cat": "lit",
     "q": "ÝUNESKO 2018-nji ýylda «Dede Gorkut mirasyny» haýsy ýurtlaryň haýyşy bilen girizdi?",
     "options": [
-     "Türkmenistan we Özbegistan",
-     "Eýran we Yrak",
-     "Türkmenistan we Türkiýe",
+     "Türkmenistan, Özbegistan we Eýran",
+     "Eýran, Yrak we Siriýa",
+     "Türkmenistan, Türkiýe we Eýran",
      "Azerbaýjan, Gazagystan we Türkiýe"
     ],
     "correct": 3,
@@ -1513,8 +1513,8 @@
     "q": "«Gonbad» golýazmasy (Dede Gorkut) 2018-nji ýylda nirede tapyldy?",
     "options": [
      "Gonbad-e Kawus (Eýran)",
-     "Drezden (Germaniýa)",
-     "Watikan",
+     "Drezden (Germaniýanyň döwlet kitaphanasy)",
+     "Watikan (Apostol kitaphanasy)",
      "Könegürgenç"
     ],
     "correct": 0,

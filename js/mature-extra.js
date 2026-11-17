@@ -322,6 +322,10 @@
     {
      "t": "ویکی‌پدیا: Epic of Koroghlu",
      "u": "https://en.wikipedia.org/wiki/Epic_of_Koroghlu"
+    },
+    {
+     "t": "یونسکو: Telling tradition of Nasreddin Hodja… (تصمیم 17.COM 7.B.43، ۲۰۲۲)",
+     "u": "https://ich.unesco.org/en/decisions/17.COM/7.b.43"
     }
    ],
    "tribes": [
@@ -332,6 +336,14 @@
     {
      "t": "ویکی‌پدیا: Ersari",
      "u": "https://en.wikipedia.org/wiki/Ersari"
+    },
+    {
+     "t": "ویکی‌پدیا: Yomut",
+     "u": "https://en.wikipedia.org/wiki/Yomut"
+    },
+    {
+     "t": "ویکی‌پدیا: Saryk",
+     "u": "https://en.wikipedia.org/wiki/Saryk"
     },
     {
      "t": "ویکی‌پدیا: Shajara-i Tarākima (ابوالغازی، ۱۶۵۹)",
@@ -660,6 +672,10 @@
     {
      "t": "Wikipediýa: Epic of Koroghlu",
      "u": "https://en.wikipedia.org/wiki/Epic_of_Koroghlu"
+    },
+    {
+     "t": "یونسکو: Telling tradition of Nasreddin Hodja… (تصمیم 17.COM 7.B.43، ۲۰۲۲)",
+     "u": "https://ich.unesco.org/en/decisions/17.COM/7.b.43"
     }
    ],
    "tribes": [
@@ -670,6 +686,14 @@
     {
      "t": "Wikipediýa: Ersari",
      "u": "https://en.wikipedia.org/wiki/Ersari"
+    },
+    {
+     "t": "Wikipediýa: Yomut",
+     "u": "https://en.wikipedia.org/wiki/Yomut"
+    },
+    {
+     "t": "Wikipediýa: Saryk",
+     "u": "https://en.wikipedia.org/wiki/Saryk"
     },
     {
      "t": "Wikipediýa: Shajara-i Tarākima (ابوالغازی، ۱۶۵۹)",
