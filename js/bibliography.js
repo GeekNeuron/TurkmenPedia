@@ -5,10 +5,10 @@
   /* ---- classification by host name. First match wins. ---- */
   const HOSTS = [
     ['official',   /(^|\.)(unesco\.org|europa\.eu|un\.org|ohchr\.org|stat\.gov\.tm|tuik\.gov\.tr|doi\.org)$/],
-    ['academic',   /(^|\.)(dergipark\.org\.tr|cyberleninka\.ru|jstor\.org|nii\.ac\.jp|trc-leiden\.nl|laender-analysen\.de|inalco\.fr|bilkent\.edu\.tr|yale\.edu|sagepub\.com|webonary\.org|musicofcentralasia\.org|trakya\.edu\.tr|springer\.com|nature\.com|tandfonline\.com|sciencedirect\.com|researchgate\.net|mfah\.org|metmuseum\.org|muzeumazji\.pl|artsandculture\.google\.com)$/],
+    ['academic',   /(^|\.)(journals\.openedition\.org|arastirmax\.com|dergipark\.org\.tr|cyberleninka\.ru|jstor\.org|nii\.ac\.jp|trc-leiden\.nl|laender-analysen\.de|inalco\.fr|bilkent\.edu\.tr|yale\.edu|sagepub\.com|webonary\.org|musicofcentralasia\.org|trakya\.edu\.tr|springer\.com|nature\.com|tandfonline\.com|sciencedirect\.com|researchgate\.net|mfah\.org|metmuseum\.org|muzeumazji\.pl|artsandculture\.google\.com)$/],
     ['reference',  /(^|\.)(archive\.aramcoworld\.com|aramcoworld\.com|iranicaonline\.org|islamansiklopedisi\.org\.tr|britannica\.com|countrystudies\.us|eki\.ee|everyculture\.com)$/],
     ['encyclopedia', /(^|\.)(wikipedia\.org|wikipedia\.com|wikiwand\.com)$/],
-    ['media',      /(^|\.)(historytoday\.com|rferl\.org|azathabar\.com|iwpr\.net|jamestown\.org|tmhelsinki\.org|unpo\.org|caucasianknot\.org|joshuaproject\.net|worldmusiccentral\.org|minorityrights\.org|bbc\.com|eurasianet\.org|thediplomat\.com|aljazeera\.com|reuters\.com)$/],
+    ['media',      /(^|\.)(ocamagazine\.com|historytoday\.com|rferl\.org|azathabar\.com|iwpr\.net|jamestown\.org|tmhelsinki\.org|unpo\.org|caucasianknot\.org|joshuaproject\.net|worldmusiccentral\.org|minorityrights\.org|bbc\.com|eurasianet\.org|thediplomat\.com|aljazeera\.com|reuters\.com)$/],
     ['state',      /(^|\.)gov\.tm$/],
   ];
   const TIER = { official:'A', academic:'A', reference:'A', encyclopedia:'B', media:'C', state:'C', community:'D' };
@@ -51,7 +51,7 @@
       ['map', ((D.map || {}).stats || {}).sources],
     ];
     lists.forEach(([a, arr]) => (arr || []).forEach(s => add(s.t, s.u, a, s.id)));
-    ['clothing', 'cuisine', 'books', 'influences', 'people'].forEach(a => (D[a].footSrc || []).forEach(s => add(s.t, s.u, a)));
+    ['clothing', 'cuisine', 'books', 'influences', 'people', 'folklore', 'music', 'tribes', 'poets'].forEach(a => (D[a] && D[a].footSrc || []).forEach(s => add(s.t, s.u, a)));
     const items = [...byUrl.values()];
     const counts = { total: items.length, A: 0, B: 0, C: 0, D: 0, byType: {}, byArea: {} };
     items.forEach(i => { counts[i.tier]++; counts.byType[i.type] = (counts.byType[i.type] || 0) + 1; i.areas.forEach(a => { counts.byArea[a] = (counts.byArea[a] || 0) + 1; }); if(!i.areas.length) i.areas.push('dashboard'); });

@@ -102,16 +102,38 @@ INFL = [
 ]
 FOLK_SRC = [
  ('یونسکو: Epic art of Gorogly (پروندهٔ ۰۱۰۲۸، ۲۰۱۵)', 'https://ich.unesco.org/en/RL/epic-art-of-gorogly-01028'),
+ ('یونسکو: Kushtdepdi rite of singing and dancing (۲۰۱۷، ۰۱۲۵۹)', 'https://ich.unesco.org/en/RL/kushtdepdi-rite-of-singing-and-dancing-01259'),
  ('یونسکو: تصمیم کمیتهٔ بین‌دولتی 10.COM 10.B.30', 'https://ich.unesco.org/en/decisions/10.COM/10.B.30'),
  ('ویکی‌پدیا: Epic of Koroghlu', 'https://en.wikipedia.org/wiki/Epic_of_Koroghlu'),
+ ('Annaberdiyev (۲۰۱۳): Türkmen halk biliminde atasözü tanımlamalarına genel bir bakış — «نقیل» و «آتالار سوزی» (DergiPark)', 'https://dergipark.org.tr/en/pub/egetdid/article/380763'),
+ ('DergiPark: تحلیل روان‌شناختی ۵۴۰۵ ضرب‌المثل ترکمن', 'https://dergipark.org.tr/en/download/article-file/529872'),
+ ('Arastırmax: ادبیات شفاهی اوغوز و ترکمن‌های ترکمن‌صحرا (طبقه‌بندی ژانرها)', 'https://arastirmax.com/en/system/files/dergiler/79199/makaleler/12/34/arastirmax-oguz-sozlu-edebiyati-icerisinde-turkmensahra-turkmenlerinin-yeri.pdf'),
+ ('ویکی‌پدیا: Turkmen literature', 'https://en.wikipedia.org/wiki/Turkmen_literature'),
  ('یونسکو: Telling tradition of Nasreddin Hodja… (تصمیم 17.COM 7.B.43، ۲۰۲۲)', 'https://ich.unesco.org/en/decisions/17.COM/7.b.43'),
 ]
 TRIBE_SRC = [
  ('ویکی‌پدیا: Turkmen tribes', 'https://en.wikipedia.org/wiki/Turkmen_tribes'),
  ('ویکی‌پدیا: Ersari', 'https://en.wikipedia.org/wiki/Ersari'),
  ('ویکی‌پدیا: Yomut', 'https://en.wikipedia.org/wiki/Yomut'),
+ ('ایرانیکا: Guklān (Göklen) — P. Oberling (۲۰۰۲)', 'https://www.iranicaonline.org/articles/guklan/'),
+ ('ویکی‌پدیا: Ali Ili', 'https://en.wikipedia.org/wiki/Ali_Ili'),
+ ('R. E. Wright: Turkmen carpets of the southern rim (جمعیت و ایل‌های کوچک سدهٔ ۱۹)', 'https://richardewright.com/0909_SuthernRim.html'),
+ ('Encyclopedia.com: Turkmens (ساختار ایلی)', 'https://www.encyclopedia.com/places/commonwealth-independent-states-and-baltic-nations/cis-and-baltic-political-geography/turkmens'),
+ ('ایرانیکا: Gorgān vii. History from the Safavids to the end of the Pahlavi era', 'https://www.iranicaonline.org/articles/gorgan-vii'),
+ ('Abstracta Iranica: Allies or Enemies? Yamūt-Turkmen and the Qājār state (نقد Rudi Matthee)', 'https://journals.openedition.org/abstractairanica/2832'),
  ('ویکی‌پدیا: Saryk', 'https://en.wikipedia.org/wiki/Saryk'),
  ('ویکی‌پدیا: Shajara-i Tarākima (ابوالغازی، ۱۶۵۹)', 'https://en.wikipedia.org/wiki/Shajara-i_Tar%C4%81kima'),
+]
+MUSIC_SRC = [
+ ('یونسکو: Dutar making craftsmanship and traditional music performing art combined with singing (۲۰۲۱، ۰۱۵۶۵)', 'https://ich.unesco.org/en/RL/dutar-making-craftsmanship-and-traditional-music-performing-art-combined-with-singing-01565'),
+]
+CLOTH_SRC = [
+ ('دانشنامهٔ ایرانیکا: Clothing xxvi. Clothing and jewelry of the Turkmen (P. A. Andrews, ۱۹۹۲)', 'https://www.iranicaonline.org/articles/clothing-xxvi/'),
+ ('OCA Magazine: A Turkmen Tour of Fashion (۲۰۲۲)', 'https://www.ocamagazine.com/2022/07/18/a-turkmen-tour-of-fashion/'),
+ ('یونسکو: Turkmen-style needlework art (۲۰۲۲، ۰۱۸۷۶)', 'https://ich.unesco.org/en/RL/turkmen-style-needlework-art-01876'),
+]
+CUIS_SRC = [
+ ('ویکی‌پدیا: Turkmen cuisine', 'https://en.wikipedia.org/wiki/Turkmen_cuisine'),
 ]
 INFL_SRC = [
  ('ویکی‌پدیا: Akhal-Teke', 'https://en.wikipedia.org/wiki/Akhal-Teke'),
@@ -172,7 +194,7 @@ def build(lang):
         for a, b in TKMAP: t = t.replace(a, b)
         return t
     mk = lambda lst: [{'t': tr(t), 'u': u} for t, u in lst]
-    out['foot'] = {'poets': mk(POETS_SRC), 'people': mk(PEOPLE_SRC), 'books': mk(BOOKS_SRC), 'influences': mk(INFL_SRC), 'folklore': mk(FOLK_SRC), 'tribes': mk(TRIBE_SRC)}
+    out['foot'] = {'poets': mk(POETS_SRC), 'people': mk(PEOPLE_SRC), 'books': mk(BOOKS_SRC), 'influences': mk(INFL_SRC), 'folklore': mk(FOLK_SRC), 'tribes': mk(TRIBE_SRC), 'music': mk(MUSIC_SRC), 'clothing': mk(CLOTH_SRC), 'cuisine': mk(CUIS_SRC)}
     return out
 
 data = {l: build(l) for l in ('fa', 'tk')}
@@ -189,7 +211,7 @@ js = '''/* Matured content: more poets, cultural figures, works, influences and 
     D.influences.items = D.influences.items.concat(e.influences);
     const add = (blk, list) => { const seen = new Set((blk.footSrc || []).map(s => s.u)); blk.footSrc = (blk.footSrc || []).concat(list.filter(s => !seen.has(s.u))); };
     D.poets.footSrc = D.poets.footSrc || [];
-    add(D.poets, e.foot.poets); add(D.people, e.foot.people); add(D.books, e.foot.books); add(D.influences, e.foot.influences); add(D.folklore, e.foot.folklore); add(D.tribes, e.foot.tribes);
+    add(D.poets, e.foot.poets); add(D.people, e.foot.people); add(D.books, e.foot.books); add(D.influences, e.foot.influences); add(D.folklore, e.foot.folklore); add(D.tribes, e.foot.tribes);\n    ['music', 'clothing', 'cuisine'].forEach(k => { if(D[k]){ D[k].footSrc = D[k].footSrc || []; add(D[k], e.foot[k]); } });
     const gx = D.genealogy.extra;
     gx.modern = gx.modern.concat(e.small);
     gx.sources = gx.sources.concat(e.smallSources);

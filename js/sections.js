@@ -1302,6 +1302,14 @@ window.TS_EXT = (function(){
     d.music.instruments.forEach(e => push('music', e.icon, e.title)); d.music.genres.forEach(e => push('music', e.icon, e.title));
     d.folklore.items.forEach(e => push('folklore', e.icon, e.title));
     (d.world ? d.world.items : []).forEach(e => push('world', e.icon, e.title));
+    /* cross-border regions and population stats shown on the map page */
+    if(d.map){
+      (d.map.regions || []).forEach(r => push('map', 'pin', r.title));
+      if(d.map.stats){
+        (d.map.stats.world || []).forEach(r => push('map', 'pin', r.name));
+        (d.map.stats.vel || []).forEach(r => push('map', 'pin', r.name));
+      }
+    }
     return out;
   };
   return X;

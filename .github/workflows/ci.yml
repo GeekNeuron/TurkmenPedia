@@ -6,11 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: npm }
+        with: { node-version: 22 }
       - run: npm install --no-audit --no-fund
       - name: Syntax
         run: for f in js/*.js sw.js tests/*.js; do node --check "$f"; done
-      - name: Data integrity
-        run: npm run check
-      - name: Browser-like smoke test
-        run: npm run smoke
+      - name: Tests (data integrity, smoke, map keyboard)
+        run: npm test

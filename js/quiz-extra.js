@@ -851,6 +851,118 @@
      "t": "ویکی‌پدیا: Turkmen literature",
      "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
     }
+   },
+   {
+    "cat": "her",
+    "q": "«سنت قصه‌گویی ملانصرالدین» در ۲۰۲۲ به نام چند کشور در فهرست نمایندهٔ یونسکو ثبت شد؟",
+    "options": [
+     "چهار کشور",
+     "پنج کشور",
+     "هفت کشور",
+     "نه کشور"
+    ],
+    "correct": 2,
+    "explain": "به نام هفت کشور: آذربایجان، قزاقستان، قرقیزستان، تاجیکستان، ترکیه، ترکمنستان و ازبکستان (نشست هفدهم کمیتهٔ بین‌دولتی، رباط).",
+    "src": {
+     "t": "یونسکو: تصمیم 17.COM 7.B.43 (ملانصرالدین، ۲۰۲۲)",
+     "u": "https://ich.unesco.org/en/decisions/17.COM/7.b.43"
+    }
+   },
+   {
+    "cat": "her",
+    "q": "کدام عنصر نخستین پروندهٔ ترکمنستان در فهرست نمایندهٔ میراث ناملموس یونسکو (۲۰۱۵) بود؟",
+    "options": [
+     "هنر حماسه‌خوانی گوروغلی",
+     "هنر قالی‌بافی سنتی ترکمن",
+     "آیین آواز و رقص کوشتدپدی",
+     "ساخت دوتار و موسیقی همراه با آواز"
+    ],
+    "correct": 0,
+    "explain": "حماسه‌خوانی گوروغلی در ۲۰۱۵ ثبت شد؛ کوشتدپدی ۲۰۱۷، قالی‌بافی ۲۰۱۹ و دوتار ۲۰۲۱.",
+    "src": {
+     "t": "یونسکو: Epic art of Gorogly (۲۰۱۵)",
+     "u": "https://ich.unesco.org/en/RL/epic-art-of-gorogly-01028"
+    }
+   },
+   {
+    "cat": "her",
+    "q": "کدام عنصر ترکمنستان در ۲۰۲۱ در فهرست نمایندهٔ یونسکو ثبت شد؟",
+    "options": [
+     "هنر قالی‌بافی سنتی ترکمن در کشور",
+     "هنر پرورش اسب آخال‌تکه و آراستن آن",
+     "آیین آواز و رقص کوشتدپدی ترکمن",
+     "ساخت دوتار و موسیقی همراه با آواز"
+    ],
+    "correct": 3,
+    "explain": "«ساخت دوتار و هنر موسیقی سنتی همراه با آواز» در ۲۰۲۱ ثبت شد؛ آخال‌تکه ۲۰۲۳ و قالی‌بافی ۲۰۱۹.",
+    "src": {
+     "t": "یونسکو: Dutar making craftsmanship… (۲۰۲۱)",
+     "u": "https://ich.unesco.org/en/RL/dutar-making-craftsmanship-and-traditional-music-performing-art-combined-with-singing-01565"
+    }
+   },
+   {
+    "cat": "tribe",
+    "q": "در ریشه‌یابی نام «ارساری»، واژهٔ «ار» در ترکمنی چه معنایی دارد؟",
+    "options": [
+     "مردِ دلیر یا استاد",
+     "آبِ روانِ رودخانه",
+     "سرزمینِ کوهستانی",
+     "تپهٔ ماسه‌ای بلند"
+    ],
+    "correct": 0,
+    "explain": "ویکی‌پدیا «ار» را مرد دلیر/استاد و «ساری» را روشن/زرد می‌داند.",
+    "src": {
+     "t": "ویکی‌پدیا: Ersari",
+     "u": "https://en.wikipedia.org/wiki/Ersari"
+    }
+   },
+   {
+    "cat": "tribe",
+    "q": "آخرین فرمانروای عملی خانات خیوه (۱۹۱۸–۱۹۲۰)، ژونئیت‌خان، از کدام ایل ترکمن بود؟",
+    "options": [
+     "ایل یموت",
+     "ایل تکه",
+     "ایل ساریق",
+     "ایل ارساری"
+    ],
+    "correct": 0,
+    "explain": "ژونئیت‌خان (حدود ۱۸۵۷–۱۹۳۸) از ایل یموت بود.",
+    "src": {
+     "t": "ویکی‌پدیا: Yomut",
+     "u": "https://en.wikipedia.org/wiki/Yomut"
+    }
+   },
+   {
+    "cat": "tribe",
+    "q": "ساریق‌ها از حدود ۱۸۳۰ زیر فشار کدام ایل به بالادست رود مرغاب رانده شدند؟",
+    "options": [
+     "تکه",
+     "یموت",
+     "گوکلن",
+     "چودور"
+    ],
+    "correct": 0,
+    "explain": "به نوشتهٔ ویکی‌پدیا، تکه‌ها آنان را از ناحیهٔ مرو به بالادست مرغاب راندند.",
+    "src": {
+     "t": "ویکی‌پدیا: Saryk",
+     "u": "https://en.wikipedia.org/wiki/Saryk"
+    }
+   },
+   {
+    "cat": "lit",
+    "q": "«ماتال» در ادبیات شفاهی ترکمن چه نوعی است؟",
+    "options": [
+     "معما",
+     "لالایی",
+     "مرثیه",
+     "حماسه"
+    ],
+    "correct": 0,
+    "explain": "در طبقه‌بندی ۱۳ نوع ادبیات شفاهی ترکمن، «ماتال‌لار» معماها هستند؛ لالایی «هوودی»، مرثیه «آغی» و حماسه «دستان» است.",
+    "src": {
+     "t": "Arastırmax: ادبیات شفاهی اوغوز و ترکمن‌های ترکمن‌صحرا",
+     "u": "https://arastirmax.com/en/system/files/dergiler/79199/makaleler/12/34/arastirmax-oguz-sozlu-edebiyati-icerisinde-turkmensahra-turkmenlerinin-yeri.pdf"
+    }
    }
   ],
   "cats": [
@@ -1746,6 +1858,118 @@
     "src": {
      "t": "Wikipedia: Turkmen literature",
      "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
+    }
+   },
+   {
+    "cat": "her",
+    "q": "«Molla Nasreddin hekaýalaryny aýtmak däbi» 2022-nji ýylda näçe ýurduň adyndan ÝUNESKO-nyň sanawyna girizildi?",
+    "options": [
+     "dört ýurt",
+     "bäş ýurt",
+     "ýedi ýurt",
+     "dokuz ýurt"
+    ],
+    "correct": 2,
+    "explain": "Ýedi ýurduň adyndan: Azerbaýjan, Gazagystan, Gyrgyzystan, Täjigistan, Türkiýe, Türkmenistan we Özbegistan (Hökümetara komitetiniň 17-nji mejlisi, Rabat).",
+    "src": {
+     "t": "ÝUNESKO: 17.COM 7.B.43 karary (Molla Nasreddin, 2022)",
+     "u": "https://ich.unesco.org/en/decisions/17.COM/7.b.43"
+    }
+   },
+   {
+    "cat": "her",
+    "q": "Haýsy element Türkmenistanyň ÝUNESKO-nyň wekilçilikli sanawyndaky ilkinji ýazgysy (2015) boldy?",
+    "options": [
+     "Görogly dessanyny aýtmak sungaty",
+     "Türkmen halyçylyk sungaty",
+     "Kuştdepdi aýdym-tans däbi",
+     "Dutar ýasamak we saz bilen aýtmak sungaty"
+    ],
+    "correct": 0,
+    "explain": "Görogly dessany 2015-nji ýylda; Kuştdepdi 2017-nji, halyçylyk 2019-njy, dutar 2021-nji ýylda girizildi.",
+    "src": {
+     "t": "ÝUNESKO: Görogly dessan sungaty (2015)",
+     "u": "https://ich.unesco.org/en/RL/epic-art-of-gorogly-01028"
+    }
+   },
+   {
+    "cat": "her",
+    "q": "Haýsy element 2021-nji ýylda Türkmenistanyň ÝUNESKO-nyň wekilçilikli sanawyna girizildi?",
+    "options": [
+     "Ýurtdaky türkmen halyçylyk sungaty",
+     "Ahalteke atçylygy we at bezemek sungaty",
+     "Türkmen Kuştdepdi aýdym-tans däbi",
+     "Dutar ýasamak we aýdym bilen saz çalmak"
+    ],
+    "correct": 3,
+    "explain": "«Dutar ýasamak we aýdym bilen çalynýan däp-dessurly saz sungaty» 2021-nji ýylda girizildi; Ahalteke 2023-nji, halyçylyk 2019-njy ýylda.",
+    "src": {
+     "t": "ÝUNESKO: Dutar ýasamak sungaty… (2021)",
+     "u": "https://ich.unesco.org/en/RL/dutar-making-craftsmanship-and-traditional-music-performing-art-combined-with-singing-01565"
+    }
+   },
+   {
+    "cat": "tribe",
+    "q": "«Ärsary» adynyň düýbüni açanda, türkmen dilinde «är» sözi näme aňladýar?",
+    "options": [
+     "Batyr ýa-da ussat adam",
+     "Akýan derýa suwy",
+     "Daglyk bir ýurt",
+     "Ýokary gum depe"
+    ],
+    "correct": 0,
+    "explain": "Wikipediýa «är» sözüni batyr/ussat, «sary» sözüni ýagty/sary diýip düşündirýär.",
+    "src": {
+     "t": "Wikipediýa: Ärsary",
+     "u": "https://en.wikipedia.org/wiki/Ersari"
+    }
+   },
+   {
+    "cat": "tribe",
+    "q": "1918–1920-nji ýyllarda Hywa hanlygynyň iň soňky hakyky hökümdary Jüneýit han haýsy türkmen tiresindendi?",
+    "options": [
+     "Ýomut tiresi",
+     "Teke tiresi",
+     "Saryk tiresi",
+     "Ärsary tiresi"
+    ],
+    "correct": 0,
+    "explain": "Jüneýit han (takmynan 1857–1938) ýomut tiresindendi.",
+    "src": {
+     "t": "Wikipediýa: Ýomut",
+     "u": "https://en.wikipedia.org/wiki/Yomut"
+    }
+   },
+   {
+    "cat": "tribe",
+    "q": "Saryklar takmynan 1830-njy ýyllardan başlap haýsy tiräniň basyşy bilen Murgabyň ýokary akymyna çykaryldy?",
+    "options": [
+     "Teke",
+     "Ýomut",
+     "Gökleň",
+     "Çowdur"
+    ],
+    "correct": 0,
+    "explain": "Wikipediýa görä tekeler olary Merw töwereginden Murgabyň ýokary akymyna çykaryp ugradypdyr.",
+    "src": {
+     "t": "Wikipediýa: Saryk",
+     "u": "https://en.wikipedia.org/wiki/Saryk"
+    }
+   },
+   {
+    "cat": "lit",
+    "q": "«Matal» türkmen sözlü edebiýatynda nähili žanr?",
+    "options": [
+     "Tapmaça",
+     "Hüwdi",
+     "Agy",
+     "Dessan"
+    ],
+    "correct": 0,
+    "explain": "Türkmen sözlü edebiýatynyň 13 görnüşli toparlamasynda «matallar» tapmaçalardyr; hüwdi – ýatyrma aýdymy, agy – agy, dessan – eposdyr.",
+    "src": {
+     "t": "Arastırmax: Oguz sözlü edebiýaty we Türkmensähra türkmenleri",
+     "u": "https://arastirmax.com/en/system/files/dergiler/79199/makaleler/12/34/arastirmax-oguz-sozlu-edebiyati-icerisinde-turkmensahra-turkmenlerinin-yeri.pdf"
     }
    }
   ],

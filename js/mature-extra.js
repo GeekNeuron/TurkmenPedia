@@ -316,12 +316,32 @@
      "u": "https://ich.unesco.org/en/RL/epic-art-of-gorogly-01028"
     },
     {
+     "t": "یونسکو: Kushtdepdi rite of singing and dancing (۲۰۱۷، ۰۱۲۵۹)",
+     "u": "https://ich.unesco.org/en/RL/kushtdepdi-rite-of-singing-and-dancing-01259"
+    },
+    {
      "t": "یونسکو: تصمیم کمیتهٔ بین‌دولتی 10.COM 10.B.30",
      "u": "https://ich.unesco.org/en/decisions/10.COM/10.B.30"
     },
     {
      "t": "ویکی‌پدیا: Epic of Koroghlu",
      "u": "https://en.wikipedia.org/wiki/Epic_of_Koroghlu"
+    },
+    {
+     "t": "Annaberdiyev (۲۰۱۳): Türkmen halk biliminde atasözü tanımlamalarına genel bir bakış — «نقیل» و «آتالار سوزی» (DergiPark)",
+     "u": "https://dergipark.org.tr/en/pub/egetdid/article/380763"
+    },
+    {
+     "t": "DergiPark: تحلیل روان‌شناختی ۵۴۰۵ ضرب‌المثل ترکمن",
+     "u": "https://dergipark.org.tr/en/download/article-file/529872"
+    },
+    {
+     "t": "Arastırmax: ادبیات شفاهی اوغوز و ترکمن‌های ترکمن‌صحرا (طبقه‌بندی ژانرها)",
+     "u": "https://arastirmax.com/en/system/files/dergiler/79199/makaleler/12/34/arastirmax-oguz-sozlu-edebiyati-icerisinde-turkmensahra-turkmenlerinin-yeri.pdf"
+    },
+    {
+     "t": "ویکی‌پدیا: Turkmen literature",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
     },
     {
      "t": "یونسکو: Telling tradition of Nasreddin Hodja… (تصمیم 17.COM 7.B.43، ۲۰۲۲)",
@@ -342,12 +362,62 @@
      "u": "https://en.wikipedia.org/wiki/Yomut"
     },
     {
+     "t": "ایرانیکا: Guklān (Göklen) — P. Oberling (۲۰۰۲)",
+     "u": "https://www.iranicaonline.org/articles/guklan/"
+    },
+    {
+     "t": "ویکی‌پدیا: Ali Ili",
+     "u": "https://en.wikipedia.org/wiki/Ali_Ili"
+    },
+    {
+     "t": "R. E. Wright: Turkmen carpets of the southern rim (جمعیت و ایل‌های کوچک سدهٔ ۱۹)",
+     "u": "https://richardewright.com/0909_SuthernRim.html"
+    },
+    {
+     "t": "Encyclopedia.com: Turkmens (ساختار ایلی)",
+     "u": "https://www.encyclopedia.com/places/commonwealth-independent-states-and-baltic-nations/cis-and-baltic-political-geography/turkmens"
+    },
+    {
+     "t": "ایرانیکا: Gorgān vii. History from the Safavids to the end of the Pahlavi era",
+     "u": "https://www.iranicaonline.org/articles/gorgan-vii"
+    },
+    {
+     "t": "Abstracta Iranica: Allies or Enemies? Yamūt-Turkmen and the Qājār state (نقد Rudi Matthee)",
+     "u": "https://journals.openedition.org/abstractairanica/2832"
+    },
+    {
      "t": "ویکی‌پدیا: Saryk",
      "u": "https://en.wikipedia.org/wiki/Saryk"
     },
     {
      "t": "ویکی‌پدیا: Shajara-i Tarākima (ابوالغازی، ۱۶۵۹)",
      "u": "https://en.wikipedia.org/wiki/Shajara-i_Tar%C4%81kima"
+    }
+   ],
+   "music": [
+    {
+     "t": "یونسکو: Dutar making craftsmanship and traditional music performing art combined with singing (۲۰۲۱، ۰۱۵۶۵)",
+     "u": "https://ich.unesco.org/en/RL/dutar-making-craftsmanship-and-traditional-music-performing-art-combined-with-singing-01565"
+    }
+   ],
+   "clothing": [
+    {
+     "t": "دانشنامهٔ ایرانیکا: Clothing xxvi. Clothing and jewelry of the Turkmen (P. A. Andrews, ۱۹۹۲)",
+     "u": "https://www.iranicaonline.org/articles/clothing-xxvi/"
+    },
+    {
+     "t": "OCA Magazine: A Turkmen Tour of Fashion (۲۰۲۲)",
+     "u": "https://www.ocamagazine.com/2022/07/18/a-turkmen-tour-of-fashion/"
+    },
+    {
+     "t": "یونسکو: Turkmen-style needlework art (۲۰۲۲، ۰۱۸۷۶)",
+     "u": "https://ich.unesco.org/en/RL/turkmen-style-needlework-art-01876"
+    }
+   ],
+   "cuisine": [
+    {
+     "t": "ویکی‌پدیا: Turkmen cuisine",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_cuisine"
     }
    ]
   }
@@ -666,12 +736,32 @@
      "u": "https://ich.unesco.org/en/RL/epic-art-of-gorogly-01028"
     },
     {
+     "t": "یونسکو: Kushtdepdi rite of singing and dancing (۲۰۱۷، ۰۱۲۵۹)",
+     "u": "https://ich.unesco.org/en/RL/kushtdepdi-rite-of-singing-and-dancing-01259"
+    },
+    {
      "t": "یونسکو: تصمیم کمیتهٔ بین‌دولتی 10.COM 10.B.30",
      "u": "https://ich.unesco.org/en/decisions/10.COM/10.B.30"
     },
     {
      "t": "Wikipediýa: Epic of Koroghlu",
      "u": "https://en.wikipedia.org/wiki/Epic_of_Koroghlu"
+    },
+    {
+     "t": "Annaberdiyev (۲۰۱۳): Türkmen halk biliminde atasözü tanımlamalarına genel bir bakış — «نقیل» و «آتالار سوزی» (DergiPark)",
+     "u": "https://dergipark.org.tr/en/pub/egetdid/article/380763"
+    },
+    {
+     "t": "DergiPark: تحلیل روان‌شناختی ۵۴۰۵ ضرب‌المثل ترکمن",
+     "u": "https://dergipark.org.tr/en/download/article-file/529872"
+    },
+    {
+     "t": "Arastırmax: ادبیات شفاهی اوغوز و ترکمن‌های ترکمن‌صحرا (طبقه‌بندی ژانرها)",
+     "u": "https://arastirmax.com/en/system/files/dergiler/79199/makaleler/12/34/arastirmax-oguz-sozlu-edebiyati-icerisinde-turkmensahra-turkmenlerinin-yeri.pdf"
+    },
+    {
+     "t": "Wikipediýa: Turkmen literature",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_literature"
     },
     {
      "t": "یونسکو: Telling tradition of Nasreddin Hodja… (تصمیم 17.COM 7.B.43، ۲۰۲۲)",
@@ -692,12 +782,62 @@
      "u": "https://en.wikipedia.org/wiki/Yomut"
     },
     {
+     "t": "ایرانیکا: Guklān (Göklen) — P. Oberling (۲۰۰۲)",
+     "u": "https://www.iranicaonline.org/articles/guklan/"
+    },
+    {
+     "t": "Wikipediýa: Ali Ili",
+     "u": "https://en.wikipedia.org/wiki/Ali_Ili"
+    },
+    {
+     "t": "R. E. Wright: Turkmen carpets of the southern rim (جمعیت و ایل‌های کوچک سدهٔ ۱۹)",
+     "u": "https://richardewright.com/0909_SuthernRim.html"
+    },
+    {
+     "t": "Encyclopedia.com: Turkmens (ساختار ایلی)",
+     "u": "https://www.encyclopedia.com/places/commonwealth-independent-states-and-baltic-nations/cis-and-baltic-political-geography/turkmens"
+    },
+    {
+     "t": "ایرانیکا: Gorgān vii. History from the Safavids to the end of the Pahlavi era",
+     "u": "https://www.iranicaonline.org/articles/gorgan-vii"
+    },
+    {
+     "t": "Abstracta Iranica: Allies or Enemies? Yamūt-Turkmen and the Qājār state (نقد Rudi Matthee)",
+     "u": "https://journals.openedition.org/abstractairanica/2832"
+    },
+    {
      "t": "Wikipediýa: Saryk",
      "u": "https://en.wikipedia.org/wiki/Saryk"
     },
     {
      "t": "Wikipediýa: Shajara-i Tarākima (ابوالغازی، ۱۶۵۹)",
      "u": "https://en.wikipedia.org/wiki/Shajara-i_Tar%C4%81kima"
+    }
+   ],
+   "music": [
+    {
+     "t": "یونسکو: Dutar making craftsmanship and traditional music performing art combined with singing (۲۰۲۱، ۰۱۵۶۵)",
+     "u": "https://ich.unesco.org/en/RL/dutar-making-craftsmanship-and-traditional-music-performing-art-combined-with-singing-01565"
+    }
+   ],
+   "clothing": [
+    {
+     "t": "دانشنامهٔ ایرانیکا: Clothing xxvi. Clothing and jewelry of the Turkmen (P. A. Andrews, ۱۹۹۲)",
+     "u": "https://www.iranicaonline.org/articles/clothing-xxvi/"
+    },
+    {
+     "t": "OCA Magazine: A Turkmen Tour of Fashion (۲۰۲۲)",
+     "u": "https://www.ocamagazine.com/2022/07/18/a-turkmen-tour-of-fashion/"
+    },
+    {
+     "t": "یونسکو: Turkmen-style needlework art (۲۰۲۲، ۰۱۸۷۶)",
+     "u": "https://ich.unesco.org/en/RL/turkmen-style-needlework-art-01876"
+    }
+   ],
+   "cuisine": [
+    {
+     "t": "Wikipediýa: Turkmen cuisine",
+     "u": "https://en.wikipedia.org/wiki/Turkmen_cuisine"
     }
    ]
   }
@@ -713,6 +853,7 @@
     const add = (blk, list) => { const seen = new Set((blk.footSrc || []).map(s => s.u)); blk.footSrc = (blk.footSrc || []).concat(list.filter(s => !seen.has(s.u))); };
     D.poets.footSrc = D.poets.footSrc || [];
     add(D.poets, e.foot.poets); add(D.people, e.foot.people); add(D.books, e.foot.books); add(D.influences, e.foot.influences); add(D.folklore, e.foot.folklore); add(D.tribes, e.foot.tribes);
+    ['music', 'clothing', 'cuisine'].forEach(k => { if(D[k]){ D[k].footSrc = D[k].footSrc || []; add(D[k], e.foot[k]); } });
     const gx = D.genealogy.extra;
     gx.modern = gx.modern.concat(e.small);
     gx.sources = gx.sources.concat(e.smallSources);

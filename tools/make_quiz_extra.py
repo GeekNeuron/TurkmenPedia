@@ -6,6 +6,13 @@ import json
 FD = str.maketrans('0123456789', '۰۱۲۳۴۵۶۷۸۹')
 
 SRC = {
+ 'unNas': ('یونسکو: تصمیم 17.COM 7.B.43 (ملانصرالدین، ۲۰۲۲)', 'ÝUNESKO: 17.COM 7.B.43 karary (Molla Nasreddin, 2022)', 'https://ich.unesco.org/en/decisions/17.COM/7.b.43'),
+ 'unGor': ('یونسکو: Epic art of Gorogly (۲۰۱۵)', 'ÝUNESKO: Görogly dessan sungaty (2015)', 'https://ich.unesco.org/en/RL/epic-art-of-gorogly-01028'),
+ 'unDut': ('یونسکو: Dutar making craftsmanship… (۲۰۲۱)', 'ÝUNESKO: Dutar ýasamak sungaty… (2021)', 'https://ich.unesco.org/en/RL/dutar-making-craftsmanship-and-traditional-music-performing-art-combined-with-singing-01565'),
+ 'yomW':  ('ویکی‌پدیا: Yomut', 'Wikipediýa: Ýomut', 'https://en.wikipedia.org/wiki/Yomut'),
+ 'sarW':  ('ویکی‌پدیا: Saryk', 'Wikipediýa: Saryk', 'https://en.wikipedia.org/wiki/Saryk'),
+ 'ersW':  ('ویکی‌پدیا: Ersari', 'Wikipediýa: Ärsary', 'https://en.wikipedia.org/wiki/Ersari'),
+ 'orLit': ('Arastırmax: ادبیات شفاهی اوغوز و ترکمن‌های ترکمن‌صحرا', 'Arastırmax: Oguz sözlü edebiýaty we Türkmensähra türkmenleri', 'https://arastirmax.com/en/system/files/dergiler/79199/makaleler/12/34/arastirmax-oguz-sozlu-edebiyati-icerisinde-turkmensahra-turkmenlerinin-yeri.pdf'),
  'mak':   ('ویکی‌پدیا: Magtymguly Pyragy', 'Wikipediýa: Magtymguly Pyragy', 'https://en.wikipedia.org/wiki/Magtymguly_Pyragy'),
  'iran':  ('دانشنامهٔ ایرانیکا: پوشاک و زیور ترکمن', 'Iranica: Türkmen egin-eşigi we şaý-sepi', 'https://www.iranicaonline.org/articles/clothing-xxvi/'),
  'kara':  ('ویکی‌پدیا: Karakum Desert', 'Wikipediýa: Garagum çöli', 'https://en.wikipedia.org/wiki/Karakum_Desert'),
@@ -205,6 +212,27 @@ Q = [
  ('lit','ez',2,
   ['کدام دو شاعر دربارهٔ دفاع از گوک‌تپه سروده‌اند؟',['آزادی و آندلیب','کمینه و سیدی','ماتاجی و میسگین‌قیلیچ','ذلیلی و مولانپس'],'ماتاجی (حدود ۱۸۲۴–۱۸۸۴) و میسگین‌قیلیچ (۱۸۴۵–۱۹۰۵) در ویکی‌پدیا.'],
   ['Haýsy iki şahyr Gökdepäniň goragy barada ýazypdyr?',['Azady we Andalyp','Kemine we Seýdi','Mätäji we Misgin Gylyç','Zelili we Mollanepes'],'Wikipediýa görä Mätäji (takmynan 1824–1884) we Misgin Gylyç (1845–1905).']),
+ ('her','unNas',2,
+  ['«سنت قصه‌گویی ملانصرالدین» در ۲۰۲۲ به نام چند کشور در فهرست نمایندهٔ یونسکو ثبت شد؟',['چهار کشور','پنج کشور','هفت کشور','نه کشور'],'به نام هفت کشور: آذربایجان، قزاقستان، قرقیزستان، تاجیکستان، ترکیه، ترکمنستان و ازبکستان (نشست هفدهم کمیتهٔ بین‌دولتی، رباط).'],
+  ['«Molla Nasreddin hekaýalaryny aýtmak däbi» 2022-nji ýylda näçe ýurduň adyndan ÝUNESKO-nyň sanawyna girizildi?',['dört ýurt','bäş ýurt','ýedi ýurt','dokuz ýurt'],'Ýedi ýurduň adyndan: Azerbaýjan, Gazagystan, Gyrgyzystan, Täjigistan, Türkiýe, Türkmenistan we Özbegistan (Hökümetara komitetiniň 17-nji mejlisi, Rabat).']),
+ ('her','unGor',0,
+  ['کدام عنصر نخستین پروندهٔ ترکمنستان در فهرست نمایندهٔ میراث ناملموس یونسکو (۲۰۱۵) بود؟',['هنر حماسه‌خوانی گوروغلی','هنر قالی‌بافی سنتی ترکمن','آیین آواز و رقص کوشتدپدی','ساخت دوتار و موسیقی همراه با آواز'],'حماسه‌خوانی گوروغلی در ۲۰۱۵ ثبت شد؛ کوشتدپدی ۲۰۱۷، قالی‌بافی ۲۰۱۹ و دوتار ۲۰۲۱.'],
+  ['Haýsy element Türkmenistanyň ÝUNESKO-nyň wekilçilikli sanawyndaky ilkinji ýazgysy (2015) boldy?',['Görogly dessanyny aýtmak sungaty','Türkmen halyçylyk sungaty','Kuştdepdi aýdym-tans däbi','Dutar ýasamak we saz bilen aýtmak sungaty'],'Görogly dessany 2015-nji ýylda; Kuştdepdi 2017-nji, halyçylyk 2019-njy, dutar 2021-nji ýylda girizildi.']),
+ ('her','unDut',3,
+  ['کدام عنصر ترکمنستان در ۲۰۲۱ در فهرست نمایندهٔ یونسکو ثبت شد؟',['هنر قالی‌بافی سنتی ترکمن در کشور','هنر پرورش اسب آخال‌تکه و آراستن آن','آیین آواز و رقص کوشتدپدی ترکمن','ساخت دوتار و موسیقی همراه با آواز'],'«ساخت دوتار و هنر موسیقی سنتی همراه با آواز» در ۲۰۲۱ ثبت شد؛ آخال‌تکه ۲۰۲۳ و قالی‌بافی ۲۰۱۹.'],
+  ['Haýsy element 2021-nji ýylda Türkmenistanyň ÝUNESKO-nyň wekilçilikli sanawyna girizildi?',['Ýurtdaky türkmen halyçylyk sungaty','Ahalteke atçylygy we at bezemek sungaty','Türkmen Kuştdepdi aýdym-tans däbi','Dutar ýasamak we aýdym bilen saz çalmak'],'«Dutar ýasamak we aýdym bilen çalynýan däp-dessurly saz sungaty» 2021-nji ýylda girizildi; Ahalteke 2023-nji, halyçylyk 2019-njy ýylda.']),
+ ('tribe','ersW',0,
+  ['در ریشه‌یابی نام «ارساری»، واژهٔ «ار» در ترکمنی چه معنایی دارد؟',['مردِ دلیر یا استاد','آبِ روانِ رودخانه','سرزمینِ کوهستانی','تپهٔ ماسه‌ای بلند'],'ویکی‌پدیا «ار» را مرد دلیر/استاد و «ساری» را روشن/زرد می‌داند.'],
+  ['«Ärsary» adynyň düýbüni açanda, türkmen dilinde «är» sözi näme aňladýar?',['Batyr ýa-da ussat adam','Akýan derýa suwy','Daglyk bir ýurt','Ýokary gum depe'],'Wikipediýa «är» sözüni batyr/ussat, «sary» sözüni ýagty/sary diýip düşündirýär.']),
+ ('tribe','yomW',0,
+  ['آخرین فرمانروای عملی خانات خیوه (۱۹۱۸–۱۹۲۰)، ژونئیت‌خان، از کدام ایل ترکمن بود؟',['ایل یموت','ایل تکه','ایل ساریق','ایل ارساری'],'ژونئیت‌خان (حدود ۱۸۵۷–۱۹۳۸) از ایل یموت بود.'],
+  ['1918–1920-nji ýyllarda Hywa hanlygynyň iň soňky hakyky hökümdary Jüneýit han haýsy türkmen tiresindendi?',['Ýomut tiresi','Teke tiresi','Saryk tiresi','Ärsary tiresi'],'Jüneýit han (takmynan 1857–1938) ýomut tiresindendi.']),
+ ('tribe','sarW',0,
+  ['ساریق‌ها از حدود ۱۸۳۰ زیر فشار کدام ایل به بالادست رود مرغاب رانده شدند؟',['تکه','یموت','گوکلن','چودور'],'به نوشتهٔ ویکی‌پدیا، تکه‌ها آنان را از ناحیهٔ مرو به بالادست مرغاب راندند.'],
+  ['Saryklar takmynan 1830-njy ýyllardan başlap haýsy tiräniň basyşy bilen Murgabyň ýokary akymyna çykaryldy?',['Teke','Ýomut','Gökleň','Çowdur'],'Wikipediýa görä tekeler olary Merw töwereginden Murgabyň ýokary akymyna çykaryp ugradypdyr.']),
+ ('lit','orLit',0,
+  ['«ماتال» در ادبیات شفاهی ترکمن چه نوعی است؟',['معما','لالایی','مرثیه','حماسه'],'در طبقه‌بندی ۱۳ نوع ادبیات شفاهی ترکمن، «ماتال‌لار» معماها هستند؛ لالایی «هوودی»، مرثیه «آغی» و حماسه «دستان» است.'],
+  ['«Matal» türkmen sözlü edebiýatynda nähili žanr?',['Tapmaça','Hüwdi','Agy','Dessan'],'Türkmen sözlü edebiýatynyň 13 görnüşli toparlamasynda «matallar» tapmaçalardyr; hüwdi – ýatyrma aýdymy, agy – agy, dessan – eposdyr.']),
 ]
 
 CATS = [
