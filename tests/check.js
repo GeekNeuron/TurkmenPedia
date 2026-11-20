@@ -165,5 +165,18 @@ all.forEach(([p, t]) => {
   if(/(دیدم|نیافتم|نخوانده‌ام|بررسی کردم|در اختیار من|elimdäki|Gören çeşmelerim|tapdym|tapmadym)/.test(t)) bad('first-person wording in ' + p + ' (UI text must not address the author)');
 });
 
+/* Regression guard: inside a section no two cards may share a title, and card ids must line up between languages
+   (a bad bulk edit once overwrote the first card of a list with another language's text). */
+for(const n of NAV_ITEMS){
+  for(const L of ['fa', 'tk']){
+    const b = DATA[L][n.id]; if(!b || !Array.isArray(b.items)) continue;
+    const titles = b.items.map(x => x.title || x.name || x.era || x.label).filter(Boolean), seen = new Set();
+    titles.forEach(tt => { if(seen.has(tt)) bad(`duplicate card title in ${L}.${n.id}: ${tt}`); seen.add(tt); });
+  }
+  const A = (DATA.fa[n.id] || {}).items, B = (DATA.tk[n.id] || {}).items;
+  if(Array.isArray(A) && Array.isArray(B) && A.every(x => x.id) && B.every(x => x.id))
+    A.forEach((x, i) => { if(B[i] && B[i].id !== x.id) bad(`card id order differs at ${n.id}[${i}]: ${x.id} vs ${B[i].id}`); });
+}
+
 console.log(fail ? `\n${fail} problem(s)` : 'All data checks passed ✔');
 process.exit(fail ? 1 : 0);

@@ -1571,3 +1571,26 @@ html[lang="fa"] .map-geo, html[lang="fa"] .map-feat{ letter-spacing:0; }
 .sr-only{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 .skip-link{ position:fixed; top:-60px; inset-inline-start:12px; z-index:9999; padding:.6rem 1rem; background:var(--accent); color:#fff; border-radius:8px; font-weight:700; text-decoration:none; transition:top .15s; }
 .skip-link:focus{ top:12px; }
+
+/* Genealogy flowcharts (js/tree.js) */
+.tree-tabs{ display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 10px; }
+.tree-canvas{ position:relative; height:min(62vh,520px); min-height:320px; border:1px solid var(--line); border-radius:var(--radius-m); background:var(--surface); overflow:hidden; touch-action:none; }
+.tree-svg{ width:100%; height:100%; display:block; cursor:grab; user-select:none; -webkit-user-select:none; }
+.tree-svg:active{ cursor:grabbing; }
+.tree-svg:focus-visible{ outline:2px solid var(--accent); outline-offset:-3px; }
+.tree-ctrl{ position:absolute; top:10px; inset-inline-start:10px; z-index:2; display:flex; flex-direction:column; gap:2px; background:var(--surface-2); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow); }
+.tree-ctrl button{ width:36px; height:36px; border:0; background:transparent; color:var(--ink); font-size:1.15rem; cursor:pointer; border-radius:10px; }
+.tree-ctrl button:hover{ background:rgba(var(--accent-rgb),.16); }
+.tree-ctrl button:focus-visible{ outline:2px solid var(--accent); }
+.tree-link{ fill:none; stroke:var(--ink-soft); stroke-width:1.3; opacity:.75; }
+.tree-link.dashed{ stroke-dasharray:5 4; }
+.tree-node rect{ fill:var(--surface-2); stroke:var(--line); stroke-width:1.2; }
+.tree-node text{ fill:var(--ink); font-size:12px; font-family:var(--font); text-anchor:middle; dominant-baseline:central; pointer-events:none; }
+.tree-node{ cursor:pointer; }
+.tree-node:hover rect, .tree-node:focus-visible rect{ stroke:var(--accent); stroke-width:2; }
+.tree-node:focus{ outline:none; }
+.tree-node.has-note rect{ stroke:var(--primary); stroke-width:1.8; }
+.tree-node.sel rect{ fill:rgba(var(--accent-rgb),.22); stroke:var(--accent); stroke-width:2.2; }
+.tree-info{ margin-top:8px; padding:10px 12px; border:1px solid var(--line); border-radius:var(--radius-s); background:var(--surface-2); font-size:.86rem; min-height:44px; }
+.tree-ann{ color:var(--primary); }
+.tree-hint{ margin-top:6px; }

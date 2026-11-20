@@ -773,6 +773,7 @@
         <p class="gx-note">${ex.ui.approx}</p>
       </section>
       ${modern ? `<section class="gx"><h3 class="gx-title reveal">${ex.ui.modernTitle}</h3><p class="x-note reveal">${ex.ui.modernIntro}</p><div class="gx-grid">${modern}</div></section>` : ''}
+      ${window.TS_TREE ? TS_TREE.sectionHtml(state.lang) : ''}
       <section class="gx reveal">
         <h3 class="gx-title">${dyn.title}</h3><p class="x-note">${dyn.intro}</p>
         <div class="gx-table"><table><thead><tr>${dyn.cols.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>${dynRows}</tbody></table></div>
@@ -859,6 +860,7 @@
     const G = GENEALOGY.build(state.lang);
     const t = G.t;
     const root = el.content;
+    if(window.TS_TREE) TS_TREE.mount(root, state.lang);
     const setOpen = (son, open) => {
       son.classList.toggle('open', open);
       const b = son.querySelector('.gn-son-btn'); if(b) b.setAttribute('aria-expanded', String(open));

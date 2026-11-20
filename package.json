@@ -7,8 +7,9 @@
   "scripts": {
     "check": "node tests/check.js",
     "smoke": "node tests/smoke.js",
-    "test": "npm run check && npm run smoke && npm run mapkeys",
-    "mapkeys": "node tests/map-keys.js"
+    "test": "npm run check && npm run smoke && npm run mapkeys && npm run tree",
+    "mapkeys": "node tests/map-keys.js",
+    "tree": "node tests/tree.js"
   },
   "devDependencies": {
     "jsdom": "^26.0.0"
