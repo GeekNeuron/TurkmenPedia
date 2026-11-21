@@ -1594,3 +1594,5 @@ html[lang="fa"] .map-geo, html[lang="fa"] .map-feat{ letter-spacing:0; }
 .tree-info{ margin-top:8px; padding:10px 12px; border:1px solid var(--line); border-radius:var(--radius-s); background:var(--surface-2); font-size:.86rem; min-height:44px; }
 .tree-ann{ color:var(--primary); }
 .tree-hint{ margin-top:6px; }
+
+.tree-node.tribe rect{ fill:rgba(var(--accent-rgb),.20); }

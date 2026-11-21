@@ -25,6 +25,14 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     d.querySelector('.tree-tab[data-tree="yomut"]').click(); await wait(60);
     const dog = [...svg.querySelectorAll('.tree-node')].find(g => /دوگونچی|Dogunçy|مامش|Mamyş/.test(g.textContent)); assert(dog, 'Mamesh/Dogonchi node missing');
     dog.dispatchEvent(new w.MouseEvent('click', { bubbles: true })); assert(/دوگونچی|Dogunçy/.test(d.querySelector('#treeInfo').textContent), 'annotation not shown');
+    for(const [tab, rx] of [['spine', /ارساری بابا|Ärsary baba/], ['teke', /بوکه|Buka/], ['sons', /گونگ خان|Gönk/]]){
+      d.querySelector(`.tree-tab[data-tree="${tab}"]`).click(); await wait(60);
+      assert([...svg.querySelectorAll('.tree-node')].some(g => rx.test(g.textContent)), `${tab}: expected node ${rx} missing (${lang})`);
+    }
+    d.querySelector('.tree-tab[data-tree="yomut"]').click(); await wait(60);
+    d.querySelector('.tree-tab[data-tree="sons"]').click(); await wait(60);
+    assert.strictEqual(svg.querySelectorAll('.tree-node.tribe').length, 24, '24 Oghuz tribe nodes expected in the sons tree');
+    d.querySelector('.tree-tab[data-tree="yomut"]').click(); await wait(60);
     // zoom buttons + keyboard
     const k0 = +svg.dataset.k; d.querySelector('.tree-ctrl [data-z="in"]').click(); const k1 = +svg.dataset.k; assert(k1 > k0, 'zoom in failed');
     d.querySelector('.tree-ctrl [data-z="out"]').click(); assert(+svg.dataset.k < k1, 'zoom out failed');
@@ -33,6 +41,16 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     // no Arabic ي / ك inside labels
     assert(!/[\u064A\u0643]/.test(svg.textContent), 'Arabic yeh/kaf in tree labels');
   }
-  console.log('Tree test passed ✔  (4 flowcharts × 2 languages, zoom, keyboard, annotations)');
+  // site search -> genealogy tree, node focused with its annotation
+  w.location.hash = '#dashboard'; await wait(300);
+  d.querySelector('#langMenu li[data-lang="fa"]').click(); await wait(400);
+  const si = d.querySelector('#searchInput'); si.value = 'دوگونچی'; si.dispatchEvent(new w.Event('input', { bubbles: true })); await wait(400);
+  const hit = [...d.querySelectorAll('.global-result-item')].find(n => /شجره/.test(n.textContent) && /دوگونچی/.test(n.textContent));
+  assert(hit, 'tree node missing from global search results');
+  hit.click(); await wait(900);
+  assert(d.querySelector('#treeCanvas'), 'genealogy page did not open from search');
+  assert(d.querySelector('.tree-node.sel'), 'searched node was not selected in the tree');
+  assert(/دوگونچی/.test(d.querySelector('#treeInfo').textContent), 'annotation not shown after search');
+  console.log(`Tree test passed ✔  (${w.TS_TREE.TREES.length} flowcharts × 2 languages, zoom, keyboard, annotations)`);
   srv.close(); process.exit(0);
 })().catch(e => { console.error('TREE TEST FAILED:', e.message); process.exit(1); });

@@ -444,6 +444,10 @@
     GENEALOGY.build(state.lang).sons.forEach(son => son.tribes.forEach(tr => idx.push({ section:'genealogy', label:d.nav.genealogy, title: tr.name + ' — ' + son.name, icon:'tree' })));
     ((d.genealogy.extra || {}).modern || []).forEach(m => idx.push({ section:'genealogy', label:d.nav.genealogy, title: m.name, icon:'tree' }));
     if(window.TS_EXT) TS_EXT.search(state.lang).forEach(x => idx.push(x));
+    if(window.TS_TREE){
+      const gn = NAV_ITEMS.find(n => n.id === 'genealogy'), navLabel = d.nav.genealogy;
+      TS_TREE.searchEntries(state.lang).forEach(x => idx.push({ section: 'genealogy', icon: gn.icon, title: x.title, label: navLabel + ' · ' + x.where, body: '' }));
+    }
     TS_NAMES.build(state.lang).forEach(n=> idx.push({ section:'names', label: d.nav.names, title: n.tk + ' — ' + n.mean, icon:'tag' }));
     DICTIONARY.categories.forEach(cat=>{
       cat.words.forEach(w=> idx.push({ section:'dictionary', label: d.nav.dictionary, title: w.tk + ' — ' + w.fa, icon:'translate' }));
@@ -860,7 +864,7 @@
     const G = GENEALOGY.build(state.lang);
     const t = G.t;
     const root = el.content;
-    if(window.TS_TREE) TS_TREE.mount(root, state.lang);
+    if(window.TS_TREE) TS_TREE.mount(root, state.lang, state.query);
     const setOpen = (son, open) => {
       son.classList.toggle('open', open);
       const b = son.querySelector('.gn-son-btn'); if(b) b.setAttribute('aria-expanded', String(open));
