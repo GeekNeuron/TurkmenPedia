@@ -227,6 +227,15 @@
       note: { fa: 'ستون نمودار از یومت به چونی و اتابای (و از «قونلی تمر» به جعفربای) می‌رود؛ دوگونچی، لابنا، کسه، کسرفه و… از شاخهٔ اتابای‌اند.', tk: 'Diagramma sütüni Ýomutdan Çunä we Atabaýa (we «Gonly Tymyr»dan Jepbaýa) gidýär; Dogunçy, Labna, Kese, Kesrefe… Atabaý şahasyndan.' } },
   ];
 
+  /* the whole connected part of the chart (905 nodes), built from js/tree-full.js when present */
+  (function(){
+    const F = window.TS_TREE_FULL; if(!F) return;
+    const nodes = F.n.map((label, i) => n(label, [], F.c && F.c[i] ? { c: F.c[i] } : {}));
+    F.p.forEach((p, i) => { if(p >= 0) nodes[p].k.push(nodes[i]); });
+    TREES.push({ id: 'full', t: { fa: 'نمودار کامل (بخش پیوسته)', tk: 'Doly diagramma (baglanyşykly bölegi)' }, root: nodes[0],
+      note: { fa: 'تمام گره‌های بخش پیوستهٔ نمودار سنتی (۹۰۵ گره)؛ نام‌ها با خوانش چشمی و املای تقریبی، والدها خودکار از خط‌های پیوستهٔ نمودار استخراج و نمونه‌ای بررسی شده‌اند. پیوندهای فقط‌خط‌چین (مثل بادبزن تکه، درگز و نوخرلی) در نمودارهای جدا آمده‌اند. ریشه بالا-راست ← فرزندان به چپ.', tk: 'Däp bolan diagrammanyň baglanyşykly bölegi (905 düwün); atlar gözleg bilen okaldy, ýazylyşy takmynan; atalyk gatnaşyklary diagrammanyň yzygiderli çyzyklaryndan awtomatik çykarylyp, nusga hökmünde barlanyldy. Diňe punktir çyzykly baglanyşyklar (Teke, Dargaz, Nohurly) aýry diagrammalarda.' } });
+  })();
+
   const UI = {
     fa: { title: 'نمودار شجره‌نامهٔ ایل‌ها (قابل زوم)',
           intro: 'فلوچارت ایل‌ها و شاخه‌هایشان از روی نمودار سنتی «شجره‌نامهٔ ترکمن‌ها». با دکمه‌های + و − یا Ctrl+چرخ ماوس زوم کنید؛ بکشید تا جابه‌جا شود. روی هر گره بزنید تا یادداشت قرمز نمودار را ببینید. کادر قرمز = یادداشت نمودار؛ خط‌چین = پیوند ایلی (نه لزوماً پدر-پسری).',

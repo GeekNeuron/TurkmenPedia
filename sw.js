@@ -6,7 +6,7 @@
    resolved relative to this file's own location.
    ========================================================= */
 
-const CACHE_VERSION = 'turkmenpedia-v31';
+const CACHE_VERSION = 'turkmenpedia-v32';
 
 // Everything the app needs to run with no network, including the 1.2 MB
 // extended dictionary (loaded lazily by the page, cached here up front).
@@ -32,6 +32,7 @@ const APP_SHELL = [
   'js/mature-extra.js',
   'js/sections.js',
   'js/bibliography.js',
+  'js/tree-full.js',
   'js/tree.js',
   'js/app.js',
   'manifest.json',
