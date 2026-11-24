@@ -232,8 +232,8 @@
     const F = window.TS_TREE_FULL; if(!F) return;
     const nodes = F.n.map((label, i) => n(label, [], F.c && F.c[i] ? { c: F.c[i] } : {}));
     F.p.forEach((p, i) => { if(p >= 0) nodes[p].k.push(nodes[i]); });
-    TREES.push({ id: 'full', t: { fa: 'نمودار کامل (بخش پیوسته)', tk: 'Doly diagramma (baglanyşykly bölegi)' }, root: nodes[0],
-      note: { fa: 'تمام گره‌های بخش پیوستهٔ نمودار سنتی (۹۰۵ گره)؛ نام‌ها با خوانش چشمی و املای تقریبی، والدها خودکار از خط‌های پیوستهٔ نمودار استخراج و نمونه‌ای بررسی شده‌اند. پیوندهای فقط‌خط‌چین (مثل بادبزن تکه، درگز و نوخرلی) در نمودارهای جدا آمده‌اند. ریشه بالا-راست ← فرزندان به چپ.', tk: 'Däp bolan diagrammanyň baglanyşykly bölegi (905 düwün); atlar gözleg bilen okaldy, ýazylyşy takmynan; atalyk gatnaşyklary diagrammanyň yzygiderli çyzyklaryndan awtomatik çykarylyp, nusga hökmünde barlanyldy. Diňe punktir çyzykly baglanyşyklar (Teke, Dargaz, Nohurly) aýry diagrammalarda.' } });
+    TREES.push({ id: 'full', t: { fa: 'نمودار کامل (همهٔ گره‌های عکس)', tk: 'Doly diagramma (suratdaky ähli düwünler)' }, root: nodes[0],
+      note: { fa: 'همهٔ ۱۲۱۵ گرهٔ نمودار سنتی. بخش پیوسته (۹۰۵ گره) با والدهای استخراج‌شده از خط‌های پیوستهٔ نمودار و نمونه‌ای بررسی‌شده؛ بادبزن تکه زیر «بوکه»؛ و گره‌هایی که نمودار فقط با خط‌چین بریده یا بدون ریشهٔ روشن نشان می‌دهد زیر «گره‌های بدون اتصال مشخص» با جهت والد-فرزندِ احتمالی. نام‌ها خوانش چشمی (در نمونهٔ ۸۰تایی همه درست جز یک مورد مبهم) و املا تقریبی است.', tk: 'Däp bolan diagrammanyň ähli 1215 düwüni. Baglanyşykly bölek (905 düwün) diagrammanyň yzygiderli çyzyklaryndan çykarylan atalyk gatnaşyklary bilen; Teke «Buka»nyň aşagynda; diňe üzülen punktir çyzykly ýa-da aç-açan kökü bolmadyk düwünler «Anyk baglanyşygy ýok düwünler» aşagynda, atalyk-çaga ugry ähtimal. Atlar gözleg bilen okaldy, ýazylyşy takmynan.' } });
   })();
 
   const UI = {
