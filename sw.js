@@ -6,7 +6,7 @@
    resolved relative to this file's own location.
    ========================================================= */
 
-const CACHE_VERSION = 'turkmenpedia-v33';
+const CACHE_VERSION = 'turkmenpedia-v34';
 
 // Everything the app needs to run with no network, including the 1.2 MB
 // extended dictionary (loaded lazily by the page, cached here up front).

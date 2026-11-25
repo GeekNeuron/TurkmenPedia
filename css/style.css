@@ -1485,11 +1485,13 @@ html[lang="fa"] .map-geo, html[lang="fa"] .map-feat{ letter-spacing:0; }
 [data-theme="dark"] .map-area:focus-visible{ stroke:var(--tcd,#e88b8f); }
 .map-area-tag{ --c:var(--tc,#a12f33); cursor:pointer; }
 [data-theme="dark"] .map-area-tag{ --c:var(--tcd,#e88b8f); }
-.map-area-tag rect{ fill:var(--map-halo); fill-opacity:.95; stroke:var(--c); stroke-width:1; transition:stroke-width .2s; }
+.map-area-tag rect{ fill:var(--map-halo); fill-opacity:1; stroke:var(--c); stroke-width:1; transition:stroke-width .2s; }
 .map-area-tag circle{ fill:var(--c); }
 .map-area-tag text{ font-size:11px; font-weight:800; fill:var(--ink); pointer-events:none; }
 .map-area-tag:hover rect, .map-area-tag.sel rect{ stroke-width:2; }
-.has-sel .map-area-tag:not(.sel){ opacity:.55; }
+/* de-emphasise unselected tags by colour, NOT by opacity: transparency let the map lines show through the labels */
+.has-sel .map-area-tag:not(.sel) rect{ stroke:var(--line); stroke-width:1; }
+.has-sel .map-area-tag:not(.sel) circle{ fill:var(--line); }
 @media (prefers-reduced-motion:reduce){ .map-dotset, .map-dots{ transition:none; } }
 
 .layer-tribe-tags{ transition:opacity .25s; } .layer-tribe-tags.off{ opacity:0; pointer-events:none; }
@@ -1584,15 +1586,18 @@ html[lang="fa"] .map-geo, html[lang="fa"] .map-feat{ letter-spacing:0; }
 .tree-ctrl button:focus-visible{ outline:2px solid var(--accent); }
 .tree-link{ fill:none; stroke:var(--ink-soft); stroke-width:1.3; opacity:.75; }
 .tree-link.dashed{ stroke-dasharray:5 4; }
-.tree-node rect{ fill:var(--surface-2); stroke:var(--line); stroke-width:1.2; }
+.tree-node .bg{ fill:var(--surface-2); stroke:none; }
+.tree-node .fg{ fill:none; stroke:var(--line); stroke-width:1.2; }
 .tree-node text{ fill:var(--ink); font-size:12px; font-family:var(--font); text-anchor:middle; dominant-baseline:central; pointer-events:none; }
 .tree-node{ cursor:pointer; }
-.tree-node:hover rect, .tree-node:focus-visible rect{ stroke:var(--accent); stroke-width:2; }
+.tree-node:hover .fg, .tree-node:focus-visible .fg{ stroke:var(--accent); stroke-width:2; }
 .tree-node:focus{ outline:none; }
-.tree-node.has-note rect{ stroke:var(--primary); stroke-width:1.8; }
-.tree-node.sel rect{ fill:rgba(var(--accent-rgb),.22); stroke:var(--accent); stroke-width:2.2; }
+.tree-node.has-note .fg{ stroke:var(--primary); stroke-width:1.8; }
+.tree-node.sel .fg{ fill:rgba(var(--accent-rgb),.22); stroke:var(--accent); stroke-width:2.2; }
 .tree-info{ margin-top:8px; padding:10px 12px; border:1px solid var(--line); border-radius:var(--radius-s); background:var(--surface-2); font-size:.86rem; min-height:44px; }
 .tree-ann{ color:var(--primary); }
 .tree-hint{ margin-top:6px; }
 
-.tree-node.tribe rect{ fill:rgba(var(--accent-rgb),.20); }
+.tree-node.tribe .fg{ fill:rgba(var(--accent-rgb),.20); }
+
+.tree-svg, .tree-canvas{ touch-action:none; }

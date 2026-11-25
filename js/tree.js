@@ -281,7 +281,7 @@
         const x1 = pr, y1 = p.py + NODE_H / 2, x2 = cl, y2 = nd.py + NODE_H / 2, mx = x1 + (x2 - x1) / 2;
         links.push(`<path class="tree-link${nd.d ? ' dashed' : ''}" d="M${x1} ${y1}H${mx}V${y2}H${x2}"/>`);
       }
-      boxes.push(`<g class="tree-node${nd.g ? ' tribe' : ''}${nd.c ? ' has-note' : ''}" data-i="${i}" tabindex="0" role="button" aria-label="${esc(nd.label)}"><rect x="${left}" y="${nd.py}" width="${nd.w}" height="${NODE_H}" rx="5"/><text x="${left + nd.w / 2}" y="${nd.py + NODE_H / 2}" dir="${/[\u0600-\u06FF]/.test(nd.label) ? 'rtl' : 'ltr'}">${esc(nd.label)}</text></g>`);
+      boxes.push(`<g class="tree-node${nd.g ? ' tribe' : ''}${nd.c ? ' has-note' : ''}" data-i="${i}" tabindex="0" role="button" aria-label="${esc(nd.label)}"><rect class="bg" x="${left}" y="${nd.py}" width="${nd.w}" height="${NODE_H}" rx="5"/><rect class="fg" x="${left}" y="${nd.py}" width="${nd.w}" height="${NODE_H}" rx="5"/><text x="${left + nd.w / 2}" y="${nd.py + NODE_H / 2}" dir="${/[\u0600-\u06FF]/.test(nd.label) ? 'rtl' : 'ltr'}">${esc(nd.label)}</text></g>`);
     });
     return { L, html: `<g class="tree-g">${links.join('')}${boxes.join('')}</g>` };
   }
@@ -358,28 +358,40 @@
       const z = b.dataset.z; if(z === 'fit') fit(false); else zoomAt(...centre(), z === 'in' ? 1.4 : 1 / 1.4);
     }));
     svg.addEventListener('wheel', e => { if(!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); const r = box(); zoomAt(e.clientX - r.left, e.clientY - r.top, e.deltaY < 0 ? 1.18 : 0.85); }, { passive: false });
-    /* pointer pan + pinch */
-    const ptrs = new Map(); let last = null, moved = 0;
-    svg.addEventListener('pointerdown', e => { ptrs.set(e.pointerId, [e.clientX, e.clientY]); moved = 0; last = [e.clientX, e.clientY]; try{ svg.setPointerCapture(e.pointerId); }catch(_){} });
+    /* pointer pan + pinch (two fingers: zoom about the midpoint and follow it) */
+    const ptrs = new Map(); let moved = 0, pinch = null, captured = null;
+    const pinchState = () => { const [a, b] = [...ptrs.values()]; return { d: Math.hypot(a[0] - b[0], a[1] - b[1]) || 1, mx: (a[0] + b[0]) / 2, my: (a[1] + b[1]) / 2 }; };
+    svg.addEventListener('pointerdown', e => {
+      if(e.pointerType === 'mouse' && e.button !== 0) return;
+      ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+      if(ptrs.size === 1) moved = 0; else { pinch = pinchState(); moved = 99; }
+    });
     svg.addEventListener('pointermove', e => {
       if(!ptrs.has(e.pointerId)) return;
       const prev = ptrs.get(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]);
-      if(ptrs.size === 2){
-        const [a, b] = [...ptrs.values()], pa = [...ptrs.values()];
-        const d1 = Math.hypot(a[0] - b[0], a[1] - b[1]), d0 = Math.hypot(a[0] - b[0] + (prev[0] - e.clientX), a[1] - b[1] + (prev[1] - e.clientY)) || d1;
-        const r = box(); zoomAt((a[0] + b[0]) / 2 - r.left, (a[1] + b[1]) / 2 - r.top, d1 / d0); moved = 99; return;
+      if(ptrs.size >= 2){
+        const s = pinchState(), r = box(); if(!pinch) pinch = s;
+        zoomAt(s.mx - r.left, s.my - r.top, s.d / pinch.d); st.x += s.mx - pinch.mx; st.y += s.my - pinch.my; apply();
+        pinch = s; moved = 99; return;
       }
-      st.x += e.clientX - prev[0]; st.y += e.clientY - prev[1]; moved += Math.abs(e.clientX - prev[0]) + Math.abs(e.clientY - prev[1]); apply();
+      const dx = e.clientX - prev[0], dy = e.clientY - prev[1]; moved += Math.abs(dx) + Math.abs(dy);
+      if(moved > 6){ if(captured == null){ captured = e.pointerId; try{ svg.setPointerCapture(e.pointerId); }catch(_){} } st.x += dx; st.y += dy; apply(); }
     });
-    const end = e => { ptrs.delete(e.pointerId); };
+    const end = e => {
+      ptrs.delete(e.pointerId); if(ptrs.size < 2) pinch = null;
+      if(captured === e.pointerId){ try{ svg.releasePointerCapture(e.pointerId); }catch(_){} captured = null; }
+      if(!ptrs.size) setTimeout(() => { moved = 0; }, 0);
+    };
     svg.addEventListener('pointerup', end); svg.addEventListener('pointercancel', end);
+    const twoFinger = e => { if(e.touches && e.touches.length > 1) e.preventDefault(); };
+    svg.addEventListener('touchstart', twoFinger, { passive: false }); svg.addEventListener('touchmove', twoFinger, { passive: false });
     /* node details */
     const show = g => {
       svg.querySelectorAll('.tree-node.sel').forEach(x => x.classList.remove('sel')); g.classList.add('sel');
       const nd = st.built.L.nodes[+g.dataset.i], path = []; for(let p = nd; p; p = p.parent) path.unshift(p.label);
       info.innerHTML = `<b>${esc(nd.label)}</b>` + (nd.c ? ` — <span class="tree-ann">${u.ann}: «${esc(pick(nd.c, lang))}»</span>` : '') + `<br><small>${esc(path.join(rtlArrow(lang)))}</small>`;
     };
-    svg.addEventListener('click', e => { const g = e.target.closest('.tree-node'); if(g && moved < 6) show(g); });
+    svg.addEventListener('click', e => { const g = e.target.closest && e.target.closest('.tree-node'); if(g && moved <= 6) show(g); });
     svg.addEventListener('keydown', e => {
       if(e.ctrlKey || e.metaKey || e.altKey) return;
       const k = e.key, [cx, cy] = centre();

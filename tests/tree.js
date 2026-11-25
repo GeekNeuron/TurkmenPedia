@@ -18,7 +18,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     const tabs = [...d.querySelectorAll('.tree-tab')]; assert.strictEqual(tabs.length, w.TS_TREE.TREES.length);
     for(const t of tabs){
       t.click(); await wait(60);
-      const rects = svg.querySelectorAll('.tree-node rect').length, links = svg.querySelectorAll('.tree-link').length;
+      const rects = svg.querySelectorAll('.tree-node .fg').length, bgs = svg.querySelectorAll('.tree-node .bg').length; assert.strictEqual(rects, bgs, 'every node needs an opaque .bg layer'), links = svg.querySelectorAll('.tree-link').length;
       assert(rects >= 8, `tree ${t.dataset.tree} too small (${rects})`); assert.strictEqual(links, rects - 1, `links != nodes-1 in ${t.dataset.tree}`);
     }
     // Dogonchi must be reachable and carry its annotation
@@ -33,6 +33,19 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     d.querySelector('.tree-tab[data-tree="sons"]').click(); await wait(60);
     assert.strictEqual(svg.querySelectorAll('.tree-node.tribe').length, 24, '24 Oghuz tribe nodes expected in the sons tree');
     d.querySelector('.tree-tab[data-tree="yomut"]').click(); await wait(60);
+    // selection must not make the node see-through: the selected group keeps its opaque .bg layer
+    const selNode = svg.querySelector('.tree-node.sel'); if(selNode) assert(selNode.querySelector('.bg') && selNode.querySelector('.fg'), 'selected node lost its layers');
+    // two-finger pinch: zoom in about the midpoint and follow it
+    const pe = (type, id, x, y) => { const ev = new w.MouseEvent(type, { bubbles: true, cancelable: true, clientX: x, clientY: y, button: 0 }); Object.defineProperty(ev, 'pointerId', { value: id }); Object.defineProperty(ev, 'pointerType', { value: 'touch' }); return ev; };
+    d.querySelector('.tree-ctrl [data-z="fit"]').click();
+    const kPinch0 = +svg.dataset.k;
+    svg.dispatchEvent(pe('pointerdown', 1, 300, 250)); svg.dispatchEvent(pe('pointerdown', 2, 400, 250));
+    svg.dispatchEvent(pe('pointermove', 1, 250, 250)); svg.dispatchEvent(pe('pointermove', 2, 450, 250));
+    assert(+svg.dataset.k > kPinch0 * 1.4, `pinch-out should zoom in (${kPinch0} -> ${svg.dataset.k})`);
+    const gT = svg.querySelector('.tree-g').getAttribute('transform');
+    svg.dispatchEvent(pe('pointermove', 1, 290, 300)); svg.dispatchEvent(pe('pointermove', 2, 490, 300));
+    assert.notStrictEqual(svg.querySelector('.tree-g').getAttribute('transform'), gT, 'two-finger drag should pan');
+    svg.dispatchEvent(pe('pointerup', 1, 290, 300)); svg.dispatchEvent(pe('pointerup', 2, 490, 300));
     // zoom buttons + keyboard
     const k0 = +svg.dataset.k; d.querySelector('.tree-ctrl [data-z="in"]').click(); const k1 = +svg.dataset.k; assert(k1 > k0, 'zoom in failed');
     d.querySelector('.tree-ctrl [data-z="out"]').click(); assert(+svg.dataset.k < k1, 'zoom out failed');

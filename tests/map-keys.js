@@ -10,5 +10,15 @@ assert.strictEqual(svg.getAttribute('tabindex'),'0','map svg must be keyboard-fo
 key('+');assert.strictEqual(z(),'1.6×');key('+');assert.strictEqual(z(),'2.6×');
 const vb1=svg.getAttribute('viewBox');key('ArrowRight');assert.notStrictEqual(vb1,svg.getAttribute('viewBox'),'arrow key must pan');
 key('-');assert.strictEqual(z(),'1.6×');key('0');assert.strictEqual(z(),'1×');
+// two-finger pinch on the map
+const pe = (type, id, x, y) => { const ev = new dom.window.MouseEvent(type, { bubbles: true, cancelable: true, clientX: x, clientY: y, button: 0 }); Object.defineProperty(ev, 'pointerId', { value: id }); Object.defineProperty(ev, 'pointerType', { value: 'touch' }); return ev; };
+key('0'); assert.strictEqual(z(), '1×');
+svg.dispatchEvent(pe('pointerdown', 1, 350, 250)); svg.dispatchEvent(pe('pointerdown', 2, 450, 250));
+svg.dispatchEvent(pe('pointermove', 1, 300, 250)); svg.dispatchEvent(pe('pointermove', 2, 500, 250));
+assert(parseFloat(z()) > 1.5, 'map pinch-out should zoom in, got ' + z());
+const vb = svg.getAttribute('viewBox');
+svg.dispatchEvent(pe('pointermove', 1, 340, 280)); svg.dispatchEvent(pe('pointermove', 2, 540, 280));
+await wait(60); assert.notStrictEqual(svg.getAttribute('viewBox'), vb, 'map two-finger drag should pan');
+svg.dispatchEvent(pe('pointerup', 1, 340, 280)); svg.dispatchEvent(pe('pointerup', 2, 540, 280));
 console.log('Map keyboard test passed ✔');
 srv.close();process.exit(0)})();

@@ -562,21 +562,26 @@ window.TS_EXT = (function(){
       if(!svg.hasAttribute('tabindex')) svg.setAttribute('tabindex', '0');
       svg.addEventListener('wheel', e => { if(!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.25 : 0.8); }, { passive:false });
 
-      const ptrs = new Map(); let drag = null, pinchD = 0, suppress = false, raf = 0;
+      const ptrs = new Map(); let drag = null, pinchD = 0, pinchMid = null, suppress = false, raf = 0;
       const sched = () => { if(raf) return; raf = requestAnimationFrame(() => { raf = 0; applyView(); }); };
       svg.addEventListener('pointerdown', e => {
         if(e.pointerType === 'mouse' && e.button !== 0) return;
         ptrs.set(e.pointerId, { x:e.clientX, y:e.clientY });
         if(ptrs.size === 1){ const v = view(); drag = { sx:e.clientX, sy:e.clientY, vx:v.x, vy:v.y, moved:false }; }
-        else if(ptrs.size === 2){ const [a, b] = [...ptrs.values()]; pinchD = Math.hypot(a.x - b.x, a.y - b.y); drag = null; suppress = true; }
+        else if(ptrs.size === 2){ const [a, b] = [...ptrs.values()]; pinchD = Math.hypot(a.x - b.x, a.y - b.y); pinchMid = { x:(a.x + b.x) / 2, y:(a.y + b.y) / 2 }; drag = null; suppress = true; }
       });
       svg.addEventListener('pointermove', e => {
         if(!ptrs.has(e.pointerId)) return;
         ptrs.set(e.pointerId, { x:e.clientX, y:e.clientY });
         if(ptrs.size === 2){
           const [a, b] = [...ptrs.values()], dist = Math.hypot(a.x - b.x, a.y - b.y);
-          if(pinchD > 0 && dist > 0){ zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, dist / pinchD); }
-          pinchD = dist; return;
+          const mid = { x:(a.x + b.x) / 2, y:(a.y + b.y) / 2 };
+          if(pinchD > 0 && dist > 0){ zoomAt(mid.x, mid.y, dist / pinchD); }
+          if(pinchMid && mapState.zoom > 1){
+            const r = svg.getBoundingClientRect(), w = VB.w / mapState.zoom, h = VB.h / mapState.zoom;
+            mapState.x -= (mid.x - pinchMid.x) / (r.width || VB.w) * w; mapState.y -= (mid.y - pinchMid.y) / (r.height || VB.h) * h; sched();
+          }
+          pinchD = dist; pinchMid = mid; return;
         }
         if(!drag) return;
         const dx = e.clientX - drag.sx, dy = e.clientY - drag.sy;
@@ -586,9 +591,14 @@ window.TS_EXT = (function(){
           mapState.x = drag.vx - dx / (r.width || VB.w) * w; mapState.y = drag.vy - dy / (r.height || VB.h) * h; sched();
         }
       });
-      const endPtr = e => { ptrs.delete(e.pointerId); if(ptrs.size < 2) pinchD = 0; if(!ptrs.size){ drag = null; svg.classList.remove('is-panning'); setTimeout(() => { suppress = false; }, 0); } };
+      const endPtr = e => {
+        ptrs.delete(e.pointerId); if(ptrs.size < 2){ pinchD = 0; pinchMid = null; }
+        if(ptrs.size === 1){ const p = [...ptrs.values()][0], v = view(); drag = { sx:p.x, sy:p.y, vx:v.x, vy:v.y, moved:false }; }
+        if(!ptrs.size){ drag = null; svg.classList.remove('is-panning'); setTimeout(() => { suppress = false; }, 0); } };
       svg.addEventListener('pointerup', endPtr); svg.addEventListener('pointercancel', endPtr);
       svg.addEventListener('click', e => { if(suppress){ e.stopPropagation(); e.preventDefault(); } }, true);
+      const twoFinger = e => { if(e.touches && e.touches.length > 1) e.preventDefault(); };
+      svg.addEventListener('touchstart', twoFinger, { passive:false }); svg.addEventListener('touchmove', twoFinger, { passive:false });
 
       /* ---- raster basemap (optional, loaded lazily) ---- */
       const theme = () => document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';

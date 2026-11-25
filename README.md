@@ -85,7 +85,7 @@ The dictionary has two clearly separate sources: an original hand-written Persia
 
 ## 📜 تاریخچهٔ تغییرات | Changelog
 
-جزئیات همهٔ آپدیت‌ها و دورهای بازبینی در [`CHANGELOG.md`](CHANGELOG.md) است. آخرین آپدیت: ۳۳ (۱۰۰٪ گره‌های عکس). برای اجرای آزمون‌ها: `npm install && npm test`.
+جزئیات همهٔ آپدیت‌ها و دورهای بازبینی در [`CHANGELOG.md`](CHANGELOG.md) است. آخرین آپدیت: ۳۴ (زوم انگشتی و زمینهٔ گره‌ها). برای اجرای آزمون‌ها: `npm install && npm test`.
 
 ## 📄 مجوز | License
 
